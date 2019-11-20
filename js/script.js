@@ -73,6 +73,15 @@ $(document).ready(function () {
         $('#iceberg').css({
             'background': `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0), rgba(5, 117, 230, 0.7) 20%)`
         });
+        $('#birthday').css({
+            'background': `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0), rgba(28, 11, 63, 0.83) 20%)`
+        });
+        $('#bachelor').css({
+            'background': `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0), rgba(19, 5, 47, 0.8) 20%)`
+        });
+        $('#hen').css({
+            'background': `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0), rgba(56, 9, 65, 0.8) 20%)`
+        });
     });
 
 
@@ -557,6 +566,33 @@ function initCarousel(){
                 0:{
                     items: 2,
                     nav: false
+                }
+            },
+
+        });
+
+        $('.event-box').owlCarousel({
+            margin: 10,
+            loop: true,
+            dots:true,
+            responsiveClass:true,
+            responsive:{
+                0:{
+                    items: 1,
+                    nav: false,
+                    stagePadding: 60,
+                },
+                640:{
+                    stagePadding: 0,
+                    items:3,
+                    nav: false,
+                    dots: true
+                },
+                768:{
+                    stagePadding: 0,
+                    items:3,
+                    nav: false,
+                    dots: true
                 }
             },
 
