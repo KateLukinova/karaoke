@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <title>Blue Bird</title>
+    <title>Room Strip</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
     <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/datepicker.css">
@@ -116,7 +116,7 @@
             </div>
         </nav>
     </div>
-    <header class="header">
+    <header class="header header--transparent">
         <div class="select-rooms header__select-rooms">
             <div class="select-rooms__caption">
                 Our rooms:
@@ -156,405 +156,96 @@
         </div>
     </header>
 
-    <section class="section main" id="home">
-        <img src="img/home.jpg" alt="" class="main-img">
-        <div class="main__content">
-            <div class="main__text">
-                <h2>Blue Bird</h2>
-                <h1>KARAOKE ROOMS</h1>
-                <div class="text-icon">
-                    <img src="img/karaoke.svg" alt="">
-                    <span>Sing and dance<br> No one is watching you</span>
-                </div>
+    <section class="section main main-strip main-room" id="strip">
+        <img src="img/strip.jpg" alt="" class="main-img">
+        <div class="main__content main__content-room">
+            <div class="main__text main__text-strip">
+                <h1 class="h1-w-span">
+                    <span class="room-number">room 01</span>
+                    <span class="number-bg">01</span>
+                    strip
+                </h1>
+            </div>
+            <div class="button-box">
+                <a href="#" class="btn btn-main-room">Book now</a>
+                <a href="#" class="btn transparent tour-icon">3d tour</a>
             </div>
             <div class="main__footer">
-                <a href="#" class="btn btn-long">Book now</a>
                 <a href="#" class="scroll-down">scroll down</a>
             </div>
         </div>
     </section>
 
-    <section class="section about">
-        <div class="about__text">
-            <h3><span>What is</span><br> Blue Bird<br> Karaoke rooms?</h3>
+    <section class="section page-block page-room strip">
+        <div class="page-room__description">
+            <div class="page-room__description-text">
+                The Space room is additionally equipped
+                with a VIP Chill out zone, where you can find
+                comfortable sofas and a mini-stage with a stripper pole.
+            </div>
+            <div class="room-features page-room-features">
+                <div class="room-features__caption">
+                    ROOM FEATURES:
+                </div>
+                <div class="features-box">
+                    <div class="features-box__item">
+                        <img src="img/people.svg" alt="">
+                        <div class="text">
+                            Up to 18 people
+                        </div>
+                    </div>
+                    <div class="features-box__item">
+                        <img src="img/microphone.svg" alt="">
+                        <div class="text">
+                            Professional sound
+                        </div>
+                    </div>
+                    <div class="features-box__item">
+                        <img src="img/music.svg" alt="">
+                        <div class="text">
+                            54 000 karaoke songs
+                        </div>
+                    </div>
+                    <div class="features-box__item">
+                        <img src="img/settings.svg" alt="">
+                        <div class="text">
+                            Self-hosting computerized
+                            system
+                        </div>
+                    </div>
+                    <div class="features-box__item">
+                        <img src="img/planet-mini.svg" alt="">
+                        <div class="text">
+                            9 languages
+                        </div>
+                    </div>
+                    <div class="features-box__item">
+                        <img src="img/singer.svg" alt="">
+                        <div class="text">
+                            Chorus assist system /
+                            backing vocalist
+                        </div>
+                    </div>
+                </div>
+                <a href="#" class="btn btn-main-room">Additional services</a>
+            </div>
         </div>
-        <div class="about-box owl-carousel">
-            <div class="about-box__item">
-                <img src="img/img-item1.jpg" alt="" class="img-item">
-                <div class="about-box__cover">
-                    <div class="about-box__icon">
-                        <img src="img/audio-system.svg" alt="">
-                    </div>
-                    <div class="about-box__text">
-                        Professional <span>sound system</span>
-                    </div>
-                </div>
+        <div class="rooms-gallery owl-carousel">
+            <div class="rooms-gallery__item">
+                <img src="img/strip.jpg" alt="">
             </div>
-            <div class="about-box__item">
-                <img src="img/img-item1.jpg" alt="" class="img-item">
-                <div class="about-box__cover">
-                    <div class="about-box__icon">
-                        <img src="img/waiter.svg" alt="">
-                    </div>
-                    <div class="about-box__text">
-                        Special “call a waiter” button
-                        <span>
-                        for immediate service
-                        </span>
-                    </div>
-                </div>
+            <div class="rooms-gallery__item">
+                <img src="img/strip.jpg" alt="">
             </div>
-            <div class="about-box__item">
-                <img src="img/img-item1.jpg" alt="" class="img-item">
-                <div class="about-box__cover">
-                    <div class="about-box__icon">
-                        <img src="img/karaoke2.svg" alt="">
-                    </div>
-                    <div class="about-box__text">
-                        5 rooms <span>with different designs
-                        and features</span>
-                    </div>
-                </div>
+            <div class="rooms-gallery__item">
+                <img src="img/strip.jpg" alt="">
             </div>
-            <div class="about-box__item">
-                <img src="img/img-item1.jpg" alt="" class="img-item">
-                <div class="about-box__cover">
-                    <div class="about-box__icon" style="width: 25%">
-                        <img src="img/ipad.svg" alt="">
-                    </div>
-                    <div class="about-box__text">
-                        Personal Ipad <span>with access
-                        to</span> 54000 songs
-                    </div>
-                </div>
-            </div>
-            <div class="about-box__item">
-                <img src="img/img-item1.jpg" alt="" class="img-item">
-                <img src="img/flag.png" alt="" class="flag">
-                <div class="about-box__cover">
-                    <div class="about-box__icon">
-                        <img src="img/planet-earth.svg" alt="">
-                    </div>
-                    <div class="about-box__text" style="white-space: nowrap">
-                        10 <span>different languages</span>
-                    </div>
-                </div>
-            </div>
-            <div class="about-box__item">
-                <img src="img/img-item1.jpg" alt="" class="img-item">
-                <div class="about-box__cover">
-                    <div class="about-box__icon">
-                        <img src="img/xbox.svg" alt="">
-                    </div>
-                    <div class="about-box__text">
-                        Xbox, board games, Sport
-                        TV broadcast
-                    </div>
-                </div>
+            <div class="rooms-gallery__item">
+                <img src="img/strip.jpg" alt="">
             </div>
         </div>
         <div class="rooms-caption">
-            <div class="bg-text"> UNIQUE ROOMS</div>
-           <span>5 UNIQUE ROOMS</span>
-        </div>
-       <div class="rooms-accordion owl-carousel" id="home__rooms-accordion">
-           <div class="rooms-accordion__item">
-               <div class="rooms-data">
-                   <div class="rotate">
-                       <div class="room-name strip">Strip</div>
-                       <div class="button-box">
-                           <a href="#" class="btn">book now</a>
-                           <a href="#" class="btn transparent">3d tour</a>
-                       </div>
-                   </div>
-                   <div class="room-features main-room-features">
-                       <div class="room-features__caption">
-                           ROOM FEATURES:
-                       </div>
-                       <div class="features-box">
-                           <div class="features-box__item">
-                               <img src="img/people.svg" alt="">
-                               <div class="text">
-                                   Up to 18 people
-                               </div>
-                           </div>
-                           <div class="features-box__item">
-                               <img src="img/microphone.svg" alt="">
-                               <div class="text">
-                                   Professional sound
-                               </div>
-                           </div>
-                           <div class="features-box__item">
-                               <img src="img/music.svg" alt="">
-                               <div class="text">
-                                   54 000 karaoke songs
-                               </div>
-                           </div>
-                           <div class="features-box__item">
-                               <img src="img/settings.svg" alt="">
-                               <div class="text">
-                                   Self-hosting computerized
-                                   system
-                               </div>
-                           </div>
-                           <div class="features-box__item">
-                               <img src="img/planet-mini.svg" alt="">
-                               <div class="text">
-                                   9 languages
-                               </div>
-                           </div>
-                           <div class="features-box__item">
-                               <img src="img/singer.svg" alt="">
-                               <div class="text">
-                                   Chorus assist system /
-                                   backing vocalist
-                               </div>
-                           </div>
-                       </div>
-                       <a href="#" class="btn transparent">read more</a>
-                   </div>
-               </div>
-           </div>
-           <div class="rooms-accordion__item reggae">
-               <div class="rooms-data">
-                   <div class="rotate">
-                       <div class="room-name reggae">Reggae</div>
-                       <div class="button-box">
-                           <a href="#" class="btn">book now</a>
-                           <a href="#" class="btn transparent">3d tour</a>
-                       </div>
-                   </div>
-                   <div class="room-features">
-                       <div class="room-features__caption">
-                           ROOM FEATURES:
-                       </div>
-                       <div class="features-box">
-                           <div class="features-box__item">
-                               <img src="img/people.svg" alt="">
-                               <div class="text">
-                                   Up to 18 people
-                               </div>
-                           </div>
-                           <div class="features-box__item">
-                               <img src="img/microphone.svg" alt="">
-                               <div class="text">
-                                   Professional sound
-                               </div>
-                           </div>
-                           <div class="features-box__item">
-                               <img src="img/music.svg" alt="">
-                               <div class="text">
-                                   54 000 karaoke songs
-                               </div>
-                           </div>
-                           <div class="features-box__item">
-                               <img src="img/settings.svg" alt="">
-                               <div class="text">
-                                   Self-hosting computerized
-                                   system
-                               </div>
-                           </div>
-                           <div class="features-box__item">
-                               <img src="img/planet-mini.svg" alt="">
-                               <div class="text">
-                                   9 languages
-                               </div>
-                           </div>
-                           <div class="features-box__item">
-                               <img src="img/singer.svg" alt="">
-                               <div class="text">
-                                   Chorus assist system /
-                                   backing vocalist
-                               </div>
-                           </div>
-                       </div>
-                       <a href="#" class="btn transparent">read more</a>
-                   </div>
-               </div>
-           </div>
-           <div class="rooms-accordion__item gatsby">
-               <div class="rooms-data">
-                   <div class="rotate">
-                       <div class="room-name gatsby">Gatsby</div>
-                       <div class="button-box">
-                           <a href="#" class="btn">book now</a>
-                           <a href="#" class="btn transparent">3d tour</a>
-                       </div>
-                   </div>
-                   <div class="room-features">
-                       <div class="room-features__caption">
-                           ROOM FEATURES:
-                       </div>
-                       <div class="features-box">
-                           <div class="features-box__item">
-                               <img src="img/people.svg" alt="">
-                               <div class="text">
-                                   Up to 18 people
-                               </div>
-                           </div>
-                           <div class="features-box__item">
-                               <img src="img/microphone.svg" alt="">
-                               <div class="text">
-                                   Professional sound
-                               </div>
-                           </div>
-                           <div class="features-box__item">
-                               <img src="img/music.svg" alt="">
-                               <div class="text">
-                                   54 000 karaoke songs
-                               </div>
-                           </div>
-                           <div class="features-box__item">
-                               <img src="img/settings.svg" alt="">
-                               <div class="text">
-                                   Self-hosting computerized
-                                   system
-                               </div>
-                           </div>
-                           <div class="features-box__item">
-                               <img src="img/planet-mini.svg" alt="">
-                               <div class="text">
-                                   9 languages
-                               </div>
-                           </div>
-                           <div class="features-box__item">
-                               <img src="img/singer.svg" alt="">
-                               <div class="text">
-                                   Chorus assist system /
-                                   backing vocalist
-                               </div>
-                           </div>
-                       </div>
-                       <a href="#" class="btn transparent">read more</a>
-                   </div>
-               </div>
-           </div>
-           <div class="rooms-accordion__item comics">
-               <div class="rooms-data">
-                   <div class="rotate">
-                       <div class="room-name comics">Comics</div>
-                       <div class="button-box">
-                           <a href="#" class="btn">book now</a>
-                           <a href="#" class="btn transparent">3d tour</a>
-                       </div>
-                   </div>
-                   <div class="room-features">
-                       <div class="room-features__caption">
-                           ROOM FEATURES:
-                       </div>
-                       <div class="features-box">
-                           <div class="features-box__item">
-                               <img src="img/people.svg" alt="">
-                               <div class="text">
-                                   Up to 18 people
-                               </div>
-                           </div>
-                           <div class="features-box__item">
-                               <img src="img/microphone.svg" alt="">
-                               <div class="text">
-                                   Professional sound
-                               </div>
-                           </div>
-                           <div class="features-box__item">
-                               <img src="img/music.svg" alt="">
-                               <div class="text">
-                                   54 000 karaoke songs
-                               </div>
-                           </div>
-                           <div class="features-box__item">
-                               <img src="img/settings.svg" alt="">
-                               <div class="text">
-                                   Self-hosting computerized
-                                   system
-                               </div>
-                           </div>
-                           <div class="features-box__item">
-                               <img src="img/planet-mini.svg" alt="">
-                               <div class="text">
-                                   9 languages
-                               </div>
-                           </div>
-                           <div class="features-box__item">
-                               <img src="img/singer.svg" alt="">
-                               <div class="text">
-                                   Chorus assist system /
-                                   backing vocalist
-                               </div>
-                           </div>
-                       </div>
-                       <a href="#" class="btn transparent">read more</a>
-                   </div>
-               </div>
-           </div>
-           <div class="rooms-accordion__item iceberg">
-               <div class="rooms-data">
-                   <div class="rotate">
-                       <div class="room-name iceberg">Iceberg</div>
-                       <div class="button-box">
-                           <a href="#" class="btn">book now</a>
-                           <a href="#" class="btn transparent">3d tour</a>
-                       </div>
-                   </div>
-                   <div class="room-features">
-                       <div class="room-features__caption">
-                           ROOM FEATURES:
-                       </div>
-                       <div class="features-box">
-                           <div class="features-box__item">
-                               <img src="img/people.svg" alt="">
-                               <div class="text">
-                                   Up to 18 people
-                               </div>
-                           </div>
-                           <div class="features-box__item">
-                               <img src="img/microphone.svg" alt="">
-                               <div class="text">
-                                   Professional sound
-                               </div>
-                           </div>
-                           <div class="features-box__item">
-                               <img src="img/music.svg" alt="">
-                               <div class="text">
-                                   54 000 karaoke songs
-                               </div>
-                           </div>
-                           <div class="features-box__item">
-                               <img src="img/settings.svg" alt="">
-                               <div class="text">
-                                   Self-hosting computerized
-                                   system
-                               </div>
-                           </div>
-                           <div class="features-box__item">
-                               <img src="img/planet-mini.svg" alt="">
-                               <div class="text">
-                                   9 languages
-                               </div>
-                           </div>
-                           <div class="features-box__item">
-                               <img src="img/singer.svg" alt="">
-                               <div class="text">
-                                   Chorus assist system /
-                                   backing vocalist
-                               </div>
-                           </div>
-                       </div>
-                       <a href="#" class="btn transparent">read more</a>
-                   </div>
-               </div>
-           </div>
-       </div>
-    </section>
-    <section class="section page-block">
-        <h3>
-            <span>Not enought?</span><br>
-            What about karaoke bus?!
-        </h3>
-        <div class="bus-img">
-            <a href="#" class="btn">book now</a>
-        </div>
-        <div class="rooms-caption">
-            <div class="bg-text"> UNIQUE ROOMS</div>
+            <div class="bg-text"> BOOK ROOMS</div>
            <h3>
                <span>Book Your</span><br>
                PRIVATE KARAOKE ROOM
@@ -589,59 +280,58 @@
                 <button type="submit" class="btn booking-block__btn">book</button>
             </div>
         </form>
-        <div class="rooms-caption">
-            CELEBRATE WITH US<br>
-            <span class="light-text">In Blue Bird everything is possible. The impossible just takes longer.</span>
-        </div>
-        <div class="main-carousel">
-            <div class="cases owl-carousel">
-                <div class="case">
-                    <div class="case__cover">
-                        <div class="case__name">Birthday<br> party</div>
-                        <a href="#" class="case__link">
-                            Read more
-                        </a>
+        <div class="rooms-accordion other-room-accordion owl-carousel" id="other-room-accordion">
+            <div class="rooms-accordion__item reggae">
+                <div class="rooms-data">
+                    <div class="rotate">
+                        <div class="room-name reggae">Reggae</div>
+                        <div class="button-box">
+                            <a href="#" class="btn">book now</a>
+                            <a href="#" class="btn transparent">3d tour</a>
+                        </div>
                     </div>
-                    <img src="img/birthday.jpg" alt="">
-                </div>
-                <div class="case">
-                    <div class="case__cover">
-                        <div class="case__name">Bachelor | Hen
-                            party</div>
-                        <a href="#" class="case__link">
-                            Read more
-                        </a>
-                    </div>
-                    <img src="img/party.jpg" alt="">
-                </div>
-                <div class="case">
-                    <div class="case__cover">
-                        <div class="case__name">Corporate party</div>
-                        <a href="#" class="case__link">
-                            Read more
-                        </a>
-                    </div>
-                    <img src="img/corporate.jpg" alt="">
-                </div>
-                <div class="case">
-                    <div class="case__cover">
-                        <div class="case__name">Disco party</div>
-                        <a href="#" class="case__link">
-                            Read more
-                        </a>
-                    </div>
-                    <img src="img/disco.jpg" alt="">
-                </div>
-                <div class="case">
-                    <div class="case__cover">
-                        <div class="case__name">Private party</div>
-                        <a href="#" class="case__link">
-                            Read more
-                        </a>
-                    </div>
-                    <img src="img/home.jpg" alt="">
                 </div>
             </div>
+            <div class="rooms-accordion__item gatsby">
+                <div class="rooms-data">
+                    <div class="rotate">
+                        <div class="room-name gatsby">Gatsby</div>
+                        <div class="button-box">
+                            <a href="#" class="btn">book now</a>
+                            <a href="#" class="btn transparent">3d tour</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="rooms-accordion__item comics">
+                <div class="rooms-data">
+                    <div class="rotate">
+                        <div class="room-name comics">Comics</div>
+                        <div class="button-box">
+                            <a href="#" class="btn">book now</a>
+                            <a href="#" class="btn transparent">3d tour</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="rooms-accordion__item iceberg">
+                <div class="rooms-data">
+                    <div class="rotate">
+                        <div class="room-name iceberg">Iceberg</div>
+                        <div class="button-box">
+                            <a href="#" class="btn">book now</a>
+                            <a href="#" class="btn transparent">3d tour</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h3>
+            <span>Not enought?</span><br>
+            What about karaoke bus?!
+        </h3>
+        <div class="bus-img">
+            <a href="#" class="btn">book now</a>
         </div>
     </section>
     <footer class="footer">
