@@ -55,8 +55,8 @@ $(document).ready(function () {
     $(document).on('mousemove', function(e) {
         let x = e.pageX;
         let y = e.pageY;
-        $('#home').css({
-            'background': `radial-gradient(circle at ${x}px ${y}px, rgba(0, 0, 0, 0), rgba(28, 11, 63, 0.95) 15%)`
+        $('.main').css({
+            'background': `radial-gradient(circle at ${x}px ${y}px, rgba(0, 0, 0, 0), rgba(28, 11, 63, 0.8) 15%)`
         });
         $('#strip').css({
             'background': `radial-gradient(circle at ${x}px ${y}px, rgba(0, 0, 0, 0), rgba(49, 18, 135, 0.7) 20%)`
@@ -81,6 +81,18 @@ $(document).ready(function () {
         });
         $('#hen').css({
             'background': `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0), rgba(56, 9, 65, 0.8) 20%)`
+        });
+        $('#private').css({
+            'background': `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0), rgba(44, 16, 102, 0.8) 20%)`
+        });
+        $('#graduation').css({
+            'background': `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0), rgba(44, 16, 102, 0.8) 20%)`
+        });
+        $('#corporate').css({
+            'background': `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0), rgba(44, 16, 102, 0.8) 20%)`
+        });
+        $('#disco').css({
+            'background': `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0), rgba(28, 11, 63, 0.83) 20%)`
         });
     });
 
@@ -354,6 +366,15 @@ $(document).ready(function () {
             $(this).click(function(){
                 $(this).addClass('active').siblings().removeClass('active')
                     .parents('.booking__foodStepWrap').find('.tabs__content').eq(i).css('display', 'flex').siblings('.tabs__content').hide();
+            });
+        });
+    });
+
+    $('.booking__stepTypeFood').each(function() {
+        $(this).find('.food-radio').each(function(i) {
+            $(this).click(function(){
+                $(this).addClass('active').siblings().removeClass('active')
+                    .parents('.menu-box').find('.tabs__content').eq(i).css('display', 'flex').siblings('.tabs__content').hide();
             });
         });
     });
