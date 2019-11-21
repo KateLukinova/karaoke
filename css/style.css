@@ -3109,7 +3109,7 @@ section.main-private, section.graduation, section.corporate {
 	margin-top: 160px;
 }
 
-.price-caption:after {
+.price-caption--discount:after {
 	content: url("../img/discount20.png");
 	position: absolute;
 	top: 0;
@@ -3141,6 +3141,7 @@ section.main-private, section.graduation, section.corporate {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	max-height: 20px;
 }
 
 .price-block {
@@ -3150,7 +3151,8 @@ section.main-private, section.graduation, section.corporate {
 }
 
 .price-info img {
-	width: 22px;
+	max-width: 22px;
+	max-height: 22px;
 	margin-right: 15px;
 }
 
@@ -3219,6 +3221,220 @@ section.main-private, section.graduation, section.corporate {
 	line-height: 1.5;
 }
 
+section.terms-block {
+	background: linear-gradient(33.09deg, #200A43 10.51%, #481A77 41.18%, #1B0A3E 72.36%);
+}
+
+.pageTermsConditions {
+	width: 90%;
+	max-width: 1140px;
+}
+
+.h1--no-transform {
+	text-transform: none;
+	margin-top: 10vw;
+	width: 100%;
+}
+
+.pageTermsConditionsTitle {
+	font-family: "GothamPro-Bold", sans-serif;
+}
+
+.blog-block {
+	width: 90%;
+	max-width: 1400px;
+}
+
+.post-box {
+	width: 100%;
+	display: flex;
+	margin-top: 3vw;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+
+.post-box--main {
+	position: relative;
+	width: 32%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.post-box--main img {
+	object-fit: cover;
+	min-width: 100%;
+	min-height: 100%;
+	height: 658px;
+}
+
+.post-box__cover {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 70%;
+	background: linear-gradient(180deg, rgba(28, 11, 63, 0.0001) 1.39%, rgba(28, 11, 63, 0.89957) 100%);
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: flex-end;
+}
+
+.post-box__footer {
+	width: 90%;
+	display: flex;
+	justify-content: space-between;
+	margin: 25px 0;
+}
+
+.post-category {
+	font-family: 'GothamPro', sans-serif;
+	text-transform: uppercase;
+	font-size: 17px;
+	width: 90%;
+	letter-spacing: 2px;
+	text-align: left;
+	color: white;
+	line-height: 2.2;
+}
+
+.post-name {
+	font-family: 'GothamPro-Black', sans-serif;
+	font-size: 36px;
+	color: white;
+	width: 90%;
+}
+
+.post-date, .like-current {
+	font-family: 'GothamPro', sans-serif;
+	font-size: 17px;
+	color: white;
+	cursor: pointer;
+}
+
+.like-current svg {
+	fill: white;
+	stroke: white;
+}
+.post-tile__cover {
+	position: static;
+}
+
+.post-tile {
+	position: relative;
+	width: 45%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.post-tile__img {
+	overflow: hidden;
+	object-fit: cover;
+	width: 100%;
+	height: 200px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	mix-blend-mode: normal;
+}
+
+.post-tile__img img {
+	width: 100%;
+	object-fit: cover;
+}
+
+.post-tile__item {
+	width: 48%;
+	margin-bottom: 20px;
+}
+
+.post-tile .post-name {
+	font-size: 28px;
+}
+
+.post-tile__cover {
+	height: max-content;
+	background: none;
+}
+
+.post-tile-bgl {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 50%;
+	background: linear-gradient(180deg, rgba(28, 11, 63, 0.0001) 1.39%, rgba(28, 11, 63, 0.89957) 100%);
+	mix-blend-mode: normal;
+}
+.board {
+	width: 19%;
+	height: 34vw;
+	background-image: url("../img/micr.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-end;
+	box-sizing: border-box;
+	padding-bottom: 50px;
+}
+
+.board-text {
+	font-family: 'GothamPro-Black', sans-serif;
+	font-size: 40px;
+	color: white;
+	margin-bottom: 35px;
+	width: 70%;
+	text-align: center;
+}
+
+/*post*/
+
+.h1-post {
+	font-family: 'GothamPro-Black', sans-serif;
+	font-size: 72px;
+	color: white;
+	text-transform: none;
+}
+
+.post-info {
+	width: 250px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 50px;
+	letter-spacing: 2px;
+}
+
+section.page-post {
+	align-items: flex-end;
+	background: linear-gradient(40.19deg, #2E1151 10.51%, #481A77 41.18%, #1B0A3E 72.36%);
+}
+
+.post__content {
+	width: 100%;
+	max-width: 1400px;
+	display: flex;
+	justify-content: space-between;
+	margin-right: 5%;
+}
+
+.post__content .board {
+	margin-top: 120px;
+}
+
+.post__epigraph {
+	font-family: "GothamPro-Black", sans-serif;
+	font-size: 25px;
+	color: #CAFD35;
+	width: 60%;
+	line-height: 1.3;
+}
+
+
 
 @media screen and (max-width: 1500px) {
 	a.nav-item {
@@ -3238,6 +3454,17 @@ section.main-private, section.graduation, section.corporate {
 
 	.header__select-rooms {
 		display: none;
+	}
+	.board {
+		display: none;
+	}
+
+	.post-box--main {
+		width: 39%;
+	}
+
+	.post-tile {
+		width: 59%;
 	}
 }
 
@@ -3323,6 +3550,19 @@ section.main-private, section.graduation, section.corporate {
 	.event-box .about-box__text {
 		font-size: 13px;
 		line-height: 1.3;
+	}
+	.h1--no-transform {
+		margin-top: 160px;
+	}
+	.post-box {
+		margin-top: 60px;
+	}
+
+	.post-tile__item {
+		width: 100%;
+	}
+	.post-tile__cover .post-category, .post-tile__cover .post-box__footer, .post-tile__cover .post-name {
+		width: 100%;
 	}
 }
 
@@ -3543,6 +3783,17 @@ section.main-private, section.graduation, section.corporate {
 		font-size: 16px;
 		line-height: 1.5;
 	}
+
+	.price-row {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.price-block {
+		width: 100%;
+		margin-bottom: 20px;
+		padding: 15px!important;
+	}
 }
 
 @media screen and (max-width: 990px) {
@@ -3664,7 +3915,10 @@ section.main-private, section.graduation, section.corporate {
 		height: 220px;
 	}
 
-
+	.h1--no-transform {
+		font-size: 30px;
+		margin-top: 150px;
+	}
 }
 
 
@@ -3901,6 +4155,20 @@ section.main-private, section.graduation, section.corporate {
 	.menu-box .booking__stepFoodItemText {
 		align-items: center;
 	}
+
+	.price-caption {
+		width: 50%;
+	}
+
+	.add-services__caption {
+		font-size: 20px;
+		margin: 40px 0;
+	}
+
+	.price-caption--discount:after {
+		transform: translate(100%, -32%);
+	}
+
 }
 
 @media screen and (max-width: 540px) {
