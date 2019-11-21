@@ -3101,6 +3101,124 @@ section.main-private, section.graduation, section.corporate {
 	content: none;
 }
 
+/*price list*/
+
+.price-caption {
+	position: relative;
+	width: max-content;
+	margin-top: 160px;
+}
+
+.price-caption:after {
+	content: url("../img/discount20.png");
+	position: absolute;
+	top: 0;
+	right: 0;
+	transform: translate(100%, -100%);
+}
+
+.price-block__header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 15px;
+}
+
+.price-card-name {
+	font-family: 'GothamPro-Bold', sans-serif;
+	font-size: 27px;
+	color: #CAFD35;
+	text-transform: uppercase;
+}
+
+.price-info {
+	font-family: 'GothamPro-Light', sans-serif;
+	font-size: 16px;
+	color: white;
+	padding: 15px;
+	max-width: 70%;
+	background-color: #2A0E57;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.price-block {
+	background-color: #2B0F54;
+	padding: 15px;
+	width: 48.5%;
+}
+
+.price-info img {
+	width: 22px;
+	margin-right: 15px;
+}
+
+.price-table__td {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	font-family: 'GothamPro-Bold', sans-serif;
+	font-size: 12px;
+	color: #503F6F;
+	text-transform: uppercase;
+	border-top: 1px solid #503F6F;
+	border-bottom: 1px solid #503F6F;
+	padding: 15px 0;
+	margin-bottom: 15px;
+}
+
+.td-item {
+	width: 30%;
+}
+
+.price-table__tr {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	padding: 14px 0;
+}
+
+.tr-item {
+	font-family: 'GothamPro', sans-serif;
+	font-size: 18px;
+	color: white;
+	width: 30%;
+}
+.tr-item span {
+	font-family: 'GothamPro-Bold', sans-serif;
+}
+
+.tr-item:nth-child(2), .td-item:nth-child(2) {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+
+.tr-item:nth-child(3), .td-item:nth-child(3) {
+	text-align: right;
+}
+
+.price-row {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+}
+
+.price-block__info {
+	font-family: 'GothamPro-Medium', sans-serif;
+	font-size: 14px;
+	color: white;
+	text-align: center;
+	align-self: center;
+	width: 70%;
+	margin-top: 50px;
+	line-height: 1.5;
+}
+
 
 @media screen and (max-width: 1500px) {
 	a.nav-item {
