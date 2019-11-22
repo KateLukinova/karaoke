@@ -37,25 +37,6 @@
 
 /*nav animation*/
 
-@keyframes menu-show {
-	0% {
-		clip-path: circle(0.0% at 0 0);
-	}
-	100% {
-		clip-path: circle(141.4% at 0 0);
-
-	}
-}
-
-@keyframes menu-hide {
-	0% {
-		clip-path: circle(141.4% at 0 0);
-	}
-	100% {
-		clip-path: circle(0.0% at 0 0);
-	}
-}
-
 
 html {
 	width: 100vw;
@@ -364,6 +345,28 @@ a {
 	animation: menu-hide 0.5s ease-in-out;
 	clip-path: circle(0.0% at 0 0);
 }
+
+@keyframes menu-show {
+	0% {
+		opacity: 0;
+		clip-path: circle(0.0% at 0 0);
+	}
+	100% {
+		opacity: 1;
+		clip-path: circle(141.4% at 0 0);
+	}
+}
+
+@keyframes menu-hide {
+	0% {
+		clip-path: circle(141.4% at 0 0);
+	}
+	100% {
+		clip-path: circle(0.0% at 0 0);
+	}
+}
+
+
 
 .nav__main, .nav__secondary {
 	display: flex;
@@ -800,7 +803,7 @@ section.about {
 	background-size: cover;
 	background-position: center;
 	cursor: pointer;
-	transition: all 1s ease;
+	transition: width 1s ease;
 }
 
 
@@ -919,6 +922,21 @@ section.about {
 	flex-direction: column;
 	align-items: flex-start;
 	width: 45%;
+}
+
+.rooms-accordion__item:hover .features-box__item {
+	display: flex;
+	animation: item-fade ease;
+	animation-delay: 0.5s;
+}
+
+@keyframes item-fade {
+	0% {
+		transform: translateY(100%);
+	}
+	100% {
+		transform: translateY(0);
+	}
 }
 
 .rooms-accordion__item:hover .room-name {
@@ -3654,7 +3672,7 @@ textarea {
 .karaoke-text {
 	font-family: 'GothamPro-Black', sans-serif;
 	font-size: 72px;
-	animation: karaoke-text 12s infinite linear;
+	animation: karaoke-text 7s ease;
 }
 
 .word {
@@ -3677,6 +3695,7 @@ textarea {
 	overflow: hidden;
 	width: 40%;
 	animation: run-text 6s linear;
+	animation-fill-mode: forwards;
 	text-shadow: 0 0 3px rgba(255,255,255,1);
 }
 
@@ -3685,7 +3704,7 @@ textarea {
 		transform: translateX(100%);
 	}
 	100% {
-		transform: translateX(-100%);
+		transform: translateX(0%);
 	}
 }
 

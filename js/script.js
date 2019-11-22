@@ -1,5 +1,8 @@
 
 $(document).ready(function () {
+    document.addEventListener('aos:in:room-accordion-item', ({ detail }) => {
+        setTimeout(() => {$('.rooms-accordion__item').attr('style', 'transition: width 1s ease !important');}, 1500);
+    });
 
     $('.lang').styler();
     $('.select-celebrate').styler();

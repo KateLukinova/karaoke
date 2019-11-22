@@ -10,13 +10,14 @@
     <link rel="stylesheet" href="css/datepicker.css">
     <link rel="stylesheet" href="css/jquery.formstyler.css">
     <link rel="stylesheet" href="owl-carousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="css/style.css">
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="owl-carousel/owl.carousel.min.js"></script>
     <script type="text/javascript" src="js/datepicker.js"></script>
     <script type="text/javascript" src="js/datepicker.en.js"></script>
     <script type="text/javascript" src="js/jquery.formstyler.js"></script>
-    <script type="text/javascript" src="js/scrollify.js"></script>
+
     <script type="text/javascript" src="js/script.js"></script>
 </head>
 <body>
@@ -50,7 +51,7 @@
             </div>
             <div class="nav-wrap">
                 <div class="nav__main">
-                    <a href="#" class="nav-item active">
+                    <a href="#" class="nav-item active animated wow slideInLeft">
                         home
                     </a>
                     <a href="pageMenu.html" class="nav-item">
@@ -62,7 +63,7 @@
                     <a href="pageBlog.html" class="nav-item">
                         blog
                     </a>
-                    <a href="#contacts" class="nav-item">
+                    <a href="pageContacts.html" class="nav-item">
                         contacts
                     </a>
                 </div>
@@ -261,7 +262,7 @@
            <span>5 UNIQUE ROOMS</span>
         </div>
        <div class="rooms-accordion owl-carousel" id="home__rooms-accordion">
-           <div class="rooms-accordion__item">
+           <div class="rooms-accordion__item" data-aos-id="room-accordion-item" data-aos="fade-right">
                <div class="rooms-data">
                    <div class="rotate">
                        <div class="room-name strip">Strip</div>
@@ -318,7 +319,7 @@
                    </div>
                </div>
            </div>
-           <div class="rooms-accordion__item reggae">
+           <div class="rooms-accordion__item reggae" data-aos="fade-left" data-aos-delay="300">
                <div class="rooms-data">
                    <div class="rotate">
                        <div class="room-name reggae">Reggae</div>
@@ -375,7 +376,7 @@
                    </div>
                </div>
            </div>
-           <div class="rooms-accordion__item gatsby">
+           <div class="rooms-accordion__item gatsby" data-aos="fade-left" data-aos-delay="600">
                <div class="rooms-data">
                    <div class="rotate">
                        <div class="room-name gatsby">Gatsby</div>
@@ -432,7 +433,7 @@
                    </div>
                </div>
            </div>
-           <div class="rooms-accordion__item comics">
+           <div class="rooms-accordion__item comics" data-aos="fade-left" data-aos-delay="900">
                <div class="rooms-data">
                    <div class="rotate">
                        <div class="room-name comics">Comics</div>
@@ -489,7 +490,7 @@
                    </div>
                </div>
            </div>
-           <div class="rooms-accordion__item iceberg">
+           <div class="rooms-accordion__item iceberg" data-aos="fade-left" data-aos-delay="1200">
                <div class="rooms-data">
                    <div class="rotate">
                        <div class="room-name iceberg">Iceberg</div>
@@ -786,6 +787,10 @@
             </div>
         </div>
     </footer>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
 </body>
 
 </html>
