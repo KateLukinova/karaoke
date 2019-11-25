@@ -10,15 +10,8 @@
     <link rel="stylesheet" href="css/datepicker.css">
     <link rel="stylesheet" href="css/jquery.formstyler.css">
     <link rel="stylesheet" href="owl-carousel/owl.carousel.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="css/aos.css" />
     <link rel="stylesheet" href="css/style.css">
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="owl-carousel/owl.carousel.min.js"></script>
-    <script type="text/javascript" src="js/datepicker.js"></script>
-    <script type="text/javascript" src="js/datepicker.en.js"></script>
-    <script type="text/javascript" src="js/jquery.formstyler.js"></script>
-
-    <script type="text/javascript" src="js/script.js"></script>
 </head>
 <body>
     <div class="menu">
@@ -71,7 +64,7 @@
                     <option value="Our rooms">Rooms</option>
                     <option value="Strip">Strip</option>
                 </select>
-                <a href="#" class="btn transparent dashed bus">Karaoke bus</a>
+                <a href="https://bbpartybus.hu" class="btn transparent dashed bus">Karaoke bus</a>
                 <div class="nav__secondary">
                     <h4>Rooms:</h4>
                     <a href="pageRoomStrip.html" class="nav__secondary-item">
@@ -125,44 +118,51 @@
             <div class="select-rooms__caption">
                 Our rooms:
             </div>
-            <a href="#" class="select-rooms__item">
+            <a href="pageRoomStrip.html" class="select-rooms__item">
                 Strip
             </a>
-            <a href="#" class="select-rooms__item">
+            <a href="pageRoomReggae.html" class="select-rooms__item">
                 Reggae
             </a>
-            <a href="#" class="select-rooms__item">
+            <a href="pageRoomGatsby.html" class="select-rooms__item">
                 Gatsby
             </a>
-            <a href="#" class="select-rooms__item">
+            <a href="pageRoomComics.html" class="select-rooms__item">
                 Comics
             </a>
-            <a href="#" class="select-rooms__item">
+            <a href="pageRoomIcberg.html" class="select-rooms__item">
                 Iceberg
             </a>
         </div>
-        <select name="rooms" class="rooms header__rooms">
+        <select name="rooms" class="rooms header__rooms" onchange="location = this.value;">
             <option value="Our rooms">Rooms</option>
-            <option value="Strip">Reggae</option>
-            <option value="Strip">Gatsby</option>
-            <option value="Strip">Comics</option>
-            <option value="Strip">Iceberg</option>
+            <option value="pageRoomStrip.html">Strip</option>
+            <option value="pageRoomReggae.html">Reggae</option>
+            <option value="pageRoomGatsby.html">Gatsby</option>
+            <option value="pageRoomComics.html">Comics</option>
+            <option value="pageRoomIceberg.html">Iceberg</option>
         </select>
         <img src="img/logo-mini.svg" class="logo-mobile" alt="">
         <div class="button-box">
-            <a href="#" class="btn transparent dashed bus">Karaoke bus</a>
+            <a href="https://bbpartybus.hu" class="btn transparent dashed bus">
+                Karaoke bus
+            </a>
             <select name="lang" class="lang">
                 <option value="En">En</option>
                 <option value="Hun">Hun</option>
             </select>
             <a href="pageBooking.html" class="btn">Book now</a>
-            <a href="#" class="btn transparent">3d tour</a>
+            <a href="3dtour.html" class="btn transparent">3d tour</a>
         </div>
     </header>
 
     <section class="section main" id="home">
-        <img src="img/home.jpg" alt="" class="main-img">
-        <div class="main__content">
+        <div class="fullscreen-bg">
+            <video loop muted autoplay poster="video/disco.jpg" class="fullscreen-bg__video">
+                <source src="video/hd0147-H264%2075.mov" type="video/mp4">
+            </video>
+        </div>
+        <div class="main__content video-cover">
             <div class="main__text">
                 <h2>Blue Bird</h2>
                 <h1>KARAOKE ROOMS</h1>
@@ -183,7 +183,7 @@
             <h3><span>What is</span><br> Blue Bird<br> Karaoke rooms?</h3>
         </div>
         <div class="about-box owl-carousel">
-            <div class="about-box__item">
+            <div class="about-box__item" data-aos="fade-up">
                 <img src="img/img-item1.jpg" alt="" class="img-item">
                 <div class="about-box__cover">
                     <div class="about-box__icon">
@@ -194,7 +194,7 @@
                     </div>
                 </div>
             </div>
-            <div class="about-box__item">
+            <div class="about-box__item" data-aos="fade-up" data-aos-delay="300">
                 <img src="img/img-item1.jpg" alt="" class="img-item">
                 <div class="about-box__cover">
                     <div class="about-box__icon">
@@ -208,7 +208,7 @@
                     </div>
                 </div>
             </div>
-            <div class="about-box__item">
+            <div class="about-box__item" data-aos="fade-up" data-aos-delay="600">
                 <img src="img/img-item1.jpg" alt="" class="img-item">
                 <div class="about-box__cover">
                     <div class="about-box__icon">
@@ -220,7 +220,7 @@
                     </div>
                 </div>
             </div>
-            <div class="about-box__item">
+            <div class="about-box__item" data-aos="fade-up" data-aos-delay="900">
                 <img src="img/img-item1.jpg" alt="" class="img-item">
                 <div class="about-box__cover">
                     <div class="about-box__icon" style="width: 25%">
@@ -232,7 +232,7 @@
                     </div>
                 </div>
             </div>
-            <div class="about-box__item">
+            <div class="about-box__item" data-aos="fade-up" data-aos-delay="1200">
                 <img src="img/img-item1.jpg" alt="" class="img-item">
                 <img src="img/flag.png" alt="" class="flag">
                 <div class="about-box__cover">
@@ -244,7 +244,7 @@
                     </div>
                 </div>
             </div>
-            <div class="about-box__item">
+            <div class="about-box__item" data-aos="fade-up" data-aos-delay="1500">
                 <img src="img/img-item1.jpg" alt="" class="img-item">
                 <div class="about-box__cover">
                     <div class="about-box__icon">
@@ -554,8 +554,8 @@
             <span>Not enought?</span><br>
             What about karaoke bus?!
         </h3>
-        <div class="bus-img">
-            <a href="#" class="btn">book now</a>
+        <div class="bus-img" data-aos="fade-up">
+            <a href="https://bbpartybus.hu" class="btn">book now</a>
         </div>
         <div class="rooms-caption">
             <div class="bg-text"> UNIQUE ROOMS</div>
@@ -564,7 +564,7 @@
                PRIVATE KARAOKE ROOM
            </h3>
         </div>
-        <form action="#" class="booking-block booking-block--long">
+        <form action="#" class="booking-block booking-block--long" data-aos="fade-up">
             <div class="booking-block__item">
                 <div class="label">date</div>
                 <input id="datepicker" data-position="right top" value="15" />
@@ -597,12 +597,12 @@
             CELEBRATE WITH US<br>
             <span class="light-text">In Blue Bird everything is possible. The impossible just takes longer.</span>
         </div>
-        <div class="main-carousel">
+        <div class="main-carousel" data-aos="fade-up">
             <div class="cases owl-carousel">
                 <div class="case">
                     <div class="case__cover">
                         <div class="case__name">Birthday<br> party</div>
-                        <a href="#" class="case__link">
+                        <a href="pageEventBirthday.html" class="case__link">
                             Read more
                         </a>
                     </div>
@@ -610,9 +610,8 @@
                 </div>
                 <div class="case">
                     <div class="case__cover">
-                        <div class="case__name">Bachelor | Hen
-                            party</div>
-                        <a href="#" class="case__link">
+                        <div class="case__name">Bachelor party</div>
+                        <a href="pageEventBachelor.html" class="case__link">
                             Read more
                         </a>
                     </div>
@@ -621,7 +620,7 @@
                 <div class="case">
                     <div class="case__cover">
                         <div class="case__name">Corporate party</div>
-                        <a href="#" class="case__link">
+                        <a href="pageEventCorporate.html" class="case__link">
                             Read more
                         </a>
                     </div>
@@ -630,7 +629,7 @@
                 <div class="case">
                     <div class="case__cover">
                         <div class="case__name">Disco party</div>
-                        <a href="#" class="case__link">
+                        <a href="pageEventDisco.html" class="case__link">
                             Read more
                         </a>
                     </div>
@@ -639,26 +638,53 @@
                 <div class="case">
                     <div class="case__cover">
                         <div class="case__name">Private party</div>
-                        <a href="#" class="case__link">
+                        <a href="pageEventPrivate.html" class="case__link">
                             Read more
                         </a>
                     </div>
-                    <img src="img/home.jpg" alt="">
+                    <img src="img/private.jpg" alt="">
+                </div>
+                <div class="case">
+                    <div class="case__cover">
+                        <div class="case__name">Graduation party</div>
+                        <a href="pageEventGraduation.html" class="case__link">
+                            Read more
+                        </a>
+                    </div>
+                    <img src="img/graduation.jpg" alt="">
                 </div>
             </div>
         </div>
     </section>
     <footer class="footer">
-        <div class="footer_navList"><a href="#">Home</a><a href="#">Rooms</a><a href="#">Events</a><a href="#">Menu</a><a href="#">Price list</a><a href="#">Contacts</a></div>
+        <div class="footer_navList">
+            <a href="#">Home</a>
+            <a href="pageMenu.html">Menu</a>
+            <a href="pagePrice.html">Price list</a>
+            <a href="pageBlog.html">Blog</a>
+            <a href="pageContacts.html">Contacts</a>
+        </div>
         <div class="footer__info">
             <div class="footer__col footer__logo">
                 <img src="img/logo-mini.svg" alt="">
             </div>
             <div class="footer__col">
-                <p class="footer__infoTitle">Rooms</p><a class="footer__infoValue" href="#">Strip</a><a class="footer__infoValue" href="#">Reggae</a><a class="footer__infoValue" href="#">Gatsby</a><a class="footer__infoValue" href="#">Comics</a><a class="footer__infoValue" href="#">Iceberg</a><a class="footer__infoValue" href="#">Party bus</a>
+                <p class="footer__infoTitle">Rooms</p>
+                <a class="footer__infoValue" href="pageRoomStrip.html">Strip</a>
+                <a class="footer__infoValue" href="pageRoomReggae.html">Reggae</a>
+                <a class="footer__infoValue" href="pageRoomGatsby.html">Gatsby</a>
+                <a class="footer__infoValue" href="pageRoomComics.html">Comics</a>
+                <a class="footer__infoValue" href="pageRoomIcberg.html">Iceberg</a>
+                <a class="footer__infoValue" href="#">Party bus</a>
             </div>
             <div class="footer__col">
-                <p class="footer__infoTitle">Events</p><a class="footer__infoValue" href="#">Birthday party</a><a class="footer__infoValue" href="#">Bachelorette party</a><a class="footer__infoValue" href="#">Corporate party</a><a class="footer__infoValue" href="#">Live sport events</a><a class="footer__infoValue" href="#">Graduating party</a>
+                <p class="footer__infoTitle">Events</p>
+                <a class="footer__infoValue" href="pageEventBirthday.html">Birthday party</a>
+                <a class="footer__infoValue" href="pageEventBachelor.html">Bachelor party</a>
+                <a class="footer__infoValue" href="pageEventCorporate.html">Corporate party</a>
+                <a class="footer__infoValue" href="pageEventPrivate.html">Private party</a>
+                <a class="footer__infoValue" href="pageEventHen.html">Hen party</a>
+                <a class="footer__infoValue" href="pageEventDisco.html">Disco party</a>
             </div>
             <div class="footer__divider"></div>
             <div class="footer__col footerTime">
@@ -782,15 +808,25 @@
         <div class="footer__documents">
             <div class="com">© Blue Bird Karaoke Rooms. 2019.  All rights reserved.</div>
             <div class="docs">
-                <a href="#">Terms and conditions </a>
+                <a href="pageTerms.html">Terms and conditions </a>
                 <a href="#">Privacy Policy</a>
             </div>
         </div>
+        <a href="" class="button-up">
+            <svg width="25" height="32" viewBox="0 0 25 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M11.2553 0.4767L0.492498 10.8921C-0.164166 11.5276 -0.164166 12.5582 0.492498 13.1937C1.1493 13.8293 2.214 13.8293 2.8708 13.1937L10.7627 5.55643L10.7627 30.3726C10.7627 31.2713 11.5157 32 12.4444 32C13.373 32 14.1261 31.2713 14.1261 30.3726L14.1261 5.55643L22.0181 13.1934C22.6749 13.829 23.7396 13.829 24.3964 13.1934C24.7245 12.8757 24.8889 12.4591 24.8889 12.0426C24.8889 11.6261 24.7245 11.2096 24.3964 10.8918L13.6336 0.4767C12.9768 -0.158901 11.9121 -0.158901 11.2553 0.4767Z" fill="#CAFD35"/>
+            </svg>
+        </a>
     </footer>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="owl-carousel/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="js/datepicker.js"></script>
+    <script type="text/javascript" src="js/datepicker.en.js"></script>
+    <script type="text/javascript" src="js/jquery.formstyler.js"></script>
+    <script src="js/aos.js"></script>
     <script>
         AOS.init();
     </script>
+    <script type="text/javascript" src="js/script.js"></script>
 </body>
-
 </html>

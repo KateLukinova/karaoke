@@ -1,13 +1,19 @@
 
 $(document).ready(function () {
+
+    // settings aos
+
     document.addEventListener('aos:in:room-accordion-item', ({ detail }) => {
         setTimeout(() => {$('.rooms-accordion__item').attr('style', 'transition: width 1s ease !important');}, 1500);
     });
+
+    // init select
 
     $('.lang').styler();
     $('.select-celebrate').styler();
     $('.country').styler();
     $('.header__rooms').styler();
+    $('.tour__rooms').styler();
     $('.nav__rooms').styler();
 
     //menu-toggle
@@ -22,9 +28,20 @@ $(document).ready(function () {
         if (isOpenedMenu) {
             $('.nav').removeClass('hide');
             $('.nav').toggleClass('show');
+            $('a.nav-item').toggleClass('nav-animation');
+            $('a.nav-item').removeClass('no-animation');
+            $('.nav__secondary').toggleClass('clip-animation');
+            $('.nav__secondary').removeClass('clip-animation-no');
+            $('.nav__button-box').css('opacity', '1');
+
         } else {
             $('.nav').removeClass('show');
             $('.nav').toggleClass('hide');
+            $('a.nav-item').toggleClass('no-animation');
+            $('a.nav-item').removeClass('nav-animation');
+            $('.nav__secondary').toggleClass('clip-animation-no');
+            $('.nav__secondary').removeClass('clip-animation');
+            $('.nav__button-box').css('opacity', '0');
         }
     });
 
@@ -89,7 +106,7 @@ $(document).ready(function () {
             'background': `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0), rgba(44, 16, 102, 0.8) 20%)`
         });
         $('#graduation').css({
-            'background': `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0), rgba(44, 16, 102, 0.8) 20%)`
+            'background': `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0), rgba(32, 12, 98, 0.8) 20%)`
         });
         $('#corporate').css({
             'background': `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0), rgba(44, 16, 102, 0.8) 20%)`
@@ -98,8 +115,6 @@ $(document).ready(function () {
             'background': `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0), rgba(28, 11, 63, 0.83) 20%)`
         });
     });
-
-
 
     initCarousel();
 
@@ -316,12 +331,42 @@ $(document).ready(function () {
                 >= $('.footer').offset().top - 10)
                 $('.booking__pricePanel').css('position', 'absolute').css('width', '25%');
             if($(document).scrollTop() + window.innerHeight < $('.footer').offset().top)
-                $('.booking__pricePanel').css('position', 'fixed').css('width', '23%'); // restore when you scroll up
+                $('.booking__pricePanel').css('position', 'fixed').css('width', '23%');
+
+            if($('.scroll-down').offset().top + $('.scroll-down').height()
+                >= $('.footer').offset().top - 10)
+                $('.scroll-down').css('opacity', '0');
+            if($(document).scrollTop() + window.innerHeight < $('.footer').offset().top)
+                $('.scroll-down').css('opacity', '1');
         }
         $(document).scroll(function() {
             checkOffset();
         });
     }
+
+    if (window.location.href.includes('index') ) {
+        function checkOffset() {
+            if($('.scroll-down').offset().top + $('.scroll-down').height()
+                >= $('.footer').offset().top - 10)
+                $('.scroll-down').css('opacity', '0');
+            if($(document).scrollTop() + window.innerHeight < $('.footer').offset().top)
+                $('.scroll-down').css('opacity', '1');
+        }
+        $(document).scroll(function() {
+            checkOffset();
+        });
+    }
+
+    $(document).ready(function() {
+        $(window).bind('mousewheel DOMMouseScroll MozMousePixelScroll', function(event) {
+            delta = parseInt(event.originalEvent.wheelDelta || -event.originalEvent.detail);
+            if (delta >= 0) {
+                $('.header').css('height', '150px');
+            } else {
+                $('.header').css('height', '100px');
+            }
+        });
+    });
 
 
 
@@ -547,6 +592,12 @@ if (window.location.href.includes('pageBooking') ) {
             $(this).find('.text-not-valid').css('display', 'none');
         }
     });
+
+    $(".fa-search").click(function(){
+        $(".search-wrap, .input").toggleClass("active");
+        $("input[type='text']").focus();
+    });
+
 });
 
 function handleMenus(menuItemName) {
@@ -580,7 +631,7 @@ function getWeek(d) {
     return {year:d.getUTCFullYear(), number: weekNo};
 }
 
-function initCarousel(){
+function initCarousel() {
 
     if ($(window).width() <= '1024'){
         $('#home__rooms-accordion').owlCarousel({
