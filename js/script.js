@@ -32,7 +32,9 @@ $(document).ready(function () {
             $('a.nav-item').removeClass('no-animation');
             $('.nav__secondary').toggleClass('clip-animation');
             $('.nav__secondary').removeClass('clip-animation-no');
-            $('.nav__button-box').css('opacity', '1');
+            $('.nav__button-box').toggleClass('clip-animation');
+            $('.nav__button-box').removeClass('clip-animation-no');
+            $('.nav__main').css('display', 'flex');
 
         } else {
             $('.nav').removeClass('show');
@@ -41,7 +43,9 @@ $(document).ready(function () {
             $('a.nav-item').removeClass('nav-animation');
             $('.nav__secondary').toggleClass('clip-animation-no');
             $('.nav__secondary').removeClass('clip-animation');
-            $('.nav__button-box').css('opacity', '0');
+            $('.nav__button-box').toggleClass('clip-animation-no');
+            $('.nav__button-box').removeClass('clip-animation');
+            $('.nav__main').css('display', 'none');
         }
     });
 
@@ -63,12 +67,20 @@ $(document).ready(function () {
         handleMenus($(this).attr('href'));
     });
 
-    // footer-menu active item
-    $('.footer_nav a').click(function () {
-        handleMenus($(this).attr('href'));
+    // hover tooltip
+
+    $('.tooltip-icon').hover(
+        function () {
+            $(this).siblings('.musicRoom__buyPriceTooltip').css('height', 'auto').css('opacity', '1')
+        },
+        function () {
+            $(this).siblings('.musicRoom__buyPriceTooltip').css('height', '0').css('opacity', '0')
+        }
+    );
+
+    $('.booking__stepFoodItem').click(function () {
+        $(this).addClass('active')
     });
-
-
 
 //main-cursor
 
@@ -332,12 +344,6 @@ $(document).ready(function () {
                 $('.booking__pricePanel').css('position', 'absolute').css('width', '25%');
             if($(document).scrollTop() + window.innerHeight < $('.footer').offset().top)
                 $('.booking__pricePanel').css('position', 'fixed').css('width', '23%');
-
-            if($('.scroll-down').offset().top + $('.scroll-down').height()
-                >= $('.footer').offset().top - 10)
-                $('.scroll-down').css('opacity', '0');
-            if($(document).scrollTop() + window.innerHeight < $('.footer').offset().top)
-                $('.scroll-down').css('opacity', '1');
         }
         $(document).scroll(function() {
             checkOffset();
@@ -347,26 +353,90 @@ $(document).ready(function () {
     if (window.location.href.includes('index') ) {
         function checkOffset() {
             if($('.scroll-down').offset().top + $('.scroll-down').height()
-                >= $('.footer').offset().top - 10)
-                $('.scroll-down').css('opacity', '0');
-            if($(document).scrollTop() + window.innerHeight < $('.footer').offset().top)
-                $('.scroll-down').css('opacity', '1');
+                >= $('.button-up').offset().top - 10)
+                $('.scroll-down').css('animation', 'scroll-animation-no 0.3s forwards ease');
+                $('.button-up').css('animation', 'scroll-animation-no 0.3s forwards ease');
+            if($(document).scrollTop() + window.innerHeight < $('.button-up').offset().top)
+                $('.scroll-down').css('animation', 'scroll-animation 0.3s forwards ease');
+                $('.button-up').css('animation', 'scroll-animation 0.3s forwards ease');
         }
         $(document).scroll(function() {
             checkOffset();
         });
     }
 
-    $(document).ready(function() {
-        $(window).bind('mousewheel DOMMouseScroll MozMousePixelScroll', function(event) {
-            delta = parseInt(event.originalEvent.wheelDelta || -event.originalEvent.detail);
-            if (delta >= 0) {
-                $('.header').css('height', '150px');
+
+    if (window.location.href.includes('pagePost') ) {
+        var initialBoardCoordinate = $('#post__board').offset().top;
+
+        var navDivCoordinate = $('#nav-div').offset().top;
+        var navDivBottomCoordinate = navDivCoordinate + $('#nav-div').height();
+        var boardWidth = $('#post__board').width();
+        var boardHeight = $('#post__board').height();
+
+        $(window).scroll(function(){
+            $('#post__board').css('width', boardWidth);
+            var currentCoordinate = $(window).scrollTop();
+
+            var boardCoordinate = $('#post__board').offset().top;
+            var boardBottomCoordinate = boardCoordinate + boardHeight;
+
+            console.log('boardBottom ' + boardBottomCoordinate)
+            console.log('current ' + $(window).scrollTop())
+            console.log('navDiv ' + navDivBottomCoordinate)
+
+            if (
+                currentCoordinate >= (initialBoardCoordinate - 100) &&
+                currentCoordinate < navDivBottomCoordinate - boardHeight
+            ) {
+                $('#post__board').css('position','fixed').css('top', '0').css('bottom', 'auto');
             } else {
-                $('.header').css('height', '100px');
+                if (boardBottomCoordinate >= navDivBottomCoordinate) {
+                    $('#post__board').css('position','absolute').css('bottom', '0').css('top', 'auto');
+                } else {
+                    $('#post__board').css('position','absolute').css('top', '0').css('bottom', 'auto');
+                }
             }
         });
-    });
+
+    }
+
+    if (window.location.href.includes('pageAdditionalServices') ) {
+
+        // smooth scroll
+
+        $(".btn").on("click", function (event) {
+            event.preventDefault();
+
+            var id  = $(this).attr('href');
+            document.querySelector(id).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    }
+
+    // header height
+
+        var width = $(window).width();
+
+        $(window).bind('mousewheel DOMMouseScroll MozMousePixelScroll', function(event) {
+            delta = parseInt(event.originalEvent.wheelDelta || -event.originalEvent.detail);
+
+            if (width >=1024) {
+                if (delta >= 0) {
+                    $('.header').css('height', '150px').css('background-color', '#1C0A3B');
+                } else {
+                    $('.header').css('height', '100px').css('background-color', '#1C0A3B');
+                }
+            } else {
+                if (delta >= 0) {
+                    $('.header').css('height', '90px').css('transform', 'translateY(0)').css('background-color', '#1C0A3B');
+                } else {
+                    $('.header').css('transform', 'translateY(-100%)').css('background-color', '#1C0A3B');
+                }
+            }
+
+        });
 
 
 
@@ -427,119 +497,6 @@ $(document).ready(function () {
         });
     });
 
-
-
-    //card
-if (window.location.href.includes('pageBooking') ) {
-    let ccNumberInput = document.querySelector('.cc-number-input'),
-        ccNumberPattern = /^\d{0,16}$/g,
-        ccNumberSeparator = " ",
-        ccNumberInputOldValue,
-        ccNumberInputOldCursor,
-
-        ccExpiryInput = document.querySelector('.cc-expiry-input'),
-        ccExpiryPattern = /^\d{0,4}$/g,
-        ccExpirySeparator = "/",
-        ccExpiryInputOldValue,
-        ccExpiryInputOldCursor,
-
-        ccCVCInput = document.querySelector('.cc-cvc-input'),
-        ccCVCPattern = /^\d{0,3}$/g,
-
-        mask = (value, limit, separator) => {
-            var output = [];
-            for (let i = 0; i < value.length; i++) {
-                if ( i !== 0 && i % limit === 0) {
-                    output.push(separator);
-                }
-
-                output.push(value[i]);
-            }
-
-            return output.join("");
-        },
-        unmask = (value) => value.replace(/[^\d]/g, ''),
-        checkSeparator = (position, interval) => Math.floor(position / (interval + 1)),
-        ccNumberInputKeyDownHandler = (e) => {
-            let el = e.target;
-            ccNumberInputOldValue = el.value;
-            ccNumberInputOldCursor = el.selectionEnd;
-        },
-        ccNumberInputInputHandler = (e) => {
-            let el = e.target,
-                newValue = unmask(el.value),
-                newCursorPosition;
-
-            if ( newValue.match(ccNumberPattern) ) {
-                newValue = mask(newValue, 4, ccNumberSeparator);
-
-                newCursorPosition =
-                    ccNumberInputOldCursor - checkSeparator(ccNumberInputOldCursor, 4) +
-                    checkSeparator(ccNumberInputOldCursor + (newValue.length - ccNumberInputOldValue.length), 4) +
-                    (unmask(newValue).length - unmask(ccNumberInputOldValue).length);
-
-                el.value = (newValue !== "") ? newValue : "";
-            } else {
-                el.value = ccNumberInputOldValue;
-                newCursorPosition = ccNumberInputOldCursor;
-            }
-
-            el.setSelectionRange(newCursorPosition, newCursorPosition);
-
-            highlightCC(el.value);
-        },
-        highlightCC = (ccValue) => {
-            let ccCardType = '',
-                ccCardTypePatterns = {
-                    amex: /^3/,
-                    visa: /^4/,
-                    mastercard: /^5/,
-                    disc: /^6/,
-
-                    genric: /(^1|^2|^7|^8|^9|^0)/,
-                };
-
-            for (const cardType in ccCardTypePatterns) {
-                if ( ccCardTypePatterns[cardType].test(ccValue) ) {
-                    ccCardType = cardType;
-                    break;
-                }
-            }
-
-            let activeCC = document.querySelector('.cc-types__img--active'),
-                newActiveCC = document.querySelector(`.cc-types__img--${ccCardType}`);
-
-            if (activeCC) activeCC.classList.remove('cc-types__img--active');
-            if (newActiveCC) newActiveCC.classList.add('cc-types__img--active');
-        },
-        ccExpiryInputKeyDownHandler = (e) => {
-            let el = e.target;
-            ccExpiryInputOldValue = el.value;
-            ccExpiryInputOldCursor = el.selectionEnd;
-        },
-        ccExpiryInputInputHandler = (e) => {
-            let el = e.target,
-                newValue = el.value;
-
-            newValue = unmask(newValue);
-            if ( newValue.match(ccExpiryPattern) ) {
-                newValue = mask(newValue, 2, ccExpirySeparator);
-                el.value = newValue;
-            } else {
-                el.value = ccExpiryInputOldValue;
-            }
-        };
-
-    ccNumberInput.addEventListener('keydown', ccNumberInputKeyDownHandler);
-    ccNumberInput.addEventListener('input', ccNumberInputInputHandler);
-
-    ccExpiryInput.addEventListener('keydown', ccExpiryInputKeyDownHandler);
-    ccExpiryInput.addEventListener('input', ccExpiryInputInputHandler);
-}
-
-
-
-
 //form validation
     $(".user-name").on("keypress", function(e) {
 
@@ -598,6 +555,18 @@ if (window.location.href.includes('pageBooking') ) {
         $("input[type='text']").focus();
     });
 
+    var selectedRoom = $(".jq-selectbox__dropdown").find(".selected");
+    var rooms = $(".jq-selectbox__dropdown ul li");
+
+    rooms.hover(() => {
+        selectedRoom.addClass('selected');
+    });
+
+    rooms.click(() => {
+        selectedRoom = $(".jq-selectbox__dropdown").find(".selected");;
+        selectedRoom.addClass('selected');
+    });
+
 });
 
 function handleMenus(menuItemName) {
@@ -639,6 +608,10 @@ function initCarousel() {
             responsiveClass:true,
             responsive:{
                 0:{
+                    items: 1,
+                    nav: false
+                },
+                540:{
                     items: 2,
                     nav: false
                 }

@@ -46,7 +46,8 @@ html {
 body{
 	font-family: 'GothamPro', sans-serif;
 	width: 100%;
-    overflow-x:hidden
+    overflow-x:hidden;
+	scroll-behavior: smooth;
 }
 
 
@@ -252,8 +253,8 @@ a {
 
 
 .jq-selectbox__select  {
-	width: 70px;
-	height: 60px;
+	width: 108px;
+	height: 52px;
 	background-color: #2a135c;
 	border: none;
 	border-radius: 40px;
@@ -270,10 +271,16 @@ a {
 	font-family: 'GothamPro', sans-serif;
 	font-size: 20px;
 	cursor: pointer;
+	transition: all 0.5s ease;
+	box-sizing: border-box;
+}
+
+.jq-selectbox__select:hover {
+	background-color: #200d58!important;
 }
 
 .jq-selectbox__select-text {
-	transform: translateY(20px);
+	transform: translateY(14px);
 }
 
 .jq-selectbox__dropdown {
@@ -301,6 +308,10 @@ a {
 	position: relative;
 }
 
+.jq-selectbox__dropdown ul li:hover {
+	color: #CAFD35;
+}
+
 .jq-selectbox__dropdown ul li.selected:after {
 	content: '';
 	height: 8px;
@@ -314,7 +325,6 @@ a {
 
 .jq-selectbox__dropdown ul li.selected {
 	color: #CAFD35;
-	font-family: 'GothamPro-Bold', sans-serif;
 }
 
 .jq-selectbox__select-text {
@@ -360,25 +370,29 @@ a {
 @keyframes menu-show {
 	0% {
 		width: 0;
+        z-index: -1;
 	}
 	100% {
 		width: 92%;
+        z-index: 50;
 	}
 }
 
 @keyframes menu-hide {
 	0% {
 		width: 92%;
+       z-index: 50;
 	}
 	100% {
 		width: 0;
+        z-index: -1;
 	}
 }
 
 
 
 .nav__main, .nav__secondary {
-	display: flex;
+	display: none;
 	flex-direction: column;
 	margin-left: 10%;
 }
@@ -567,20 +581,6 @@ a.nav__secondary-item.bus {
 	align-items: flex-end;
 }
 
-a.nav__secondary-item.bus:before {
-	content: url("../img/bus-white.svg");
-	margin-right: 15px;
-	width: 33px;
-	height: 33px;
-}
-
-a.nav__secondary-item.bus:hover:before {
-	content: url("../img/bus-green.svg");
-	transform: scale(0.91);
-	width: 33px;
-	height: 33px;
-}
-
 .header {
 	position: fixed;
 	top: 0;
@@ -593,7 +593,7 @@ a.nav__secondary-item.bus:hover:before {
 	justify-content: space-between;
 	align-items: center;
 	background-color: #1C0A3B;
-	transition: height 0.5s ease;
+	transition: all 0.5s ease;
 }
 
 .button-box {
@@ -638,7 +638,7 @@ a.nav__secondary-item.bus:hover:before {
 
 .video-cover {
 	position: absolute;
-	height: 100%;
+	height: auto;
 	max-height: 680px;
 }
 
@@ -689,20 +689,32 @@ a.btn.dashed {
 	text-transform: capitalize;
 }
 
-a.btn.dashed:before {
-	content: url("../img/bus-green.svg");
-	margin-right: 15px;
+a.btn.dashed svg {
+    fill: #CAFD35;
+    stroke: #CAFD35;
+    margin-right: 15px;
 }
 
-a.btn.dashed:hover:before{
-    content: url("../img/bus-pink.svg");
-    margin-right: 15px;
+a.btn.dashed:hover svg {
+    fill: #F734C0;
+    stroke: #F734C0;
 }
 
 a.btn.dashed:hover {
     color: #F734C0;
     border: 1px solid #F734C0;
+}
 
+a.nav__secondary-item.bus svg {
+    fill: #ffffff;
+    stroke: #ffffff;
+    margin-right: 15px;
+    width: 30px;
+}
+
+a.nav__secondary-item.bus:hover svg {
+    fill: #CAFD35;
+    stroke: #CAFD35;
 }
 
 a.btn-long {
@@ -734,7 +746,8 @@ a.btn-long {
 
 .main__footer {
 	position: absolute;
-	bottom: 6vh;
+	bottom: 38px;
+	margin-left: 3%;
 }
 
 .scroll-down {
@@ -745,8 +758,7 @@ a.btn-long {
 	transform: rotate(-90deg) translateX(100%);
 	font-family: 'GothamPro-Bold', sans-serif;
 	font-size: 18px;
-	transition: all 1.5s ease;
-
+	animation-fill-mode: forwards;
 }
 
 .scroll-down:before {
@@ -837,6 +849,7 @@ section.about {
 	object-fit: cover;
 	width: 100%;
 	height: 100%;
+    filter: grayscale(100%);
 }
 
 .about-box__icon {
@@ -1125,13 +1138,22 @@ section.page-block {
 	overflow: hidden;
 }
 .booking-block__item {
+	box-sizing: border-box;
     position: relative;
 	width: 25%;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	padding: 1.8vw 0;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+	transition: all 0.5s ease;
 }
+
+.booking-block__item:nth-last-child(1) {
+    border-right: none;
+}
+
+
 .booking-block__item.submit {
 	background-color: #CAFD35;
 }
@@ -1326,6 +1348,26 @@ section.page-block {
     background-color: #F734C0;
 }
 
+
+@keyframes scroll-animation-no {
+    0% {
+        clip-path: circle(100% at 50% 50%);
+    }
+    100% {
+        clip-path: circle(0.0% at 50% 50%);
+    }
+}
+
+
+@keyframes scroll-animation {
+    0% {
+        clip-path: circle(0.0% at 50% 50%);
+    }
+    100% {
+        clip-path: circle(100% at 50% 50%);
+    }
+}
+
 .footer {
 	position: relative;
 	height: auto;
@@ -1423,10 +1465,10 @@ svg path {
 .footer__infoTitle {
     font-family: 'GothamPro-Black',sans-serif;
     color: #ffffff;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 15px;
+    font-size: 14px;
+    line-height: 1.7;
     text-transform: unset;
+    white-space: nowrap;
 }
 
 .footer__infoValue {
@@ -1435,8 +1477,8 @@ svg path {
     text-decoration: none;
     margin-top: 25px;
     color: #ffffff;
-    font-size: 13px;
-    line-height: 15px;
+    font-size: 14px;
+    line-height: 1.5;
     text-transform: unset;
     -webkit-transition: 0.5s;
     transition: 0.5s;
@@ -1447,7 +1489,7 @@ svg path {
 }
 
 .footerTime .footer__infoValue {
-    margin-top: 7px;
+    margin-top: 15px;
 }
 
 .footerContact .footer__infoValue {
@@ -1710,6 +1752,7 @@ a.logo-companies:hover svg {
 
 #chosen-month {
     font-size: 1.5vw;
+    margin-top: 0.6vw;
 }
 
 
@@ -1725,14 +1768,15 @@ section.booking {
 section.booking h1 {
 	text-transform: none;
 	margin-block-end: 0.7em;
-	margin-block-start: 0.7em;
+	margin-block-start: 1.2em;
+    font-size: 72px;
 }
 
 .booking__step1Wrap, .booking__foodStepWrap, .booking__userInfoStepWrap {
 	flex-direction: column;
 	margin-top: 157px;
-	margin-left: 3%;
-	width: 100%;
+	margin-left: 12.5%;
+	width: 85%;
 }
 
 .booking__foodStepWrap, .booking__userInfoStepWrap  {
@@ -1755,7 +1799,7 @@ section.booking h1 {
 
 .booking__stepTitle span {
 	color: white;
-	font-size: 26px;
+	font-size: 20px;
 }
 
 .room-descrBlock {
@@ -1781,21 +1825,31 @@ section.booking h1 {
 
 .musicRoom__buyPrice .radio {
 	margin-right: 11px;
+    transition: all 1s ease;
+    border: 1px solid transparent;
+    position: relative;
+    height: max-content;
 }
 
-.radio {
-	position: relative;
+
+.radio svg {
+    fill: white;
+    stroke: white;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    z-index: 5;
 }
 
-.tooltip-icon {
-	position: absolute;
-	right: 8px;
-	top: 8px;
-	z-index: 5;
+.radio svg:hover {
+    fill: #CAFD35;
+    stroke: #CAFD35;
 }
+
+
 
 .musicRoom__buyPriceTooltip {
-	display: none;
+	display: flex;
 	opacity: 0;
 	position: absolute;
 	top: -300%;
@@ -1810,9 +1864,13 @@ section.booking h1 {
 	transition: all 0.5s ease;
 }
 
-.radio:hover .musicRoom__buyPriceTooltip {
-	display: flex;
-	opacity: 1;
+/*.radio:hover .musicRoom__buyPriceTooltip {*/
+/*	display: flex;*/
+/*	opacity: 1;*/
+/*}*/
+
+.radio:hover {
+    border: 1px solid #CAFD35;
 }
 
 .musicRoom__buyPrice .radio input[type='radio'] {
@@ -1839,6 +1897,7 @@ section.booking h1 {
 	-webkit-box-pack: center;
 	-ms-flex-pack: center;
 	justify-content: center;
+	border-radius: 5px;
 }
 
 .musicRoom__buyPrice .radio label:before {
@@ -1846,10 +1905,11 @@ section.booking h1 {
 	position: absolute;
 	top: 16px;
 	left: 10px;
-	width: 15px;
-	height: 15px;
+	width: 13px;
+	height: 13px;
 	background: #ffffff;
 	border-radius: 50%;
+    border: 2px solid transparent;
 }
 
 .musicRoom__buyPrice .radio input:checked + label {
@@ -1857,10 +1917,14 @@ section.booking h1 {
 	font-weight: 700;
 	line-height: 17px;
 	text-transform: unset;
+    border: 1px solid #CAFD35;
+
 }
 
 .musicRoom__buyPrice .radio input:checked + label::before {
 	background: #cafd35;
+    border: 2px solid white;
+	animation: pulse 1s ease;
 }
 
 .musicRoom__buyItem {
@@ -1920,6 +1984,11 @@ section.booking h1 {
 	background-color: #1C0B3F;
 }
 
+.musicRoom__buyItem.disabled .musicRoom__buyItemTime {
+    color: #3E1B88;
+}
+
+
 .musicRoom__buyBtnDisabled {
 	font-family: 'GothamPro-Black', sans-serif;
 	font-size: 20px;
@@ -1953,7 +2022,7 @@ section.booking h1 {
 }
 
 .musicRoom__image {
-	width: 58%;
+	width: 56%;
 	height: 100%;
 	display: flex;
 	justify-content: center;
@@ -1966,6 +2035,7 @@ section.booking h1 {
 	width: 35%;
 	padding: 25px 2.5%;
 	background-color: #1C0B3F;
+    border-radius: 5px;
 }
 .musicRoom__title {
 	font-family: 'GothamPro-Bold', sans-serif;
@@ -2051,6 +2121,11 @@ section.booking h1 {
 	color: #ffffff;
 	position: relative;
 	margin-top: 30px;
+	transition: all 0.5s ease;
+}
+
+.booking__stepLink:hover {
+	opacity: 1;
 }
 
 .booking__stepLink:before {
@@ -2071,6 +2146,7 @@ section.booking h1 {
 	border-radius: 5px;
 	margin-bottom: 130px;
 	position: relative;
+	box-sizing: border-box;
 }
 
 .booking__additionalInfo:before, .booking__stepFoodWrap:before {
@@ -2111,6 +2187,7 @@ section.booking h1 {
 
 .booking__stepTypeFood .food-radio input[type='radio'] {
 	display: none;
+    transition: all 1s ease;
 }
 
 .booking__stepTypeFood .food-radio label {
@@ -2154,7 +2231,7 @@ section.booking h1 {
 }
 
 .booking__additionalInfoChose .checkbox {
-	width: 50%;
+	width: 48%;
 }
 
 .booking__additionalInfoChose input[type='radio'] {
@@ -2179,6 +2256,12 @@ section.booking h1 {
 	-webkit-box-align: center;
 	-ms-flex-align: center;
 	align-items: center;
+    transition: all 0.5s ease;
+    box-sizing: border-box;
+}
+
+.booking__additionalInfoChose label:hover {
+    border: 1px solid #CAFD35;
 }
 
 .booking__additionalInfoChose label svg {
@@ -2213,17 +2296,23 @@ input[type='checkbox'] {
 }
 
 .select-celebrate {
-	width: 95%;
+	width: 100%;
 }
 
 .select-celebrate .jq-selectbox__select, .form__row .jq-selectbox__select {
-	width: calc(100% - 25px);
+	width: 100%;
 	border-radius: 5px;
 	margin: 0;
 	background-position: 95% center;
-	color: rgba(255, 255, 255, 0.45);
-	border: 1px solid rgba(255, 255, 255, 0.45);
-	background-color: transparent;
+	color: rgba(255, 255, 255, 0.2);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	background-color: transparent!important;
+	box-sizing: border-box;
+}
+
+.select-celebrate .jq-selectbox__select:hover,
+.form__row .jq-selectbox__select:hover {
+	border: 1px solid rgba(255, 255, 255, 1);
 }
 
 .select-celebrate .jq-selectbox__select:focus {
@@ -2278,13 +2367,18 @@ input[type='checkbox'] {
 }
 
 .booking__stepFoodItem {
-	width: 14vw;
+	width: 32%;
 	margin-bottom: 20px;
-	border: 4px solid transparent;
+	box-sizing: border-box;
 	transition: all 0.5s ease;
 }
+
 .booking__stepFoodItem:hover {
-	border: 4px solid #CAFD35;
+	border: 1px solid #CAFD35;
+}
+
+.booking__stepFoodItem.active {
+    border: 4px solid #CAFD35;
 }
 
 .booking__stepFoodItemPrice {
@@ -2368,15 +2462,30 @@ input[type='checkbox'] {
 }
 
 .form__row input, .form__row select, .field-container input {
-	width: 94%;
+	width: 100%;
 	background-color: transparent;
-	height: 40px;
-	padding: 10px;
+	height: 70px;
+	padding: 10px 20px;
 	border-radius: 2px;
-	border: 1px solid rgba(255, 255, 255, 0.26);
+    box-sizing: border-box;
+	border: 1px solid rgba(255, 255, 255, 0.2);
 	font-family: 'GothamPro', sans-serif;
 	font-size: 20px;
-	color: rgba(255, 255, 255, 0.26);
+	color: rgba(255, 255, 255, 0.2);
+    transition: all 1s ease;
+	mix-blend-mode: normal;
+}
+
+.form__row:hover input, .form__row:hover select, .field-container:hover input {
+    border: 1px solid rgba(255, 255, 255, 1);
+}
+
+.form__row input:focus, .form__row select:focus, .field-container input:focus {
+    border: 1px solid rgba(255, 255, 255, 1);
+}
+
+.booking__userInfoPayment  .radio:hover {
+    border: none;
 }
 
 .form__row .jq-selectbox__select {
@@ -2449,11 +2558,11 @@ input[type='checkbox'] {
 
 .booking__userInfoPayment label {
 	cursor: pointer;
-	display: inline-block;
 	margin-bottom: 17px;
 	color: #ffffff;
 	position: relative;
 	padding-left: 33px;
+    display: flex;
 }
 
 .booking__userInfoPayment input[type='radio']:checked + label:before {
@@ -2466,6 +2575,58 @@ input[type='checkbox'] {
 	height: 11px;
 	border-radius: 50%;
 	background: #cafd35;
+    animation: pulse 1s ease;
+}
+
+.booking__userInfoPayment input[type='radio'] + label:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    margin-top: -5.5px;
+    left: 0;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #28105B;
+}
+
+label .discount {
+    background-color: #CAFD35;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 50px;
+    width: 34px;
+    color: #1C0A3B;
+    font-family: 'GothamPro-Black', sans-serif;
+    font-size: 12px;
+}
+
+@-webkit-keyframes pulse {
+    0% {
+        -webkit-box-shadow: 0 0 0 0 #CAFD35;
+    }
+    70% {
+        -webkit-box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+    }
+    100% {
+        -webkit-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+    }
+}
+@keyframes pulse {
+    0% {
+        -moz-box-shadow: 0 0 0 0 #CAFD35;
+        box-shadow: 0 0 0 0 #CAFD35;
+    }
+    70% {
+        -moz-box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+        box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+    }
+    100% {
+        -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+        box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+    }
 }
 
 .cardForm {
@@ -2489,11 +2650,6 @@ input[type='checkbox'] {
 	color: white;
 	margin-bottom: 15px;
 	padding-left: 0;
-}
-
-
-.field-container input {
-	width: 90%;
 }
 
 .field-container-short input {
@@ -2545,6 +2701,7 @@ input[type='checkbox'] {
 	margin-top: -3.5px;
 	left: 3px;
 	background: url(../img/check-mark-black-outline.svg) no-repeat;
+    animation: pulse 1s ease;
 }
 
 
@@ -2563,7 +2720,7 @@ input[type='checkbox'] {
 	bottom: 0;
 	height: 100vh;
 	width: 25%;
-	background-color: #F734C0;
+	background-color: #D31797;
 	color: white;
 	display: flex;
 	align-items: center;
@@ -2574,6 +2731,8 @@ input[type='checkbox'] {
 ::-webkit-scrollbar-track-piece { background-color: #ffffff;}
 ::-webkit-scrollbar-thumb {  background-color: #F734C0; border-radius: 3px;}
 
+.booking__pricePanel::-webkit-scrollbar-thumb {  background-color: #1C0A3B; border-radius: 3px;}
+
 .pricePanelWrap {
 	width: 100%;
 	display: flex;
@@ -2581,7 +2740,7 @@ input[type='checkbox'] {
 	justify-content: space-between;
 	align-items: center;
 	margin-top: 200px;
-	padding-top: 380px;
+	padding-top: 210px;
 }
 
 .booking__pricePanelTop {
@@ -2589,6 +2748,7 @@ input[type='checkbox'] {
 }
 
 .booking__pricePanelTitle {
+	position: relative;
 	display: flex;
 	justify-content: space-between;
 	font-family: 'GothamPro-Black', sans-serif;
@@ -2596,7 +2756,16 @@ input[type='checkbox'] {
 	text-transform: uppercase;
 	text-align: center;
 	padding: 50px 0;
-	border-bottom: 1px solid white;
+}
+
+.pricePanelDivider {
+	width: 120%;
+	height: 1px;
+	background-color: rgba(255, 255, 255, 0.2);
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
 }
 
 .booking__priceInfo {
@@ -2616,10 +2785,16 @@ input[type='checkbox'] {
 
 .booking-block--short {
 	background-color: #1C0A3B;
+    max-height: 175px;
 }
 
 .booking-block--short .booking-block__item {
-	width: 33%;
+	width: 33.3%;
+}
+
+.booking-block__item:hover {
+	border: 1px solid #CAFD35;
+	border-radius: 8px;
 }
 
 .booking-block--short .plus, .booking-block--short .minus {
@@ -2627,7 +2802,8 @@ input[type='checkbox'] {
 }
 
 .booking__priceInfoUserMessage {
-	width: calc(95% - 40px);
+	width: 100%;
+    box-sizing: border-box;
 	height: 160px;
 	background-color: #1C0A3B;
 	display: flex;
@@ -2636,6 +2812,7 @@ input[type='checkbox'] {
 	align-items: center;
 	padding: 20px;
 	margin-top: 40px;
+    border-radius: 5px;
 }
 .booking__priceInfoUserTitle {
 	font-family: 'GothamPro-Black', sans-serif;
@@ -2647,6 +2824,7 @@ input[type='checkbox'] {
 .booking__priceInfoUserValue {
 	font-size: 16px;
 	text-align: center;
+    width: 70%;
 }
 
 .booking__priceInfoUserValue span {
@@ -2800,11 +2978,13 @@ section.main-strip {
 .tour-icon:before {
 	content: url("../img/binoculars.svg");
 	margin-right: 15px;
+	transition: all 0.5s ease;
 }
 
 .tour-icon:hover:before {
 	content: url("../img/binoculars-pink.svg");
 	margin-right: 15px;
+	transition: all 0.5s ease;
 }
 
 .main-room .button-box {
@@ -2825,12 +3005,25 @@ section.main-strip {
 
 .page-room-features {
 	display: flex;
+	opacity: 1;
 	flex-direction: column;
 	align-items: flex-start;
 	width: 50%;
 }
 
+.page-room-features__box, .page-room-features__caption,
+.page-room-features__box .features-box__item {
+	display: flex;
+	opacity: 1;
+}
+
+.page-room-features__box {
+	flex-direction: column;
+}
+
 .page-room-features .btn {
+	display: flex;
+	opacity: 1;
 	width: auto;
 	margin-top: 30px;
 }
@@ -2926,7 +3119,7 @@ section.main-strip {
 .karaoke-text {
 	font-family: 'GothamPro-Black', sans-serif;
 	font-size: 72px;
-	animation: karaoke-text 7s ease;
+	animation: karaoke-text 40s linear infinite;
 }
 
 .word {
@@ -2948,17 +3141,17 @@ section.main-strip {
 	color: white;
 	overflow: hidden;
 	width: 40%;
-	animation: run-text 6s linear;
+	animation: run-text 40s linear infinite;
 	animation-fill-mode: forwards;
 	text-shadow: 0 0 3px rgba(255,255,255,1);
 }
 
 @keyframes karaoke-text {
 	0% {
-		transform: translateX(100%);
+		transform: translateX(50%);
 	}
 	100% {
-		transform: translateX(0%);
+		transform: translateX(-50%);
 	}
 }
 
@@ -3221,11 +3414,30 @@ section.main-private, section.graduation, section.corporate {
 }
 
 .order-box {
+	align-items: flex-start;
+	width: 45%;
 	margin: 35px;
+	display: flex;
+	flex-direction: column;
 }
 
 .order-box .order {
 	margin-left: 0;
+}
+
+.order-box__title {
+	font-family: 'GothamPro-Bold', sans-serif;
+	font-size: 30px;
+	line-height: 1.2;
+	text-transform: uppercase;
+	color: white;
+}
+
+.order-box__description {
+	font-family: 'GothamPro', sans-serif;
+	font-size: 18px;
+	line-height: 1.2;
+	color: white;
 }
 
 /*menu*/
@@ -3484,6 +3696,7 @@ section.terms-block {
 	margin-top: 3vw;
 	justify-content: space-between;
 	align-items: flex-start;
+    height: 80vh;
 }
 
 .post-box--main {
@@ -3572,6 +3785,8 @@ section.terms-block {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
+    height: 100%;
+    overflow-y: scroll;
 }
 
 .post-tile__img {
@@ -3605,11 +3820,11 @@ section.terms-block {
 }
 
 .post-tile-bgl {
-	position: absolute;
+	position: sticky;
 	bottom: 0;
 	width: 100%;
 	height: 50%;
-	background: linear-gradient(180deg, rgba(28, 11, 63, 0.0001) 1.39%, rgba(28, 11, 63, 0.89957) 100%);
+	background: linear-gradient(180deg, rgba(28, 11, 63, 0.0001) 1.39%, rgb(48, 16, 88) 100%);
 	mix-blend-mode: normal;
 }
 .board {
@@ -3660,21 +3875,25 @@ section.page-post {
 }
 
 .post__content {
-	width: 100%;
+	width: 92%;
 	max-width: 1500px;
 	display: flex;
 	justify-content: flex-end;
 	margin-right: 2%;
+	position: relative;
 }
 
 .post__body {
 	width: 75%;
 	max-width: 1140px;
-	margin-right: 20px;
+	margin-right: 28%;
 }
 
 .post__content .board {
 	margin-top: 120px;
+	position: absolute;
+	z-index: 9;
+	transition: all 1s ease;
 }
 
 .post__epigraph {
@@ -3777,6 +3996,7 @@ section.page-post {
 
 section.contacts {
 	background-color: #33135D;
+	padding-bottom: 0;
 }
 .contacts__block {
 	display: flex;
@@ -3866,9 +4086,15 @@ textarea {
 	font-family: "GothamPro", sans-serif;
 	font-size: 20px;
 	color: white;
-	border: 1px solid gray;
+	border: 1px solid rgba(255, 255, 255, 0.2);
 	padding: 26px 20px;
 	box-sizing: border-box;
+	transition: all 0.5s ease;
+}
+
+textarea:hover, textarea:focus {
+	border: 1px solid rgba(255, 255, 255, 1);
+	outline: none;
 }
 
 .contacts__block {
@@ -3940,12 +4166,27 @@ section.page-404, section.page-3d {
 	margin-top: 90px;
 }
 
+.tour__rooms {
+	width: 60%;
+	max-width: 400px;
+}
+
 .tour__rooms .jq-selectbox__select {
-	width: 350px;
+	width: 100%;
 	background-color: #331B79;
 	z-index: 14;
-	background-position: 245px center
+	background-position: 245px center;
+	height: 60px;
 }
+
+.tour__rooms .jq-selectbox__dropdown {
+	width: 90%!important;
+}
+
+.tour__rooms .jq-selectbox__select-text {
+	transform: translateY(17px);
+}
+
 
 .jq-selectbox__dropdown li {
 	cursor: pointer!important;
@@ -3965,6 +4206,7 @@ section.page-404, section.page-3d {
 .box3d__button .btn:before {
 	content: url("../img/explore.svg");
 	margin-right: 15px;
+	margin-top: 6px;
 }
 
 
@@ -3995,8 +4237,23 @@ section.page-404, section.page-3d {
 	stroke: #F734C0;
 }
 
+.bg-text-j {
+    color: #411774;
+    left: 55%;
+    opacity: 1;
+    mix-blend-mode: normal;
+}
+
+.page-room__bg-text {
+	left: 56%;
+}
+
+.main__content--grid {
+	margin-left: 12vw;
+}
+
 section.main-services {
-	background: linear-gradient(360deg, #1B0A3E 0%, rgba(27, 10, 62, 0.0001) 100%);
+	background: linear-gradient(360deg, #1B0A3E 0%, rgba(27, 10, 62, 0.0001) 170%);
 }
 
 section.page-block-dark-bg {
@@ -4214,6 +4471,11 @@ section.page-block-dark-bg {
 	.post-tile__cover .post-category, .post-tile__cover .post-box__footer, .post-tile__cover .post-name {
 		width: 100%;
 	}
+
+	.booking__step1Wrap, .booking__foodStepWrap, .booking__userInfoStepWrap {
+		margin-left: 3.5%;
+		width: 100%;
+	}
 }
 
 @media screen and (max-width: 1024px) {
@@ -4234,9 +4496,7 @@ section.page-block-dark-bg {
 	.text-icon span {
 		margin-left: 30px;
 	}
-	.main__footer {
-		margin-bottom: 11vh;
-	}
+
 	a.btn-long {
 		min-width: 200px;
 		height: 65px;
@@ -4359,7 +4619,6 @@ section.page-block-dark-bg {
 	}
 
 	.booking__priceInfoUserMessage {
-		width: calc(95% - 20px);
 		height: 100px;
 		padding: 10px;
 	}
@@ -4456,6 +4715,26 @@ section.page-block-dark-bg {
 	.contacts__form {
 		width: 100%;
 		align-self: center;
+	}
+
+	.rooms-accordion__item:hover .room-features {
+		display: none;
+	}
+
+	.rooms-accordion__item:hover {
+		width: 100% !important;
+	}
+
+	.booking-block__btn {
+		height: 100%;
+	}
+
+	.button-up {
+		display: none;
+	}
+
+	.rooms-accordion__item:hover .room-name {
+		font-size: 48px;
 	}
 }
 
@@ -4585,6 +4864,32 @@ section.page-block-dark-bg {
 	.companies {
 		justify-content: space-around;
 	}
+
+
+	.box3d__button {
+		flex-direction: column-reverse;
+		transform: translateX(0);
+	}
+
+	.box3d__button .btn {
+		position: static;
+		box-sizing: border-box;
+		width: 50%;
+		min-width: 227px;
+		transform: translateX(0);
+		margin-bottom: 20px;
+	}
+
+	.tour__rooms {
+		width: 50%;
+		min-width: 227px;
+	}
+
+	.tour__rooms .jq-selectbox__select {
+		margin: 0;
+		background-position: 90% center;
+	}
+
 }
 
 
@@ -4618,11 +4923,11 @@ section.page-block-dark-bg {
 	}
 
 	.booking__step1Wrap .booking-block {
-		width: 90%;
+		width: 95%;
 	}
 
 	.musicRoom__item {
-		width: 90%;
+		width: 95%;
 	}
 	.booking__step1Wrap, .booking__foodStepWrap, .booking__userInfoStepWrap {
 		margin-left: 5%;
@@ -4758,14 +5063,7 @@ section.page-block-dark-bg {
 	.musicRoom__buyItem.disabled {
 		width: 95%;
 	}
-	.form__row {
-		width: 100%;
-	}
-
-	.form__row .jq-selectbox__select {
-		width: 88%;
-	}
-	.field-container {
+	.form__row, .form__row .jq-selectbox__select, .field-container {
 		width: 100%;
 	}
 
@@ -4977,7 +5275,7 @@ section.page-block-dark-bg {
 
     .nav__rooms .jq-selectbox__select, .nav .bus {
         display: flex;
-        width: 128px;
+        width: 156px;
         height: 50px;
         margin-bottom: 20px;
         margin-left: 6%;
@@ -4998,6 +5296,7 @@ section.page-block-dark-bg {
     .footer {
         width: 100%;
         margin: 0;
+		padding-bottom: 13vh;
     }
     .booking-block--long {
         flex-direction: column;
@@ -5094,6 +5393,31 @@ section.page-block-dark-bg {
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+	}
+
+	.box3d__h1 {
+		font-size: 60px;
+	}
+
+	.main__footer {
+		bottom: 130px;
+		margin-left: 0;
+	}
+
+	.booking__stepTypeFood .food-radio label {
+		font-size: 14px;
+	}
+
+	.booking__stepTypeFood {
+		width: 45%;
+	}
+
+	.h1-w-span {
+		font-size: 50px;
+	}
+
+	.room-number {
+		font-size: 20px;
 	}
 }
 
