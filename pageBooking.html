@@ -629,7 +629,6 @@
                     </div>
                 </div>
             </div>
-            <a class="continueBtn btn" id="continue-btn" href="#">Continue</a>
         </div>
             <div class="booking__foodStepWrap">
                 <a class="booking__stepLink" href="">Back to previous steps</a>
@@ -824,8 +823,7 @@
                     </div>
                 </div>
                 <div class="button-box">
-                    <a class="btn continueBtn" id="food-continue-btn" href="#">Continue</a>
-                    <a class="btn transparent continueBtn" href="#" id="food-prev-btn">Previous steps </a>
+                    <button class="btn transparent continueBtn booking-prev-btn">Previous steps </button>
                 </div>
             </div>
             <div class="booking__userInfoStepWrap">
@@ -853,7 +851,7 @@
                             </div>
                             <div class="form__row">
                                 <label class="form__label">Country</label>
-                                <select name="country" class="country">
+                                <select name="country" id="country-select" class="country">
                                     <option value="AF">Afghanistan</option>
                                     <option value="AX">Åland Islands</option>
                                     <option value="AL">Albania</option>
@@ -1146,7 +1144,7 @@
                             <label for="booking__userAgree">I agree to the processing of personal date</label>
                         </div>
                     </div>
-                <a class="btn transparent continueBtn" href="#" id="pay-prev-btn">Previous steps </a>
+                <button class="btn transparent continueBtn booking-prev-btn">Previous steps </button>
             </div>
         <div class="booking__pricePanel">
             <div class="pricePanelWrap">
@@ -1196,7 +1194,7 @@
                         <div class="booking__pricePanelTotalPriceValue"> <span>39 000 HUF ≈</span><span>120 €</span></div>
                         <div class="booking__pricePanelTotalPriceDescr">AMEX 1.76% surcharge applies. All bookings are final and no refunds available. SSL Secured bookings.</div>
                     </div>
-                    <button type="submit" class="booking__pricePanelBookBtn">Book a room</button>
+                    <button type="submit" class="booking__pricePanelBookBtn" id="continue-btn">continue</button>
                 </div>
             </div>
         </div>

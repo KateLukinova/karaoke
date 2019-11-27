@@ -405,7 +405,7 @@ $(document).ready(function () {
 
         // smooth scroll
 
-        $(".btn").on("click", function (event) {
+        $("#smooth-scroll").on("click", function (event) {
             event.preventDefault();
 
             var id  = $(this).attr('href');
@@ -414,6 +414,10 @@ $(document).ready(function () {
             });
         });
     }
+
+
+    // select width
+
 
     // header height
 
@@ -439,43 +443,82 @@ $(document).ready(function () {
         });
 
 
+// modal
+
+   $('.modal-toggle').on('click', function(e) {
+        e.preventDefault();
+        $('.modal').toggleClass('is-visible');
+    });
+
 
 // continue booking
-    $('#continue-btn').click(
-        function () {
-            $('.booking__step1Wrap').css('display', 'none');
-            $('.booking__foodStepWrap').css('display', 'flex');
-        }
-    );
 
-    $('#food-prev-btn').click(
-        function () {
-            $('.booking__step1Wrap').css('display', 'flex');
-            $('.booking__foodStepWrap').css('display', 'none');
-        }
-    );
+    if (window.location.href.includes('pageBooking') ) {
 
-    $('#food-continue-btn').click(
-        function () {
-            $('.booking__foodStepWrap').css('display', 'none');
-            $('.booking__userInfoStepWrap').css('display', 'flex');
-        }
-    );
+        var currentOrderPage = 1;
+        var selectCountryWidth = $(".booking__userInfoPersonal").first().width();
+        var selectCountryDivWidth = $("#country-select").width();
+        $('#country-select').change(() => {
+            $("#country-select").css('width', selectCountryWidth)
+            $(".booking__userInfoPersonal").find('.form__row').css('width', selectCountryWidth)
+            $(".country").css('width', selectCountryWidth)
+            $(".booking__userInfoPersonal").css('width', selectCountryDivWidth)
+        });
 
-    $('#pay-prev-btn').click(
-        function () {
-            $('.booking__foodStepWrap').css('display', 'flex');
-            $('.booking__userInfoStepWrap').css('display', 'none');
-        }
-    );
+        $('#continue-btn').click(
+            function () {
+                setTimeout(() => {
+                    selectCountryDivWidth = $(".booking__userInfoPersonal").first().width();
+                    selectCountryWidth = $(".form__row").first().width();
+                }, 500);
 
-    $('#pen-link').click(
-        function () {
-            $('.booking__foodStepWrap').css('display', 'none');
-            $('.booking__userInfoStepWrap').css('display', 'none');
-            $('.booking__step1Wrap').css('display', 'flex');
-        }
-    );
+                if (currentOrderPage == 1) {
+
+                    currentOrderPage++;
+
+                    $('.booking__step1Wrap').css('display', 'none');
+                    $('.booking__foodStepWrap').css('display', 'flex');
+                } else if (currentOrderPage == 2) {
+
+                    currentOrderPage++;
+
+                    $('.booking__foodStepWrap').css('display', 'none');
+                    $('.booking__userInfoStepWrap').css('display', 'flex');
+                } else {
+
+                }
+
+            }
+        );
+
+        $('.booking-prev-btn').click(
+            function () {
+                if (currentOrderPage == 2) {
+                    currentOrderPage--;
+
+                    $('.booking__step1Wrap').css('display', 'flex');
+                    $('.booking__foodStepWrap').css('display', 'none');
+                } else if (currentOrderPage == 3) {
+                    currentOrderPage--;
+
+                    $('.booking__foodStepWrap').css('display', 'flex');
+                    $('.booking__userInfoStepWrap').css('display', 'none');
+                } else {
+
+                }
+            }
+        );
+
+        $('#pen-link').click(
+            function () {
+                $('.booking__foodStepWrap').css('display', 'none');
+                $('.booking__userInfoStepWrap').css('display', 'none');
+                $('.booking__step1Wrap').css('display', 'flex');
+            }
+        );
+    }
+
+
 
 
     //food tabs
