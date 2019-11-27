@@ -65,7 +65,7 @@ li{
 
 a{
 	text-decoration: none;
-	transition: all 0.5s ease;
+	transition: all 0.3s linear;
 }
 
 button, button:hover, button:focus,
@@ -220,14 +220,16 @@ a.logo svg {
 .nav-wrap {
 	display: flex;
 	width: 100%;
-	margin-top: 5.5vw;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
 .nav__button-box {
 	width: 90%;
 	display: flex;
 	justify-content: flex-end;
-	align-items: center;
+	align-items: flex-start;
 	margin-top: 45px;
 	padding-right: 2%;
 	box-sizing: border-box;
@@ -335,6 +337,23 @@ a.logo svg {
 
 .jq-selectbox__select-text {
 	width: 100%!important;
+}
+
+select.nav__lang {
+	position: relative;
+	display: none;
+}
+
+.nav__lang .jq-selectbox__select {
+	z-index: 17;
+}
+
+.nav__lang .jq-selectbox__dropdown {
+	position: sticky!important;
+	left: 10px;
+	transform: translate(10px, -30px);
+	padding-top: 30px;
+	z-index: 16;
 }
 
 .btn.transparent  {
@@ -699,6 +718,7 @@ a.btn.dashed svg {
     fill: #CAFD35;
     stroke: #CAFD35;
     margin-right: 15px;
+	transition: color 0.3s linear;
 }
 
 a.btn.dashed:hover svg {
@@ -1157,6 +1177,7 @@ section.page-block {
 
 .booking-block__item:nth-last-child(1) {
     border-right: none;
+	cursor: pointer;
 }
 
 
@@ -1612,6 +1633,7 @@ svg path {
 	font-size: 18px;
 	text-transform: uppercase;
 	color: #CAFD35;
+	transition: all 0.3s linear;
 }
 
 .footer__documents {
@@ -1653,6 +1675,7 @@ a.logo-companies svg {
     stroke: #CAFD35;
     fill: #CAFD35;
     margin-right: 1.8vw;
+	transition: color 0.3s linear;
 }
 
 a.logo-companies:hover svg {
@@ -2149,7 +2172,7 @@ section.booking h1 {
 }
 
 .booking__additionalInfo {
-	width: 47%;
+	width: 65%;
 	background: #1c0b3f;
 	padding: 3%;
 	border-radius: 5px;
@@ -2346,7 +2369,7 @@ input[type='checkbox'] {
 }
 
 .booking__stepFoodWrap {
-	width: 54%;
+	width: 65%;
 	display: flex;
 	justify-content: space-between;
 	flex-wrap: wrap;
@@ -2832,6 +2855,12 @@ label .discount {
 
 .booking-block--short .plus, .booking-block--short .minus {
 	background-color: #401B8D;
+	transition: all 0.5s ease;
+}
+
+.booking-block--short .plus:hover, .booking-block--short .minus:hover {
+	background-color: #F734C0;
+	color: white;
 }
 
 .booking__priceInfoUserMessage {
@@ -3011,7 +3040,7 @@ section.main-strip {
 .tour-icon:before {
 	content: url("../img/binoculars.svg");
 	margin-right: 15px;
-	transition: all 0.5s ease;
+	transition: all 0.3s linear;
 }
 
 .tour-icon:hover:before {
@@ -3394,6 +3423,9 @@ section.main-private, section.graduation, section.corporate {
 	background: linear-gradient(58.81deg, #10045E 28.59%, #2C1774 67.84%, #1E0D57 81.92%);
 }
 
+section.block--no-bg {
+	background: rgb(48, 16, 88);
+}
 
 /*additional services*/
 
@@ -5600,6 +5632,7 @@ section.page-block-dark-bg {
     }
     a.nav-item {
         font-size: 25px;
+		width: max-content;
     }
     .mobile-none {
         display: none;
@@ -5628,10 +5661,12 @@ section.page-block-dark-bg {
 
     .nav-wrap {
         flex-direction: column;
+		transform: translateY(-35%);
     }
 
     .nav__rooms {
         display: flex;
+		width: max-content;
     }
 
     .nav__rooms .jq-selectbox__select-text {
@@ -5652,10 +5687,12 @@ section.page-block-dark-bg {
         padding: 0 20px;
         background-position: 125px center;
         margin-right: 5%;
+		width: 185px;
     }
 
     .nav .btn.bus {
         width: 235px;
+		margin-top: 20px;
 
     }
     .footer {

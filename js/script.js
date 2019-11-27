@@ -10,6 +10,7 @@ $(document).ready(function () {
     // init select
 
     $('.lang').styler();
+    $('.nav__lang').styler();
     $('.select-celebrate').styler();
     $('.country').styler();
     $('.header__rooms').styler();
@@ -398,14 +399,21 @@ $(document).ready(function () {
                 }
             }
         });
+    }
+// smooth scroll
+    if (window.location.href.includes('pageAdditionalServices') ) {
+        $("#smooth-scroll").on("click", function (event) {
+            event.preventDefault();
 
+            var id  = $(this).attr('href');
+            document.querySelector(id).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
     }
 
-    if (window.location.href.includes('pageAdditionalServices') ) {
-
-        // smooth scroll
-
-        $("#smooth-scroll").on("click", function (event) {
+    if (window.location.href.includes('pageMenu') ) {
+        $("#order-scroll").on("click", function (event) {
             event.preventDefault();
 
             var id  = $(this).attr('href');
