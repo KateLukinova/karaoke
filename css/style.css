@@ -3083,7 +3083,7 @@ section.main-strip {
 	background-color: transparent;
 }
 
-.main-reggae {
+section.main-reggae {
 	background: linear-gradient(360deg, #E7126D 0%, rgba(231, 18, 108, 0.0001) 94.81%);
 }
 
@@ -3091,7 +3091,7 @@ section.main-strip {
 	background: linear-gradient(60.49deg, #EE4E4E 11.5%, #FC6A2E 52.67%, #E71263 77.38%);
 }
 
-.main-gatsby {
+section.main-gatsby {
 	background: linear-gradient(0deg, #61045F 0%, rgba(95, 8, 110, 0.0001) 100%);
 }
 
@@ -3099,7 +3099,7 @@ section.main-strip {
 	background: linear-gradient(306.04deg, #61045F 3.67%, #4813CC 43.35%, #61045F 81.78%);
 }
 
-.main-comics {
+section.main-comics {
 	background: linear-gradient(360deg, #0575E6 0%, rgba(5, 117, 230, 0.0001) 100%);
 }
 
@@ -3107,7 +3107,7 @@ section.main-strip {
 	background: linear-gradient(50.34deg, #0575E6 13.25%, #471FAD 39.13%, #00F260 54.74%, #0575E6 83.79%);
 }
 
-.main-iceberg {
+section.main-iceberg {
 	background: linear-gradient(360deg, #0575E6 0%, rgba(5, 117, 230, 0.0001) 99.1%);
 }
 
@@ -3451,6 +3451,14 @@ section.main-private, section.graduation, section.corporate {
 	max-width: 1140px;
 }
 
+.page-menu__food-wrap {
+    width: 90%;
+    max-width: 1140px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
 .food-caption {
 	width: 100%;
 	font-family: 'GothamPro-Black', sans-serif;
@@ -3517,7 +3525,7 @@ section.main-private, section.graduation, section.corporate {
 	align-items: center;
 	width: 100%;
 	max-width: 1140px;
-	margin-top: 40px;
+	margin: 40px auto;
 }
 
 .set-price-box__item {
@@ -4461,6 +4469,12 @@ section.page-block-dark-bg {
 	.h1--no-transform {
 		margin-top: 160px;
 	}
+
+    .search-wrap {
+        top: 180px;
+        right: 5%;
+    }
+
 	.post-box {
 		margin-top: 60px;
 	}
@@ -4469,13 +4483,14 @@ section.page-block-dark-bg {
 		width: 100%;
 	}
 	.post-tile__cover .post-category, .post-tile__cover .post-box__footer, .post-tile__cover .post-name {
-		width: 100%;
+		align-self: flex-start;
 	}
 
 	.booking__step1Wrap, .booking__foodStepWrap, .booking__userInfoStepWrap {
 		margin-left: 3.5%;
 		width: 100%;
 	}
+
 }
 
 @media screen and (max-width: 1024px) {
@@ -4487,8 +4502,7 @@ section.page-block-dark-bg {
 	}
 	.text-icon {
 		font-size: 18px;
-		margin-top: 20px;
-		margin-bottom: 120px;
+		margin-top: 40px;
 	}
 	.text-icon img {
 		width: 40px;
@@ -4609,6 +4623,11 @@ section.page-block-dark-bg {
 	.btn {
 		height: 50px;
 	}
+
+    .btn-main-room, .btn-main-room.transparent {
+        height: 70px;
+        width: 200px;
+    }
 
 	.booking__priceInfoUserTitle {
 		font-size: 14px;
@@ -4736,6 +4755,64 @@ section.page-block-dark-bg {
 	.rooms-accordion__item:hover .room-name {
 		font-size: 48px;
 	}
+
+    .bg-text {
+        font-size: 156px;
+        left: 67%;
+    }
+
+    .page-event h2 {
+        font-size: 36px;
+    }
+
+    .add-services__caption {
+        margin: 70px auto;
+    }
+
+    section.main {
+        background: linear-gradient(360deg, #1C0B3F 0%, rgba(28, 11, 63, 0.2) 100%);
+    }
+
+    section.main-strip {
+        background: linear-gradient(360deg, #311287 0%, rgba(45, 16, 128, 0.45) 100%);
+    }
+
+    section.main-reggae {
+        background: linear-gradient(360deg, #E7126D 0%, rgba(231, 18, 108, 0.0001) 94.81%);
+    }
+
+    section.main-gatsby {
+        background: linear-gradient(0deg, #61045F 0%, rgba(95, 8, 110, 0.0001) 100%);
+    }
+
+    section.main-comics {
+        background: linear-gradient(360deg, #0575E6 0%, rgba(5, 117, 230, 0.0001) 100%);
+    }
+
+    section.main-iceberg {
+        background: linear-gradient(360deg, #0575E6 0%, rgba(5, 117, 230, 0.0001) 99.1%);
+    }
+
+    section.main-birthday, section.main-disco {
+        background: linear-gradient(360deg, #351675 0%, rgba(53, 22, 117, 0.0001) 100%);
+    }
+
+    section.main-bachelor {
+        background: linear-gradient(65.69deg, #200A43 11.48%, #0F056A 33.6%, #13052F 85.83%);
+    }
+
+    section.main-hen {
+        background: linear-gradient(360deg, #380941 2.15%, rgba(56, 9, 65, 0.0001) 100%);
+    }
+
+    section.main-private, section.graduation, section.corporate {
+        background: linear-gradient(360deg, #2C1066 0%, rgba(44, 16, 101, 0.0001) 100%);
+    }
+
+    .post-box--main img {
+        height: 613px;
+    }
+
 }
 
 @media screen and (max-width: 990px) {
@@ -4858,9 +4935,14 @@ section.page-block-dark-bg {
 	}
 
 	.h1--no-transform {
-		font-size: 30px;
+		font-size: 56px;
 		margin-top: 150px;
 	}
+
+    .search-wrap {
+        top: 155px;
+    }
+
 	.companies {
 		justify-content: space-around;
 	}
@@ -5010,6 +5092,35 @@ section.page-block-dark-bg {
 		width: 100%;
 		height: 250px;
 	}
+
+    ul.text-ul li {
+        width: 95%;
+    }
+
+    .post-box {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .post-box--main, .post-tile {
+        width: 100%;
+        margin-bottom: 25px;
+    }
+
+    .post-tile {
+        overflow-y: auto;
+    }
+
+    .post-box--main img, .post-tile__img {
+        height: 320px;
+    }
+
+    .post-tile__cover .post-category,
+    .post-tile__cover .post-box__footer,
+    .post-tile__cover .post-name {
+        width: 100%;
+    }
+
 }
 
 @media screen and (max-width: 640px) {
@@ -5171,6 +5282,18 @@ section.page-block-dark-bg {
 	.box404__number {
 		font-size: 154px;
 	}
+
+    .search-wrap {
+        top: 230px;
+    }
+
+    .search-wrap.active {
+        width: 67%;
+    }
+
+    .post-box {
+        margin-top: 100px;
+    }
 
 }
 
@@ -5419,5 +5542,9 @@ section.page-block-dark-bg {
 	.room-number {
 		font-size: 20px;
 	}
+
+    .post-tile__img {
+        height: 200px;
+    }
 }
 
