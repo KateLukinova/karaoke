@@ -177,15 +177,16 @@
 
     <section class="section page-block page-block-dark-bg" id="sr-menu">
         <div class="menu-box">
-            <div class="booking__stepTypeFood">
+            <div class="booking__stepTypeFood switch">
                 <div class="food-radio active">
-                    <input id="chose11" name="booking__stepTypeFood" type="radio" checked>
-                    <label for="chose11">Course</label>
+                    <input name="radio" type="radio" value="menu__option-course" id="menu__option-course" checked>
+                    <label for="menu__option-course">Course</label>
                 </div>
                 <div class="food-radio">
-                    <input id="chose22" name="booking__stepTypeFood" type="radio">
-                    <label for="chose22">Drinks</label>
+                    <input name="radio" type="radio" value="menu__option-drinks" id="menu__option-drinks">
+                    <label for="menu__option-drinks" class="right">Drinks</label>
                 </div>
+                <span aria-hidden="true"></span>
             </div>
             <div class="page-menu__food-wrap tabs__content active">
                 <div class="food-caption">
@@ -271,6 +272,9 @@
 
             </div>
             <div class="page-menu__food-wrap tabs__content">
+                <div class="food-caption">
+                    Apetizers
+                </div>
                 <div class="booking__stepFoodItem">
                     <div class="booking__stepFoodItemImage"><img src="img/party.jpg"></div>
                     <div class="booking__stepFoodItemText">

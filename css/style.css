@@ -785,19 +785,25 @@ a.btn-long {
 	font-family: 'GothamPro-Bold', sans-serif;
 	font-size: 18px;
 	animation-fill-mode: forwards;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.scroll-down:before {
-	content: url("../img/arrow-scroll.svg");
-	position: absolute;
-	top: 50%;
-	left: 0;
-	transform: translate(-300%, -50%);
+.scroll-down svg {
+	fill: white;
+	stroke: white;
+	margin-right: 15px;
+	margin-top: 5px;
 }
 
 .scroll-down:hover {
-	transform: translateY(-50px) rotate(-90deg);
 	color: #CAFD35;
+}
+
+.scroll-down:hover svg {
+	fill: #CAFD35;
+	stroke: #CAFD35;
 }
 
 section.about {
@@ -1633,7 +1639,7 @@ svg path {
 	font-size: 18px;
 	text-transform: uppercase;
 	color: #CAFD35;
-	transition: all 0.3s linear;
+	transition: color 0.3s linear;
 }
 
 .footer__documents {
@@ -1772,6 +1778,7 @@ a.logo-companies:hover svg {
     left: 0;
     height: 100%;
     opacity: 0;
+	cursor: pointer;
 }
 
 .chosen-date {
@@ -1887,17 +1894,12 @@ section.booking h1 {
 	flex-direction: column;
 	background-color: #1C0A3B;
 	width: 157px;
-	height: auto;
+	height: 0;
 	padding: 15px;
 	border-radius: 6px;
 	z-index: 15;
 	transition: all 0.5s ease;
 }
-
-/*.radio:hover .musicRoom__buyPriceTooltip {*/
-/*	display: flex;*/
-/*	opacity: 1;*/
-/*}*/
 
 .radio:hover {
     border: 1px solid #CAFD35;
@@ -2202,54 +2204,60 @@ section.booking h1 {
 }
 
 
-.booking__stepTypeFood {
-	width: 30%;
-	max-width: 373px;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	background: #260f55;
-	border-radius: 10px;
-	padding: 14px;
+.switch {
+    display: inline-block;
+    height: 60px;
+    position: relative;
+    zoom: 1;
+    width: 30%;
+    max-width: 373px;
+    background: #260f55;
+    border-radius: 10px;
+    padding: 14px;
 }
-
-.food-radio {
-	width: 50%;
+.switch:before, .switch:after {
+    content: " ";
+    display: table;
 }
-
-.booking__stepTypeFood .food-radio input[type='radio'] {
-	display: none;
-    transition: all 1s ease;
+.switch:after {
+    clear: both;
 }
-
-.booking__stepTypeFood .food-radio label {
-	cursor: pointer;
-	width: 100%;
-	height: 60px;
-	color: #cafd35;
-	font-size: 20px;
-	font-weight: 400;
-	line-height: 19px;
-	text-transform: unset;
-	display: -webkit-inline-box;
-	display: -ms-inline-flexbox;
-	display: inline-flex;
-	-webkit-box-pack: center;
-	-ms-flex-pack: center;
-	justify-content: center;
-	-webkit-box-align: center;
-	-ms-flex-align: center;
-	align-items: center;
-	border-radius: 10px;
-	transition: all 0.5s ease;
+.switch label {
+    font-family: 'GothamPro', sans-serif;
+    font-size: 20px;
+    float: left;
+    width: 50%;
+    position: relative;
+    z-index: 2;
+    line-height: 3;
+    cursor: pointer;
+    color: #CAFD35;
+    text-align: center;
 }
-
-.booking__stepTypeFood .food-radio input[type='radio']:checked + label {
-	background: #cafd35;
-	color: #260f55;
-	line-height: 19px;
-	text-transform: unset;
-	font-family: 'GothamPro-Black', sans-serif;
+.switch input[type="radio"] {
+    display: none;
+}
+.switch input[type="radio"]:checked + label {
+    font-family: 'GothamPro-Black', sans-serif;
+    color: #260F55;
+}
+.switch span {
+    position: relative;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    display: block;
+    border-radius: 10px;
+    background-color: #CAFD35;
+    transition: all 200ms ease;
+    text-align: center;
+}
+.switch span.right {
+    left: 50%;
+    border-radius: 10px;
+    transition: all 200ms ease;
 }
 
 .booking__additionalInfoChose {
@@ -2408,7 +2416,8 @@ input[type='checkbox'] {
 	width: 32%;
 	margin-bottom: 20px;
 	box-sizing: border-box;
-	transition: all 0.5s ease;
+    border: 1px solid transparent;
+    transition: all 0.3s linear;
 }
 
 .booking__stepFoodItem:hover {
@@ -3915,6 +3924,7 @@ section.terms-block {
 	justify-content: flex-end;
 	box-sizing: border-box;
 	padding-bottom: 50px;
+    right: 20px;
 }
 
 .board-text {
@@ -3945,23 +3955,24 @@ section.terms-block {
 }
 
 section.page-post {
-	align-items: flex-end;
+	position: relative;
+    justify-content: flex-start;
+    align-items: flex-start;
 	background: linear-gradient(40.19deg, #2E1151 10.51%, #481A77 41.18%, #1B0A3E 72.36%);
 }
 
 .post__content {
-	width: 92%;
-	max-width: 1500px;
+    width: 65%;
+    max-width: 1140px;
 	display: flex;
+    flex-direction: column;
 	justify-content: flex-end;
-	margin-right: 2%;
 	position: relative;
+    margin-left: 12%;
 }
 
 .post__body {
-	width: 75%;
-	max-width: 1140px;
-	margin-right: 28%;
+	width: 100%;
 }
 
 .post__content .board {
@@ -4043,9 +4054,9 @@ section.page-post {
 }
 
 .post-tile--long {
-	width: 90%;
-	max-width: 1140px;
-	align-self: center;
+	width: 100%;
+    overflow-y: hidden;
+
 }
 
 .post-tile--long .post-tile__item {
@@ -5063,6 +5074,10 @@ section.page-block-dark-bg {
         flex-direction: column;
     }
 
+	.radio:hover {
+		border: none;
+		border-radius: none;
+	}
 
 }
 
@@ -5223,6 +5238,40 @@ section.page-block-dark-bg {
 		background-position: 90% center;
 	}
 
+	.booking__pricePanel {
+		position: static;
+		width: 100%;
+	}
+
+	section.booking {
+		flex-direction: column;
+	}
+
+
+
+	.booking__step1Wrap  {
+		width: 90%;
+		margin: auto;
+		margin-top: 110px;
+	}
+
+	.booking__step1Wrap .booking-block, .musicRoom__item,
+	.booking__additionalInfo,
+	.booking__stepFoodWrap, .booking__userInfoPayment,
+	.booking__userInfoPersonal, .booking__stepDescr {
+		width: 100%;
+	}
+
+	.booking__foodStepWrap, .booking__userInfoStepWrap  {
+		margin-left: 0;
+		width: 90%;
+	}
+
+	.booking__priceInfoUserMessage {
+		height: 160px;
+	}
+
+
 }
 
 
@@ -5244,10 +5293,6 @@ section.page-block-dark-bg {
     .open .line-menu.end {
         transform: rotate(-90deg) translate(-9px, 9px);
     }
-
-	.booking__pricePanel {
-		display: none;
-	}
 
 	.booking__step1Wrap {
 		display: flex;
@@ -5284,6 +5329,16 @@ section.page-block-dark-bg {
 	.booking__userInfoPayment, .booking__userInfoPersonal, .booking__stepDescr {
 		width: 90%;
 	}
+
+    .switch {
+        height: 50px;
+        padding: 8px;
+    }
+
+    .switch label {
+        font-size: 16px;
+    }
+
 	.page-room-features {
 		display: flex!important;
 	}

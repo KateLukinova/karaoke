@@ -7,6 +7,48 @@ $(document).ready(function () {
         setTimeout(() => {$('.rooms-accordion__item').attr('style', 'transition: width 1s ease !important');}, 1500);
     });
 
+
+    // scrolling to block
+
+
+    var anchors = [];
+    var currentAnchor = -1;
+    var isAnimating  = false;
+    $(function(){
+        function updateAnchors() {
+            anchors = [];
+            $('.anchor').each(function(i, element){
+                anchors.push( $(element).offset().top );
+            });
+        }
+        $('.scroll-down').on('click', function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            if( isAnimating ) {
+                return false;
+            }
+            isAnimating  = true;
+            if( e.originalEvent.wheelDelta >= 0 ) {
+                currentAnchor--;
+            }else{
+                currentAnchor++;
+            }
+            if( currentAnchor > (anchors.length - 1)
+                || currentAnchor < 0 ) {
+                currentAnchor = 0;
+            }
+            isAnimating  = true;
+            $('html, body').animate({
+                scrollTop: parseInt( anchors[currentAnchor] )
+            }, 500, 'swing', function(){
+                isAnimating  = false;
+            });
+        });
+        updateAnchors();
+    });
+
+
+
     // init select
 
     $('.lang').styler();
@@ -339,16 +381,18 @@ $(document).ready(function () {
 
 //panel fixed
     if (window.location.href.includes('pageBooking') ) {
-        function checkOffset() {
-            if($('.booking__pricePanel').offset().top + $('.booking__pricePanel').height()
-                >= $('.footer').offset().top - 10)
-                $('.booking__pricePanel').css('position', 'absolute').css('width', '25%');
-            if($(document).scrollTop() + window.innerHeight < $('.footer').offset().top)
-                $('.booking__pricePanel').css('position', 'fixed').css('width', '23%');
+        if ($(window).width() >= '990') {
+            function checkOffset() {
+                if($('.booking__pricePanel').offset().top + $('.booking__pricePanel').height()
+                    >= $('.footer').offset().top - 10)
+                    $('.booking__pricePanel').css('position', 'absolute').css('width', '25%');
+                if($(document).scrollTop() + window.innerHeight < $('.footer').offset().top)
+                    $('.booking__pricePanel').css('position', 'fixed').css('width', '23%');
+            }
+            $(document).scroll(function() {
+                checkOffset();
+            });
         }
-        $(document).scroll(function() {
-            checkOffset();
-        });
     }
 
     if (window.location.href.includes('index') ) {
@@ -370,30 +414,31 @@ $(document).ready(function () {
     if (window.location.href.includes('pagePost') ) {
         var initialBoardCoordinate = $('#post__board').offset().top;
 
-        var navDivCoordinate = $('#nav-div').offset().top;
-        var navDivBottomCoordinate = navDivCoordinate + $('#nav-div').height();
+        var footerCoordinate = $('.footer').first().offset().top;
+        var footerHeight = $('.footer').first().height();
         var boardWidth = $('#post__board').width();
         var boardHeight = $('#post__board').height();
+        console.log(boardHeight)
+        console.log(footerCoordinate)
 
         $(window).scroll(function(){
             $('#post__board').css('width', boardWidth);
             var currentCoordinate = $(window).scrollTop();
 
-            var boardCoordinate = $('#post__board').offset().top;
-            var boardBottomCoordinate = boardCoordinate + boardHeight;
-
-            console.log('boardBottom ' + boardBottomCoordinate)
-            console.log('current ' + $(window).scrollTop())
-            console.log('navDiv ' + navDivBottomCoordinate)
+            // var boardCoordinate = $('#post__board').offset().top;
+            var boardBottomCoordinate = initialBoardCoordinate + boardHeight;
+            console.log('curr: ' + currentCoordinate)
+            console.log('board bottom: ' + boardBottomCoordinate)
 
             if (
-                currentCoordinate >= (initialBoardCoordinate - 100) &&
-                currentCoordinate < navDivBottomCoordinate - boardHeight
+                currentCoordinate >= (initialBoardCoordinate - 160) &&
+                currentCoordinate < footerCoordinate - (footerHeight + boardHeight)
             ) {
-                $('#post__board').css('position','fixed').css('top', '0').css('bottom', 'auto');
+                $('#post__board').css('position','fixed').css('top', '160px').css('bottom', 'auto');
             } else {
-                if (boardBottomCoordinate >= navDivBottomCoordinate) {
+                if (currentCoordinate >= footerCoordinate - (footerHeight + boardHeight)) {
                     $('#post__board').css('position','absolute').css('bottom', '0').css('top', 'auto');
+
                 } else {
                     $('#post__board').css('position','absolute').css('top', '0').css('bottom', 'auto');
                 }
@@ -424,31 +469,26 @@ $(document).ready(function () {
     }
 
 
-    // select width
-
-
     // header height
 
-        var width = $(window).width();
+    var width = $(window).width();
 
-        $(window).bind('mousewheel DOMMouseScroll MozMousePixelScroll', function(event) {
-            delta = parseInt(event.originalEvent.wheelDelta || -event.originalEvent.detail);
 
-            if (width >=1024) {
-                if (delta >= 0) {
-                    $('.header').css('height', '150px').css('background-color', '#1C0A3B');
-                } else {
-                    $('.header').css('height', '100px').css('background-color', '#1C0A3B');
-                }
+    $(window).scroll(function() {
+        if (width >=1024) {
+            if ( $(window).scrollTop() == 0 ) {
+                $('.header').css('height','150px');
             } else {
-                if (delta >= 0) {
-                    $('.header').css('height', '90px').css('transform', 'translateY(0)').css('background-color', '#1C0A3B');
-                } else {
-                    $('.header').css('transform', 'translateY(-100%)').css('background-color', '#1C0A3B');
-                }
+                $('.header').css('height','100px');
             }
-
-        });
+        } else {
+            if ( $(window).scrollTop() == 0 ) {
+                $('.header').css('height', '90px').css('transform', 'translateY(0)').css('background-color', '#1C0A3B');
+            } else {
+                $('.header').css('transform', 'translateY(-100%)').css('background-color', '#1C0A3B');
+            }
+        }
+    });
 
 
 // modal
@@ -524,13 +564,47 @@ $(document).ready(function () {
                 $('.booking__step1Wrap').css('display', 'flex');
             }
         );
+
+        if (currentOrderPage == 3) {
+            $('#continue-btn').text('Book a room');
+        }
+
+
+        var interval;
+
+        function countdown() {
+            clearInterval(interval);
+            interval = setInterval( function() {
+                var timer = $('.js-timeout').html();
+                timer = timer.split(':');
+                var minutes = timer[0];
+                var seconds = timer[1];
+                seconds -= 1;
+                if (minutes < 0) return;
+                else if (seconds < 0 && minutes != 0) {
+                    minutes -= 14;
+                    seconds = 59;
+                }
+                else if (seconds < 10 && length.seconds != 2) seconds = '0' + seconds;
+
+                $('.js-timeout').html(minutes + ':' + seconds);
+
+                if (minutes == 0 && seconds == 0) clearInterval(interval);
+            }, 1000);
+        }
+
+        if (currentOrderPage >= 2) {
+            $('.js-timeout').text("15:00");
+            countdown();
+        } else {
+            $('.js-timeout').text("15:00");
+            clearInterval(interval);
+        }
+
     }
 
-
-
-
     //food tabs
-    $('.booking__stepTypeFood').each(function() {
+    $('.switch').each(function() {
         $(this).find('.food-radio').each(function(i) {
             $(this).click(function(){
                 $(this).addClass('active').siblings().removeClass('active')
@@ -539,13 +613,22 @@ $(document).ready(function () {
         });
     });
 
-    $('.booking__stepTypeFood').each(function() {
+    $('.switch').each(function() {
         $(this).find('.food-radio').each(function(i) {
             $(this).click(function(){
                 $(this).addClass('active').siblings().removeClass('active')
                     .parents('.menu-box').find('.tabs__content').eq(i).css('display', 'flex').siblings('.tabs__content').hide();
             });
         });
+    });
+
+    $('.switch label').on('click', function() {
+        var indicator = $(this).parent('.food-radio').parent('.switch').find('span');
+        if ( $(this).hasClass('right') ){
+            $(indicator).addClass('right');
+        } else {
+            $(indicator).removeClass('right');
+        }
     });
 
 //form validation

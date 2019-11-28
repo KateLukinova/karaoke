@@ -688,15 +688,16 @@
                 <div class="booking__stepTitle">
                     Step 4. <span>Choose food you want to eat:</span>
                 </div>
-                <div class="booking__stepTypeFood">
+                <div class="booking__stepTypeFood switch">
                     <div class="food-radio active">
-                        <input id="chose11" name="booking__stepTypeFood" type="radio" checked>
-                        <label for="chose11">Course</label>
+                        <input name="radio" type="radio" value="booking__option-course" id="booking__option-course" checked>
+                        <label for="booking__option-course">Course</label>
                     </div>
-                    <div class="food-radio">
-                        <input id="chose22" name="booking__stepTypeFood" type="radio">
-                        <label for="chose22">Drinks</label>
-                    </div>
+                   <div class="food-radio">
+                       <input name="radio" type="radio" value="booking__option-drinks" id="booking__option-drinks">
+                       <label for="booking__option-drinks" class="right">Drinks</label>
+                   </div>
+                   <span aria-hidden="true"></span>
                 </div>
                 <div class="booking__stepFoodWrap tabs__content active owl-carousel">
                     <div class="booking__stepFoodItem">
@@ -1187,7 +1188,7 @@
                 <div class="booking__pricePanelBottom">
                     <div class="booking__pricePanelTime">
                         <span class="booking__pricePanelTimeTitle">TIME REMAINING</span>
-                        <span class="booking__pricePanelTimeValue">15:00</span>
+                        <div class="booking__pricePanelTimeValue"><span class="js-timeout">15:00</span></div>
                     </div>
                     <div class="booking__pricePanelTotalPrice">
                         <div class="booking__pricePanelTotalPriceTitle">Total price:</div>
