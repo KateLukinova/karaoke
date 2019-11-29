@@ -34,14 +34,22 @@
 	src: url("../fonts/GothamPro-Italic.ttf");
 }
 
+img {
+	opacity: 1;
+	transition: opacity 0.3s;
+}
 
-/*nav animation*/
+img[data-src] {
+	opacity: 0;
+}
 
 
 html {
 	width: 100vw;
 	height: 100vh;
-    overflow-x:hidden
+    overflow-x:hidden;
+	scroll-behavior: smooth;
+	transition: all 0.3s linear;
 }
 body{
 	font-family: 'GothamPro', sans-serif;
@@ -2916,6 +2924,7 @@ label .discount {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	padding: 10px 0;
 }
 
 .booking__pricePanelTimeTitle {
@@ -5300,13 +5309,14 @@ section.page-block-dark-bg {
 		align-items: flex-start;
 	}
 
-	.booking__step1Wrap .booking-block {
-		width: 95%;
+	.musicRoom__item, .booking__step1Wrap .booking-block, .line-divider {
+		width: 100%;
 	}
 
-	.musicRoom__item {
-		width: 95%;
+	.booking__pricePanelTop {
+		margin-top: 0;
 	}
+
 	.booking__step1Wrap, .booking__foodStepWrap, .booking__userInfoStepWrap {
 		margin-left: 5%;
 	}

@@ -1,4 +1,11 @@
 
+[].forEach.call(document.querySelectorAll('img[data-src]'), function(img) {
+    img.setAttribute('src', img.getAttribute('data-src'));
+    img.onload = function() {
+        img.removeAttribute('data-src');
+    };
+});
+
 $(document).ready(function () {
 
     // settings aos
@@ -6,48 +13,6 @@ $(document).ready(function () {
     document.addEventListener('aos:in:room-accordion-item', ({ detail }) => {
         setTimeout(() => {$('.rooms-accordion__item').attr('style', 'transition: width 1s ease !important');}, 1500);
     });
-
-
-    // scrolling to block
-
-
-    var anchors = [];
-    var currentAnchor = -1;
-    var isAnimating  = false;
-    $(function(){
-        function updateAnchors() {
-            anchors = [];
-            $('.anchor').each(function(i, element){
-                anchors.push( $(element).offset().top );
-            });
-        }
-        $('.scroll-down').on('click', function(e){
-            e.preventDefault();
-            e.stopPropagation();
-            if( isAnimating ) {
-                return false;
-            }
-            isAnimating  = true;
-            if( e.originalEvent.wheelDelta >= 0 ) {
-                currentAnchor--;
-            }else{
-                currentAnchor++;
-            }
-            if( currentAnchor > (anchors.length - 1)
-                || currentAnchor < 0 ) {
-                currentAnchor = 0;
-            }
-            isAnimating  = true;
-            $('html, body').animate({
-                scrollTop: parseInt( anchors[currentAnchor] )
-            }, 500, 'swing', function(){
-                isAnimating  = false;
-            });
-        });
-        updateAnchors();
-    });
-
-
 
     // init select
 
@@ -92,22 +57,20 @@ $(document).ready(function () {
         }
     });
 
-    var menuItemName = setInitialMenuName();
-    handleMenus(menuItemName);
-
     // menu active item
-    $('.nav a').click(function () {
+    $('a.nav-item').click(function () {
+
         $('.nav').removeClass('show');
         $('.nav').toggleClass('hide');
-
-        $('.menu-icon').removeClass('open');
-
-        $('.footer_nav').css('opacity', '1');
-        $('.link-page1').css('opacity', '1');
+        $('a.nav-item').toggleClass('no-animation');
+        $('a.nav-item').removeClass('nav-animation');
+        $('.nav__secondary').toggleClass('clip-animation-no');
+        $('.nav__secondary').removeClass('clip-animation');
+        $('.nav__button-box').toggleClass('clip-animation-no');
+        $('.nav__button-box').removeClass('clip-animation');
+        $('.nav__main').css('display', 'none');
 
         isOpenedMenu = false;
-
-        handleMenus($(this).attr('href'));
     });
 
     // hover tooltip
@@ -379,34 +342,66 @@ $(document).ready(function () {
         $('.booking__pricePanelTop').find('.booking__priceInfo').last().html(contentAddServices);
     });
 
-//panel fixed
-    if (window.location.href.includes('pageBooking') ) {
-        if ($(window).width() >= '990') {
-            function checkOffset() {
-                if($('.booking__pricePanel').offset().top + $('.booking__pricePanel').height()
-                    >= $('.footer').offset().top - 10)
-                    $('.booking__pricePanel').css('position', 'absolute').css('width', '25%');
-                if($(document).scrollTop() + window.innerHeight < $('.footer').offset().top)
-                    $('.booking__pricePanel').css('position', 'fixed').css('width', '23%');
-            }
-            $(document).scroll(function() {
-                checkOffset();
-            });
-        }
-    }
 
     if (window.location.href.includes('index') ) {
+
+
+        // scrolling to block
+
+
+        var anchors = [];
+        var currentAnchor = -1;
+        var isAnimating  = false;
+        $(function(){
+            function updateAnchors() {
+                anchors = [];
+                $('.anchor').each(function(i, element){
+                    anchors.push( $(element).offset().top );
+                });
+            }
+            $('.scroll-down').on('click', function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                if( isAnimating ) {
+                    return false;
+                }
+                isAnimating  = true;
+                if( e.originalEvent.wheelDelta >= 0 ) {
+                    currentAnchor--;
+                }else{
+                    currentAnchor++;
+                }
+                if( currentAnchor > (anchors.length - 1)
+                    || currentAnchor < 0 ) {
+                    currentAnchor = 0;
+                }
+                isAnimating  = true;
+                $('html, body').animate({
+                    scrollTop: parseInt( anchors[currentAnchor] )
+                }, 300, 'swing', function(){
+                    isAnimating  = false;
+                });
+            });
+            updateAnchors();
+        });
+
         function checkOffset() {
-            if($('.scroll-down').offset().top + $('.scroll-down').height()
-                >= $('.button-up').offset().top - 10)
+            if($(document).scrollTop() + window.innerHeight + $('.scroll-down').height()
+                >= $('.button-up').offset().top - 10) {
                 $('.scroll-down').css('animation', 'scroll-animation-no 0.3s forwards ease');
-                $('.button-up').css('animation', 'scroll-animation-no 0.3s forwards ease');
-            if($(document).scrollTop() + window.innerHeight < $('.button-up').offset().top)
-                $('.scroll-down').css('animation', 'scroll-animation 0.3s forwards ease');
                 $('.button-up').css('animation', 'scroll-animation 0.3s forwards ease');
+            } else {
+                $('.scroll-down').css('animation', 'scroll-animation 0.3s forwards ease');
+                $('.button-up').css('animation', 'scroll-animation-no 0.3s forwards ease');
+            }
         }
         $(document).scroll(function() {
             checkOffset();
+        });
+
+        $('.button-up').on('click', function(e) {
+            e.preventDefault();
+            $('html, body').animate({scrollTop:0}, '2000');
         });
     }
 
@@ -417,9 +412,6 @@ $(document).ready(function () {
         var footerCoordinate = $('.footer').first().offset().top;
         var footerHeight = $('.footer').first().height();
         var boardWidth = $('#post__board').width();
-        var boardHeight = $('#post__board').height();
-        console.log(boardHeight)
-        console.log(footerCoordinate)
 
         $(window).scroll(function(){
             $('#post__board').css('width', boardWidth);
@@ -479,7 +471,7 @@ $(document).ready(function () {
             if ( $(window).scrollTop() == 0 ) {
                 $('.header').css('height','150px');
             } else {
-                $('.header').css('height','100px');
+                $('.header').css('height','100px').css('background-color', '#1C0A3B');
             }
         } else {
             if ( $(window).scrollTop() == 0 ) {
@@ -499,9 +491,11 @@ $(document).ready(function () {
     });
 
 
-// continue booking
+
 
     if (window.location.href.includes('pageBooking') ) {
+
+        // continue booking
 
         var currentOrderPage = 1;
         var selectCountryWidth = $(".booking__userInfoPersonal").first().width();
@@ -536,6 +530,39 @@ $(document).ready(function () {
 
                 }
 
+                if (currentOrderPage == 3) {
+                    $('#continue-btn').text('Book a room');
+                }
+
+
+                // timer
+
+                if (currentOrderPage == 2) {
+
+                    function dailyMissionTimer(duration) {
+
+                        var timer = duration * 3600;
+                        var minutes, seconds;
+
+                        var interval = setInterval(function(){
+                            minutes = parseInt(timer / 60 % 60, 10);
+                            seconds = parseInt(timer % 60, 10);
+
+                            minutes = minutes < 10 ? "0" + minutes : minutes;
+                            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                            $('#time-min').text(minutes);
+                            $('#time-sec').text(seconds);
+
+                            if (--timer < 0) {
+                                timer = 0;
+                                clearInterval(interval);
+                            }
+                        }, 1000);
+                    }
+
+                    dailyMissionTimer(0.25);
+                }
             }
         );
 
@@ -565,41 +592,73 @@ $(document).ready(function () {
             }
         );
 
-        if (currentOrderPage == 3) {
-            $('#continue-btn').text('Book a room');
+
+        //panel fixed
+
+        if ($(window).width() >= '990') {
+            function checkOffset() {
+                if($('.booking__pricePanel').offset().top + $('.booking__pricePanel').height()
+                    >= $('.footer').offset().top - 10)
+                    $('.booking__pricePanel').css('position', 'absolute').css('width', '25%');
+                if($(document).scrollTop() + window.innerHeight < $('.footer').offset().top)
+                    $('.booking__pricePanel').css('position', 'fixed').css('width', '23%');
+            }
+            $(document).scroll(function() {
+                checkOffset();
+            });
         }
 
+        handleBookingData();
 
-        var interval;
 
-        function countdown() {
-            clearInterval(interval);
-            interval = setInterval( function() {
-                var timer = $('.js-timeout').html();
-                timer = timer.split(':');
-                var minutes = timer[0];
-                var seconds = timer[1];
-                seconds -= 1;
-                if (minutes < 0) return;
-                else if (seconds < 0 && minutes != 0) {
-                    minutes -= 14;
-                    seconds = 59;
-                }
-                else if (seconds < 10 && length.seconds != 2) seconds = '0' + seconds;
+        //form validation
 
-                $('.js-timeout').html(minutes + ':' + seconds);
+        $(".user-name").on("keypress", function(e) {
 
-                if (minutes == 0 && seconds == 0) clearInterval(interval);
-            }, 1000);
-        }
+            var char = /["a-zA-Z]/;
+            var val = String.fromCharCode(e.which);
+            var test = char.test(val);
 
-        if (currentOrderPage >= 2) {
-            $('.js-timeout').text("15:00");
-            countdown();
-        } else {
-            $('.js-timeout').text("15:00");
-            clearInterval(interval);
-        }
+            if(!test){
+                $(this).addClass('not-valid');
+                $(this).find('.text-not-valid').css('display', 'flex');
+            } else {
+                $(this).removeClass('not-valid');
+                $(this).addClass('valid');
+                $(this).find('.text-not-valid').css('display', 'none');
+            }
+
+        });
+
+        $(".e-mail").on("keypress", function(e) {
+            var char = /\S+@\S+\.\S+/i;
+            var val = e.target.value;
+            var test = char.test(val);
+
+            if(!test){
+                $(this).addClass('not-valid');
+                $(this).find('.text-not-valid').css('display', 'flex');
+            } else {
+                $(this).removeClass('not-valid');
+                $(this).addClass('valid');
+                $(this).find('.text-not-valid').css('display', 'none');
+            }
+        });
+
+        $(".number-tel").on("keypress", function(e) {
+            var char = /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/;
+            var val = e.target.value;
+            var test = char.test(val);
+
+            if(!test){
+                $(this).addClass('not-valid');
+                $(this).find('.text-not-valid').css('display', 'flex');
+            } else {
+                $(this).removeClass('not-valid');
+                $(this).addClass('valid');
+                $(this).find('.text-not-valid').css('display', 'none');
+            }
+        });
 
     }
 
@@ -631,58 +690,6 @@ $(document).ready(function () {
         }
     });
 
-//form validation
-    $(".user-name").on("keypress", function(e) {
-
-        var char = /["a-zA-Z]/;
-        var val = String.fromCharCode(e.which);
-        var test = char.test(val);
-
-        if(!test){
-            $(this).addClass('not-valid');
-            $(this).find('.text-not-valid').css('display', 'flex');
-        } else {
-            $(this).removeClass('not-valid');
-            $(this).addClass('valid');
-            $(this).find('.text-not-valid').css('display', 'none');
-        }
-
-    });
-
-    $(".e-mail").on("keypress", function(e) {
-
-        var char = /^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$/;
-
-        var val = String.fromCharCode(e.which);
-        var test = char.test(val);
-
-        if(!test){
-            $(this).addClass('not-valid');
-            $(this).find('.text-not-valid').css('display', 'flex');
-        } else {
-            $(this).removeClass('not-valid');
-            $(this).addClass('valid');
-            $(this).find('.text-not-valid').css('display', 'none');
-        }
-
-    });
-
-    $(".number-tel").on("keypress", function(e) {
-
-        var char = /^\+\d{2}\(\d{3}\)\d{3}-\d{2}-\d{2}$/;
-
-        var val = String.fromCharCode(e.which);
-        var test = char.test(val);
-
-        if(!test){
-            $(this).addClass('not-valid');
-            $(this).find('.text-not-valid').css('display', 'flex');
-        } else {
-            $(this).removeClass('not-valid');
-            $(this).addClass('valid');
-            $(this).find('.text-not-valid').css('display', 'none');
-        }
-    });
 
     $(".fa-search").click(function(){
         $(".search-wrap, .input").toggleClass("active");
@@ -702,28 +709,28 @@ $(document).ready(function () {
     });
 
 });
-
-function handleMenus(menuItemName) {
-    $('.nav-item').removeClass("active");
-    $('.footer_nav-item').removeClass("active");
-
-    $('.nav a[href$="' + menuItemName + '"]').addClass("active");
-    $('.footer_nav a[href$="' + menuItemName + '"]').addClass("active");
-}
-
-function setInitialMenuName() {
-    var url = window.location.href;
-
-    if (url.indexOf("#2") > -1) {
-        return '#price';
-    } else if ( url.indexOf("#3") > -1) {
-        return '#bonuses';
-    } else if ( url.indexOf("#4") > -1) {
-        return '#contacts'
-    }
-
-    return '#';
-}
+//
+// function handleMenus(menuItemName) {
+//     $('.nav-item').removeClass("active");
+//     $('.footer_nav-item').removeClass("active");
+//
+//     $('.nav a[href$="' + menuItemName + '"]').addClass("active");
+//     $('.footer_nav a[href$="' + menuItemName + '"]').addClass("active");
+// }
+//
+// function setInitialMenuName() {
+//     var url = window.location.href;
+//
+//     if (url.indexOf("#2") > -1) {
+//         return '#menu';
+//     } else if ( url.indexOf("#3") > -1) {
+//         return '#bonuses';
+//     } else if ( url.indexOf("#4") > -1) {
+//         return '#contacts'
+//     }
+//
+//     return '#';
+// }
 
 function getWeek(d) {
     d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
@@ -826,6 +833,57 @@ function initCarousel() {
 
         });
     }
+}
+
+function handleBookingData() {
+    var testBookings = [
+        {
+            "id": 1,
+            "time_from": "2019-11-28 02:41:00",
+            "time_to": "2019-11-29 02:41:00",
+            "additional_information": "describe",
+            "status": "active",
+            "client_type_id": 1,
+            "services": "[{\"amount\": \"1\", \"service_id\": \"1\"}]",
+            "package": 1,
+            "payment_status": "post_paid",
+            "payment_amount": null,
+            "language": "ru",
+            "event": null,
+            "promo": null,
+            "tags": null,
+            "created_by": null,
+            "created_at": "2019-11-28 00:41:55",
+            "updated_at": "2019-11-28 00:41:55",
+            "deleted_at": null,
+            "customer_id": null,
+            "room_id": null,
+            "amount": 0
+        },
+        {
+            "id": 2,
+            "time_from": "2019-11-29 06:49:00",
+            "time_to": "2019-12-02 05:49:00",
+            "additional_information": "Add info",
+            "status": "active",
+            "client_type_id": 2,
+            "services": "[{\"amount\": \"4\", \"service_id\": \"2\"}]",
+            "package": 1,
+            "payment_status": "post_paid",
+            "payment_amount": null,
+            "language": "ru",
+            "event": null,
+            "promo": null,
+            "tags": null,
+            "created_by": null,
+            "created_at": "2019-11-28 00:50:23",
+            "updated_at": "2019-11-28 00:50:23",
+            "deleted_at": null,
+            "customer_id": 1,
+            "room_id": 2,
+            "amount": 0
+        }
+    ];
 }
 
 
