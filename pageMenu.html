@@ -24,7 +24,7 @@
         <div class="sidebar">
             <div class="sidebar_item">
                 <a href="index.html" class="logo">
-                    <img src="img/logo.svg" alt="">
+                    <img data-src="img/logo.svg" alt="">
                 </a>
             </div>
             <div class="sidebar_item">
@@ -49,9 +49,21 @@
                 <a href="3dtour.html" class="btn transparent">3d tour</a>
             </div>
             <div class="nav-wrap">
-                <select name="rooms" class="rooms nav__rooms">
-                    <option value="Our rooms">Rooms</option>
-                    <option value="Strip">Strip</option>
+                <select name="events" class="rooms nav__rooms" onchange="location = this.value;">
+                    <option value="pageEventBirthday.html">Birthday</option>
+                    <option value="pageEventBachelor.html">Bachelor</option>
+                    <option value="pageEventCorporate.html">Corporate</option>
+                    <option value="pageEventDisco.html">Disco</option>
+                    <option value="pageEventGraduation.html">Graduation</option>
+                    <option value="pageEventHen.html">Hen</option>
+                    <option value="pageEventPrivate.html">Private</option>
+                </select>
+                <select name="rooms" class="rooms nav__rooms" onchange="location = this.value;">
+                    <option value="pageRoomStrip.html">Strip</option>
+                    <option value="pageRoomReggae.html">Reggae</option>
+                    <option value="pageRoomGatsby.html">Gatsby</option>
+                    <option value="pageRoomComics.html">Comics</option>
+                    <option value="pageRoomIceberg.html">Iceberg</option>
                 </select>
                 <div class="nav__main">
                     <a href="#" class="nav-item">
@@ -161,14 +173,13 @@
             </a>
         </div>
         <select name="rooms" class="rooms header__rooms" onchange="location = this.value;">
-            <option value="Our rooms">Rooms</option>
             <option value="pageRoomStrip.html">Strip</option>
             <option value="pageRoomReggae.html">Reggae</option>
             <option value="pageRoomGatsby.html">Gatsby</option>
             <option value="pageRoomComics.html">Comics</option>
             <option value="pageRoomIceberg.html">Iceberg</option>
         </select>
-        <a href="index.html"><img src="img/logo-mini.svg" class="logo-mobile" alt=""></a>
+        <a href="index.html"><img data-src="img/logo-mini.svg" class="logo-mobile" alt=""></a>
         <div class="button-box">
             <a href="https://bbpartybus.hu" class="btn transparent dashed bus">
                 <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
