@@ -13,8 +13,16 @@ var currentBookingData = {
     country: '',
     paymentMethod: '',
     paymentType: '',
-    couponCode: ''
+    couponCode: '',
+    dayName: '',
 };
+var tables = {
+    1: 'Strip',
+    2: 'Reggae',
+    3: 'Gatsby',
+    4: 'Comics',
+    5: 'Iceberg'
+}
 
 $(document).ready(function () {
 
@@ -105,7 +113,8 @@ $(document).ready(function () {
 
 
     $('.booking__stepFoodItem').click(function () {
-        $(this).toggleClass('active')
+        $(this).toggleClass('active');
+        showFoodTitle();
     });
 
     //main-cursor
@@ -230,6 +239,7 @@ $(document).ready(function () {
 
     // datepicker
     $('#datepicker').datepicker({
+        minDate: new Date(),
         language: 'en',
         autoClose: true,
         onRenderCell: function (date, cellType) {
@@ -252,13 +262,16 @@ $(document).ready(function () {
             let longMonth = date.toLocaleString('en', {month: 'long'});
             let day = date.getDate();
 
+            currentBookingData.dayName = getDayName(date.getDay());
+
             $('#chosen-day').text(day);
             $('#chosen-month').text(shortMonth);
             $('#booking-day').text(day);
             $('#booking-month').text(longMonth);
 
             if (isStepTwoVisible()) {
-                showStepTwo()
+                showStepTwo();
+
                 if (isStepTwoContinue()) {
                     continueStepTwo()
                 }
@@ -272,6 +285,7 @@ $(document).ready(function () {
     });
 
     var datePicker = $('#datepicker').data('datepicker');
+    datePicker.selectDate(new Date());
 
     $('.chosen-date').click(() => {
         datePicker.show()
@@ -285,6 +299,7 @@ $(document).ready(function () {
             $("#booking-room").text(nameRoom);
             $("#booking-time-start").text(timeBooking);
             $(this).toggleClass('choosed').parent().toggleClass('choosed');
+
             if (isStepTwoContinue()) {
                 continueStepTwo()
             }
@@ -312,15 +327,19 @@ $(document).ready(function () {
     });
     $('.plus-person').click(function () {
         var $input = $(this).parent().find('input');
-        $input.val(parseInt($input.val()) + 1);
-        $input.change();
-        $("#booking-persons").text($input.val());
 
-        if (isStepTwoVisible()) {
-            showStepTwo();
+        if ($input.val() < 25) {
+            $input.change();
+            $input.val(parseInt($input.val()) + 1);
+            console.log('after after ' + $input.val())
+            $("#booking-persons").text($input.val());
 
-            if (isStepTwoContinue()) {
-                continueStepTwo()
+            if (isStepTwoVisible()) {
+                showStepTwo();
+
+                if (isStepTwoContinue()) {
+                    continueStepTwo()
+                }
             }
         }
 
@@ -936,6 +955,7 @@ function initCarousel() {
 function getBookingData() {
     $.get("https://bbrooms.zerrno.com/api/v1/index", (data) => {
         bookingData = data.data;
+        console.log(bookingData)
     });
 }
 
@@ -960,6 +980,22 @@ function isStepTwoVisible() {
 }
 
 function showStepTwo () {
+    var opening = bookingData.opening.find(obj => {
+        return obj.day === currentBookingData.dayName;
+    });
+
+    var bookings = {};
+
+    var startHours = moment(opening.from, "HH:mm");
+    var endHours = moment(opening.to, "HH:mm");
+
+    if( end.isBefore(start) ) {
+        end.add(1, 'day');
+    }
+
+    var dur = moment.duration(end.diff(start))
+    var result = dur.asHours();
+
     $('.step-two').css('display', 'flex');
 }
 
@@ -969,6 +1005,23 @@ function isStepTwoContinue() {
 
 function continueStepTwo () {
     $('.booking__pricePanelBookBtn').css('cursor', 'pointer');
+}
+
+function showFoodTitle() {
+    $('.price-panel__food-title').css('display', 'flex')
+}
+
+function getDayName(dayNumber) {
+    var weekdays = new Array(7);
+    weekdays[0] = "Sunday";
+    weekdays[1] = "Monday";
+    weekdays[2] = "Tuesday";
+    weekdays[3] = "Wednesday";
+    weekdays[4] = "Thursday";
+    weekdays[5] = "Friday";
+    weekdays[6] = "Saturday";
+
+    return weekdays[dayNumber];
 }
 
 

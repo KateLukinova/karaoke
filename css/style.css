@@ -2965,9 +2965,10 @@ input[type='checkbox'] {
 }
 
 .select-celebrate .jq-selectbox__dropdown, .country .jq-selectbox__dropdown {
-	top: 60px!important;
+	top: 40px!important;
 	width: 100%!important;
 	background-color: #1c0b3f;
+	max-height: 300px;
 }
 .country .jq-selectbox__dropdown ul {
 	overflow-y: scroll;
@@ -3550,6 +3551,15 @@ label .discount {
 	-webkit-transform: translateX(-50%);
 	-ms-transform: translateX(-50%);
 	transform: translateX(-50%);
+}
+
+.pricePanelDivider--top {
+	top: 0;
+	bottom: auto;
+}
+
+.price-panel__food-title {
+	display: none;
 }
 
 .booking__priceInfo {
