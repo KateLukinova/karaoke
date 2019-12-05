@@ -119,7 +119,7 @@ $(document).ready(function () {
 
     //main-cursor
     $(document).on('mousemove', function (e) {
-        let x = e.pageX - 115;
+        let x = e.pageX - 130;
         let y = e.pageY + 7;
         $('.main').css({
             'background': `radial-gradient(circle at ${x}px ${y}px,  rgba(0, 0, 0, 0) 200px, rgba(28, 11, 63, 0.85) 15%)`
@@ -279,7 +279,7 @@ $(document).ready(function () {
         if ($input.val() < 25) {
             $input.change();
             $input.val(parseInt($input.val()) + 1);
-            console.log('after after ' + $input.val())
+
             $("#booking-persons").text($input.val());
 
             if (isStepTwoVisible()) {
@@ -426,21 +426,15 @@ $(document).ready(function () {
             $('#post__board').css('width', boardWidth);
             var currentCoordinate = $(window).scrollTop();
 
-            var boardCoordinate = $('#post__board').offset().top;
-            var boardBottomCoordinate = initialBoardCoordinate + boardHeight;
-
             if (
                 currentCoordinate >= (initialBoardCoordinate - 160) &&
                 currentCoordinate < footerCoordinate - (footerHeight + boardHeight)
             ) {
                 $('#post__board').css('position', 'fixed').css('top', '160px').css('bottom', 'auto');
-            } else {
-                if (currentCoordinate >= footerCoordinate - (footerHeight + boardHeight)) {
+            } else if (currentCoordinate >= footerCoordinate - (footerHeight + boardHeight)) {
                     $('#post__board').css('position', 'absolute').css('bottom', '0').css('top', 'auto');
-
-                } else {
-                    $('#post__board').css('position', 'absolute').css('top', '0').css('bottom', 'auto');
-                }
+            } else {
+                 $('#post__board').css('position', 'absolute').css('top', '0').css('bottom', 'auto');
             }
         });
     }
@@ -534,6 +528,7 @@ $(document).ready(function () {
                 let day = date.getDate();
 
                 currentBookingData.dayName = getDayName(date.getDay());
+                currentBookingData.date = moment(date);
 
                 $('#chosen-day').text(day);
                 $('#chosen-month').text(shortMonth);
@@ -972,7 +967,7 @@ function getBookingData() {
 function setCurrentBookingData() {
     currentBookingData.duration = $('#booking-time').text();
     currentBookingData.persons = $('#booking-persons').text();
-    currentBookingData.date = $('#booking-month').text() +$('#booking-day').text();
+    // currentBookingData.date = $('#booking-month').text() + ' ' + $('#booking-day').text();
     currentBookingData.time = $('#booking-time-start').text();
     currentBookingData.room = $('#booking-room').text();
     currentBookingData.event = $('#what-to-celebrate').find('.booking__priceInfoValue').text();
@@ -994,19 +989,111 @@ function showStepTwo () {
         return obj.day === currentBookingData.dayName;
     });
 
-    var bookings = {};
-
     var startHours = moment(opening.from, "HH:mm");
     var endHours = moment(opening.to, "HH:mm");
 
-    if( end.isBefore(start) ) {
-        end.add(1, 'day');
+    var startDate = moment(currentBookingData.date.format('YYYY-MM-DD') + ' ' + opening.from, 'YYYY-MM-DD HH:mm');
+    var endDate = moment(currentBookingData.date.format('YYYY-MM-DD') + ' ' + opening.to, 'YYYY-MM-DD HH:mm');
+
+    if( endHours.isBefore(startHours) ) {
+        endDate.add(1, 'day');
     }
 
-    var dur = moment.duration(end.diff(start))
-    var result = dur.asHours();
+    // [20, 21, 22, 23, 00, 01, 02, 03]
+    var workingHours = getHours(startDate, endDate);
+
+    var tablesFreeHours = {
+        1: workingHours,
+        2: workingHours,
+        3: workingHours,
+        4: workingHours,
+        5: workingHours
+    };
+
+    for (index = 0; index < bookingData.length; ++index) {
+        var timeFrom = moment(bookingData[index].time_from);
+        var timeTo = moment(bookingData[index].time_to);
+
+        if (
+            currentBookingData.date.isAfter(timeFrom) &&
+            currentBookingData.date.isBefore(timeTo)
+        ) {
+            let bookedHours = getHours(timeFrom, timeTo);
+            tablesFreeHours[bookingData[index].table_id] = tablesFreeHours[bookingData[index].table_id].filter(n => ! bookedHours.includes(n));
+        }
+    }
+
+    let test = tablesFreeHours[1].filter(n => ! ['0001', '0102'].includes(n));
+    console.log(test);
+    console.log(getDurationSlots(test, 3));
+
+    var tablesFreeDurationSlots = {
+        1: [],
+        2: [],
+        3: [],
+        4: [],
+        5: []
+    };
 
     $('.step-two').css('display', 'flex');
+}
+
+function getDurationSlots(freeTimes, duration) {
+    let length = freeTimes.length;
+    if (length < duration) {
+        return [];
+    }
+
+    if (length == 1) {
+        return [{start: freeTimes[0], end: freeTimes[0]}];
+    }
+
+    let slots = [];
+    let count = 0;
+    let startTime = freeTimes[0];
+
+    for (index = 0; index < length; ++index) {
+        count++;
+
+        if (index + 1 < length) {
+            if (freeTimes[index].slice(-2) !== freeTimes[index + 1].substring(0, 2)) {
+                if (count == duration) {
+                    slots.push({start: startTime, end: freeTimes[index]});
+                }
+
+                count = 0;
+                startTime = freeTimes[index + 1];
+
+                continue;
+            }
+
+            if (count == duration) {
+                slots.push({start: startTime, end: freeTimes[index]});
+                count = 0;
+                startTime = freeTimes[index + 1];
+            }
+        }
+    }
+
+    return slots;
+}
+
+// return array of hours in interval of time
+// e.g. ['2021', '2122']
+function getHours(start, end) {
+    let result = [];
+
+    while (start.isBefore(end)) {
+        let begginingHour = start.format('HH');
+
+        start.add(1, 'hour');
+
+        let endingHour = start.format('HH');
+
+        result.push(begginingHour.toString() + endingHour.toString());
+    }
+
+    return result;
 }
 
 function isStepTwoContinue() {
@@ -1025,7 +1112,7 @@ function getDayName(dayNumber) {
     var weekdays = new Array(7);
     weekdays[0] = "Sunday";
     weekdays[1] = "Monday";
-    weekdays[2] = "Tuesday";
+    weekdays[2] = "Tuesaday";
     weekdays[3] = "Wednesday";
     weekdays[4] = "Thursday";
     weekdays[5] = "Friday";
