@@ -119,10 +119,10 @@ $(document).ready(function () {
 
     //main-cursor
     $(document).on('mousemove', function (e) {
-        let x = e.pageX;
-        let y = e.pageY;
+        let x = e.pageX - 115;
+        let y = e.pageY + 7;
         $('.main').css({
-            'background': `radial-gradient(circle at ${x}px ${y}px, rgba(0, 0, 0, 0), rgba(28, 11, 63, 0.8) 15%)`
+            'background': `radial-gradient(circle at ${x}px ${y}px,  rgba(0, 0, 0, 0) 200px, rgba(28, 11, 63, 0.85) 15%)`
         });
         $('#strip').css({
             'background': `radial-gradient(circle at ${x}px ${y}px, rgba(0, 0, 0, 0), rgba(49, 18, 135, 0.7) 20%)`
@@ -237,59 +237,7 @@ $(document).ready(function () {
         }
     );
 
-    // datepicker
-    $('#datepicker').datepicker({
-        minDate: new Date(),
-        language: 'en',
-        autoClose: true,
-        onRenderCell: function (date, cellType) {
-            if (cellType == 'day') {
-                var day = date.getDay();
-                var week = getWeek(date);
-                var isDisabled = false;
 
-                if (week.number == 48) {
-                    isDisabled = true;
-                }
-
-                return {
-                    disabled: isDisabled
-                }
-            }
-        },
-        onSelect: function (formattedDate, date, inst) {
-            let shortMonth = date.toLocaleString('en', {month: 'short'});
-            let longMonth = date.toLocaleString('en', {month: 'long'});
-            let day = date.getDate();
-
-            currentBookingData.dayName = getDayName(date.getDay());
-
-            $('#chosen-day').text(day);
-            $('#chosen-month').text(shortMonth);
-            $('#booking-day').text(day);
-            $('#booking-month').text(longMonth);
-
-            if (isStepTwoVisible()) {
-                showStepTwo();
-
-                if (isStepTwoContinue()) {
-                    continueStepTwo()
-                }
-            }
-
-            $('.datepicker').css('z-index', '-5');
-        },
-        onShow: function (el, inst) {
-            $('.datepicker').css('z-index', '10');
-        }
-    });
-
-    var datePicker = $('#datepicker').data('datepicker');
-    datePicker.selectDate(new Date());
-
-    $('.chosen-date').click(() => {
-        datePicker.show()
-    });
 
     $('.musicRoom__buyBtn').click(
         function () {
@@ -535,8 +483,12 @@ $(document).ready(function () {
         } else {
             if ($(window).scrollTop() == 0) {
                 $('.header').css('height', '90px').css('transform', 'translateY(0)').css('background-color', '#1C0A3B');
+                $('.btn.btn-sidebar-mobile').css('opacity', '0');
+                $('.sidebar-logo').css('opacity', '0');
             } else {
                 $('.header').css('transform', 'translateY(-100%)').css('background-color', '#1C0A3B');
+                $('.btn.btn-sidebar-mobile').css('opacity', '1');
+                $('.sidebar-logo').css('opacity', '1');
             }
         }
     });
@@ -550,9 +502,65 @@ $(document).ready(function () {
     var isPhotographerChecked = false;
     var isDecorChecked = false;
 
+
+
     //!!!!!!!!!!!!!!!!!!  BOOKING PAGE BEGIN   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     if (window.location.href.includes('pageBooking')) {
         getBookingData();
+
+        // datepicker
+        $('#datepicker').datepicker({
+            minDate: new Date(),
+            language: 'en',
+            autoClose: true,
+            onRenderCell: function (date, cellType) {
+                if (cellType == 'day') {
+                    var day = date.getDay();
+                    var week = getWeek(date);
+                    var isDisabled = false;
+
+                    if (week.number == 48) {
+                        isDisabled = true;
+                    }
+
+                    return {
+                        disabled: isDisabled
+                    }
+                }
+            },
+            onSelect: function (formattedDate, date, inst) {
+                let shortMonth = date.toLocaleString('en', {month: 'short'});
+                let longMonth = date.toLocaleString('en', {month: 'long'});
+                let day = date.getDate();
+
+                currentBookingData.dayName = getDayName(date.getDay());
+
+                $('#chosen-day').text(day);
+                $('#chosen-month').text(shortMonth);
+                $('#booking-day').text(day);
+                $('#booking-month').text(longMonth);
+
+                if (isStepTwoVisible()) {
+                    showStepTwo();
+
+                    if (isStepTwoContinue()) {
+                        continueStepTwo()
+                    }
+                }
+
+                $('.datepicker').css('z-index', '-5');
+            },
+            onShow: function (el, inst) {
+                $('.datepicker').css('z-index', '10');
+            }
+        });
+
+        var datePicker = $('#datepicker').data('datepicker');
+        datePicker.selectDate(new Date());
+
+        $('.chosen-date').click(() => {
+            datePicker.show()
+        });
 
         $(".checkbox").change(function () {
             var input = $(this).find('input');
@@ -902,8 +910,23 @@ function initCarousel() {
             },
 
         });
+
+        $('#other-room-accordion').owlCarousel({
+            dots: true,
+            responsiveClass: true,
+            responsive: {
+                0: {
+                    items: 1,
+                    nav: false
+                },
+                640: {
+                    items: 2,
+                    nav: false
+                }
+            },
+
+        });
     }
-    ;
 
     if ($(window).width() <= '640') {
         $('.about-box').owlCarousel({
@@ -920,20 +943,7 @@ function initCarousel() {
             },
 
         });
-
-        $('#other-room-accordion').owlCarousel({
-            dots: true,
-            responsiveClass: true,
-            responsive: {
-                0: {
-                    items: 2,
-                    nav: false
-                }
-            },
-
-        });
     }
-    ;
 
     if ($(window).width() <= '540') {
         $('.booking__stepFoodWrap').owlCarousel({

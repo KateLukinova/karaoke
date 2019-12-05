@@ -11,19 +11,12 @@
     <link rel="stylesheet" href="css/jquery.formstyler.css">
     <link rel="stylesheet" href="owl-carousel/owl.carousel.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="owl-carousel/owl.carousel.min.js"></script>
-    <script type="text/javascript" src="js/datepicker.js"></script>
-    <script type="text/javascript" src="js/datepicker.en.js"></script>
-    <script type="text/javascript" src="js/jquery.formstyler.js"></script>
-    <script type="text/javascript" src="js/scrollify.js"></script>
-    <script type="text/javascript" src="js/script.js"></script>
 </head>
 <body>
     <div class="menu">
     <div class="sidebar">
-        <div class="sidebar_item">
-            <a href="index.html" class="logo">
+        <div class="sidebar_item item-logo">
+            <a href="index.html" class="logo sidebar-logo">
                 <img data-src="img/logo.svg" alt="">
             </a>
         </div>
@@ -34,9 +27,12 @@
                 <div class="line-menu end"></div>
             </div>
         </div>
-        <div class="sidebar_item socials">
-            <a href="https://www.facebook.com/BlueBirdKaraokeRooms/"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.instagram.com/bluebirdkaraokerooms/"><i class="fab fa-instagram"></i></a>
+        <div class="sidebar_item item-btn">
+            <div class="socials">
+                <a href="https://www.facebook.com/BlueBirdKaraokeRooms/"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/bluebirdkaraokerooms/"><i class="fab fa-instagram"></i></a>
+            </div>
+            <a href="pageBooking.html" class="btn transparent btn-sidebar-mobile">book now</a>
         </div>
     </div>
     <nav class="nav">
@@ -393,33 +389,58 @@
         </div>
     </section>
     <footer class="footer">
-        <div class="footer_navList"><a href="#">Home</a><a href="#">Rooms</a><a href="#">Events</a><a href="#">Menu</a><a href="#">Price list</a><a href="#">Contacts</a></div>
+        <div class="footer_navList">
+            <a href="#">Home</a>
+            <a href="pageMenu.html">Menu</a>
+            <a href="pagePrice.html">Price list</a>
+            <a href="pageBlog.html">Blog</a>
+            <a href="pageContacts.html">Contacts</a>
+        </div>
         <div class="footer__info">
             <div class="footer__col footer__logo">
-                <img src="img/logo-mini.svg" alt="">
+                <img data-src="img/logo-mini.svg" alt="">
+            </div>
+            <div class="footer__col footer__main-nav">
+                <a href="#">Home</a>
+                <a href="pageMenu.html">Menu</a>
+                <a href="pagePrice.html">Price list</a>
+                <a href="pageBlog.html">Blog</a>
+                <a href="pageContacts.html">Contacts</a>
             </div>
             <div class="footer__col">
-                <p class="footer__infoTitle">Rooms</p><a class="footer__infoValue" href="#">Strip</a><a class="footer__infoValue" href="#">Reggae</a><a class="footer__infoValue" href="#">Gatsby</a><a class="footer__infoValue" href="#">Comics</a><a class="footer__infoValue" href="#">Iceberg</a><a class="footer__infoValue" href="#">Party bus</a>
+                <div class="footer__infoTitle">Rooms</div>
+                <a class="footer__infoValue" href="pageRoomStrip.html">Strip</a>
+                <a class="footer__infoValue" href="pageRoomReggae.html">Reggae</a>
+                <a class="footer__infoValue" href="pageRoomGatsby.html">Gatsby</a>
+                <a class="footer__infoValue" href="pageRoomComics.html">Comics</a>
+                <a class="footer__infoValue" href="pageRoomIcberg.html">Iceberg</a>
+                <a class="footer__infoValue" href="#">Party bus</a>
             </div>
             <div class="footer__col">
-                <p class="footer__infoTitle">Events</p><a class="footer__infoValue" href="#">Birthday party</a><a class="footer__infoValue" href="#">Bachelorette party</a><a class="footer__infoValue" href="#">Corporate party</a><a class="footer__infoValue" href="#">Live sport events</a><a class="footer__infoValue" href="#">Graduating party</a>
+                <div class="footer__infoTitle">Events</div>
+                <a class="footer__infoValue" href="pageEventBirthday.html">Birthday party</a>
+                <a class="footer__infoValue" href="pageEventBachelor.html">Bachelor party</a>
+                <a class="footer__infoValue" href="pageEventCorporate.html">Corporate party</a>
+                <a class="footer__infoValue" href="pageEventPrivate.html">Private party</a>
+                <a class="footer__infoValue" href="pageEventHen.html">Hen party</a>
+                <a class="footer__infoValue" href="pageEventDisco.html">Disco party</a>
             </div>
             <div class="footer__divider"></div>
             <div class="footer__col footerTime">
-                <p class="footer__infoTitle">OPENING HOURS:</p>
-                <p class="footer__infoValue">Sunday - Thursday 19:00-3:00</p>
-                <p class="footer__infoValue">Friday - Saturday 19:00-4:00</p>
-                <p class="footer__infoTitle">ADDRESS: </p>
-                <p class="footer__infoValue">Blue Bird Karaoke Rooms</p>
-                <p class="footer__infoValue">Dob utca 16 Gozsdu udvar, Budapest, Hungary 1072 Blue Bird Karaoke Rooms</p>
+                <div class="footer__infoTitle">OPENING HOURS:</div>
+                <div class="footer__infoValue">Sunday - Thursday 19:00-3:00</div>
+                <div class="footer__infoValue">Friday - Saturday 19:00-4:00</div>
+                <div class="footer__infoTitle">ADDRESS: </div>
+                <div class="footer__infoValue">Blue Bird Karaoke Rooms</div>
+                <div class="footer__infoValue">Dob utca 16 Gozsdu udvar, Budapest, Hungary 1072</div>
             </div>
             <div class="footer__col footerContact">
-                <p class="footer__infoTitle">PHONE NUMBER</p>
-                <p class="footer__infoValue">+36 70 419 9028</p>
-                <p class="footer__infoTitle">E-MAIL ADDRESS</p>
-                <p class="footer__infoValue">booking@bbrooms.hu</p>
+                <div class="footer__infoTitle">PHONE NUMBER</div>
+                <div class="footer__infoValue">+36 70 419 9028</div>
+                <div class="footer__infoTitle">E-MAIL ADDRESS</div>
+                <div class="footer__infoValue">booking@bbrooms.hu</div>
                 <div class="footer__social">
-                    <p class="footer__infoTitle">Follow us on:</p>
+                    <div class="footer__infoTitle">Follow us on:</div>
                     <div class="footer__socials">
                         <a href="https://www.facebook.com/BlueBirdKaraokeRooms/"><i class="fab fa-facebook-f"></i></a>
                         <a href="https://www.instagram.com/bluebirdkaraokerooms/"><i class="fab fa-instagram"></i></a>
@@ -428,11 +449,11 @@
             </div>
             <div class="footer__divider"></div>
             <div class="footer_col footer__staticWrap">
-                <div class="footer__infoTitle">Read our recommendations and ratings on:</div>
+                <div class="footer__infoTitle">Read our recommendations<br> and ratings on:</div>
                 <div class="rating-img-box">
                     <div class="footer__staticItem">
-                        <p class="footer__staticItemTitle">Tripadvisor</p>
-                        <div class="footer__staticItemImage"><img src="img/staticImage_1.png"></div>
+                        <div class="footer__staticItemTitle">Tripadvisor</div>
+                        <div class="footer__staticItemImage"><img data-src="img/staticImage_1.png"></div>
                         <div class="footer__staticItemRating"><span class="footer__staticItemRatingValue">4,8/5</span>
                             <div class="footer__staticItemRatingWrap">
                                 <div class="footer__staticItemRatingItem footer__staticItemRatingItem--active"></div>
@@ -445,8 +466,8 @@
                         </div>
                     </div>
                     <div class="footer__staticItem">
-                        <p class="footer__staticItemTitle">Google</p>
-                        <div class="footer__staticItemImage"><img src="img/googleImage.svg"></div>
+                        <div class="footer__staticItemTitle">Google</div>
+                        <div class="footer__staticItemImage"><img data-src="img/googleImage.svg"></div>
                         <div class="footer__staticItemRating"><span class="footer__staticItemRatingValue">4,8/5</span>
                             <div class="footer__staticItemRatingWrap">
                                 <div class="footer__staticItemRatingItem footer__staticItemRatingItem--active"></div>
@@ -461,6 +482,13 @@
                 </div>
             </div>
             <div class="footer__divider"></div>
+        </div>
+        <div class="up-wrap">
+            <a href="" class="button-up">
+                <svg width="25" height="32" viewBox="0 0 25 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M11.2553 0.4767L0.492498 10.8921C-0.164166 11.5276 -0.164166 12.5582 0.492498 13.1937C1.1493 13.8293 2.214 13.8293 2.8708 13.1937L10.7627 5.55643L10.7627 30.3726C10.7627 31.2713 11.5157 32 12.4444 32C13.373 32 14.1261 31.2713 14.1261 30.3726L14.1261 5.55643L22.0181 13.1934C22.6749 13.829 23.7396 13.829 24.3964 13.1934C24.7245 12.8757 24.8889 12.4591 24.8889 12.0426C24.8889 11.6261 24.7245 11.2096 24.3964 10.8918L13.6336 0.4767C12.9768 -0.158901 11.9121 -0.158901 11.2553 0.4767Z" fill="#CAFD35"/>
+                </svg>
+            </a>
         </div>
         <div class="partners-block">
             <a href="#" class="logo-companies">
@@ -526,11 +554,21 @@
         <div class="footer__documents">
             <div class="com">© Blue Bird Karaoke Rooms. 2019.  All rights reserved.</div>
             <div class="docs">
-                <a href="#">Terms and conditions </a>
+                <a href="pageTerms.html">Terms and conditions </a>
                 <a href="#">Privacy Policy</a>
             </div>
         </div>
     </footer>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="owl-carousel/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="js/datepicker.js"></script>
+    <script type="text/javascript" src="js/datepicker.en.js"></script>
+    <script type="text/javascript" src="js/jquery.formstyler.js"></script>
+    <script src="js/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    <script type="text/javascript" src="js/script.js"></script>
 </body>
 
 </html>
