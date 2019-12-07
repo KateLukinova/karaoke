@@ -198,475 +198,135 @@
         </div>
     </header>
         <section class="section booking">
-            <div class="booking__step1Wrap">
-            <h1>Booking</h1>
-            <div class="booking__stepTitle">
-                Step 1. <span>Check your date, amount of persons, duration:</span>
+            <div class="booking__step1Wrap" id="rooms-bookings">
+                <h1>Booking</h1>
+                <div class="booking__stepTitle">
+                    Step 1. <span>Check your date, amount of persons, duration:</span>
+                </div>
+                <form action="#" class="booking-block booking-block--short">
+                                                                               <div class="booking-block__item">
+                                                                               <div class="label">date</div>
+                                                                               <input id="datepicker" data-position="right top" value="15" />
+                                                                               <div class="chosen-date">
+                                                                               <span id="chosen-day">15</span>
+                                                                               <span id="chosen-month">oct</span>
+                                                                               </div>
+                                                                               </div>
+                                                                               <div class="booking-block__item">
+                                                                               <div class="label">persons</div>
+                                                                               <div class="number">
+                                                                               <span class="minus-person minus">-</span>
+                                                                               <input type="number" id="current-persons" value="1" size="5"/>
+                                                                               <span class="plus-person plus">+</span>
+                                                                               </div>
+                                                                               </div>
+                                                                               <div class="booking-block__item">
+                                                                               <div class="label">duration</div>
+                                                                               <div class="number">
+                                                                               <span class="minus-hours minus">-</span>
+                                                                               <input type="number" id="current-time" value="1" size="5"/>
+                                                                               <span class="plus-hours plus">+</span>
+                                                                               </div>
+                                                                               </div>
+                                                                               </form>
+                <div class="booking__stepTitle step-two">
+                                                            Step 2. <span>Choose karaoke room:</span>
+                                                            </div>
+<!--                <div class="musicRoom__item step-two">-->
+<!--                    <div class="room-descrBlock">-->
+<!--                        <div class="musicRoom__image">-->
+<!--                            <img src="img/roombook1.jpg">-->
+<!--                        </div>-->
+<!--                        <div class="musicRoom__descr">-->
+<!--                            <div class="musicRoom__title">Room Strip-->
+<!--                                <span class="musicRoom__count">Max - 25 persons</span>-->
+<!--                            </div>-->
+<!--                            <div class="dop-info">-->
+<!--                                <div class="musicRoom__userMessage">The space is perfectly adapted to the size of your group</div>-->
+<!--                                <div class="musicRoom__userMessageTime">This book has been booked 8 times for last 24 hours</div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="musicRoom__buyWrap" id="strip-room">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="line-divider step-two"></div>-->
+<!--                <div class="musicRoom__item step-two">-->
+<!--                    <div class="room-descrBlock">-->
+<!--                        <div class="musicRoom__image">-->
+<!--                            <img src="img/reggae.jpg">-->
+<!--                        </div>-->
+<!--                        <div class="musicRoom__descr">-->
+<!--                            <div class="musicRoom__title">Room Reggae-->
+<!--                                <span class="musicRoom__count">Max - 25 persons</span>-->
+<!--                            </div>-->
+<!--                            <div class="dop-info">-->
+<!--                                <div class="musicRoom__userMessage">The space is perfectly adapted to the size of your group</div>-->
+<!--                                <div class="musicRoom__userMessageTime">This book has been booked 8 times for last 24 hours</div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="musicRoom__buyWrap" id="reggae-room">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="line-divider step-two"></div>-->
+<!--                <div class="musicRoom__item step-two">-->
+<!--                    <div class="room-descrBlock">-->
+<!--                        <div class="musicRoom__image">-->
+<!--                            <img src="img/gatsby.jpg">-->
+<!--                        </div>-->
+<!--                        <div class="musicRoom__descr">-->
+<!--                            <div class="musicRoom__title">Room Gatsby-->
+<!--                                <span class="musicRoom__count">Max - 25 persons</span>-->
+<!--                            </div>-->
+<!--                            <div class="dop-info">-->
+<!--                                <div class="musicRoom__userMessage">The space is perfectly adapted to the size of your group</div>-->
+<!--                                <div class="musicRoom__userMessageTime">This book has been booked 8 times for last 24 hours</div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="musicRoom__buyWrap" id="gatsby-room">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="line-divider step-two"></div>-->
+<!--                <div class="musicRoom__item step-two">-->
+<!--                    <div class="room-descrBlock">-->
+<!--                        <div class="musicRoom__image">-->
+<!--                            <img src="img/comics.jpg">-->
+<!--                        </div>-->
+<!--                        <div class="musicRoom__descr">-->
+<!--                            <div class="musicRoom__title">Room Comics-->
+<!--                                <span class="musicRoom__count">Max - 25 persons</span>-->
+<!--                            </div>-->
+<!--                            <div class="dop-info">-->
+<!--                                <div class="musicRoom__userMessage">The space is perfectly adapted to the size of your group</div>-->
+<!--                                <div class="musicRoom__userMessageTime">This book has been booked 8 times for last 24 hours</div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="musicRoom__buyWrap" id="comics-room">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="line-divider step-two"></div>-->
+<!--                <div class="musicRoom__item step-two">-->
+<!--                    <div class="room-descrBlock">-->
+<!--                        <div class="musicRoom__image">-->
+<!--                            <img src="img/icberg.jpg">-->
+<!--                        </div>-->
+<!--                        <div class="musicRoom__descr">-->
+<!--                            <div class="musicRoom__title">Room Iceberg-->
+<!--                                <span class="musicRoom__count">Max - 25 persons</span>-->
+<!--                            </div>-->
+<!--                            <div class="dop-info">-->
+<!--                                <div class="musicRoom__userMessage">The space is perfectly adapted to the size of your group</div>-->
+<!--                                <div class="musicRoom__userMessageTime">This book has been booked 8 times for last 24 hours</div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="musicRoom__buyWrap" id="iceberg-room">-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
-            <form action="#" class="booking-block booking-block--short">
-                <div class="booking-block__item">
-                    <div class="label">date</div>
-                    <input id="datepicker" data-position="right top" value="15" />
-                    <div class="chosen-date">
-                        <span id="chosen-day">15</span>
-                        <span id="chosen-month">oct</span>
-                    </div>
-                </div>
-                <div class="booking-block__item">
-                    <div class="label">persons</div>
-                    <div class="number">
-                        <span class="minus-person minus">-</span>
-                        <input type="number" id="current-persons" value="1" size="5"/>
-                        <span class="plus-person plus">+</span>
-                    </div>
-                </div>
-                <div class="booking-block__item">
-                    <div class="label">duration</div>
-                    <div class="number">
-                        <span class="minus-hours minus">-</span>
-                        <input type="number" id="current-time" value="1" size="5"/>
-                        <span class="plus-hours plus">+</span>
-                    </div>
-                </div>
-            </form>
-            <div class="booking__stepTitle step-two">
-                Step 2. <span>Choose karaoke room:</span>
-            </div>
-            <div class="musicRoom__item step-two">
-                <div class="room-descrBlock">
-                    <div class="musicRoom__image">
-                        <img src="img/roombook1.jpg">
-                    </div>
-                    <div class="musicRoom__descr">
-                        <div class="musicRoom__title">Room Strip
-                            <span class="musicRoom__count">Max - 25 persons</span>
-                        </div>
-                        <div class="dop-info">
-                            <div class="musicRoom__userMessage">The space is perfectly adapted to the size of your group</div>
-                            <div class="musicRoom__userMessageTime">This book has been booked 8 times for last 24 hours</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="musicRoom__buyWrap">
-                    <div class="musicRoom__buyItem"><span class="musicRoom__buyItemTime">18h00-21h00</span>
-                        <div class="musicRoom__buyPrice">
-                            <div class="radio">
-                                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" class="tooltip-icon" xmlns="http://www.w3.org/2000/svg">
-                                    <g id="information">
-                                        <path id="Path" fill-rule="evenodd" clip-rule="evenodd" d="M12.0703 3.98438C12.0703 4.14608 12.2016 4.27734 12.3633 4.27734C12.525 4.27734 12.6562 4.14608 12.6562 3.98438C12.6562 3.82267 12.525 3.69141 12.3633 3.69141C12.2016 3.69141 12.0703 3.82267 12.0703 3.98438Z" fill="white"/>
-                                        <path id="Path_2" fill-rule="evenodd" clip-rule="evenodd" d="M13.2421 7.4999C13.2421 7.87515 13.2044 8.24972 13.1303 8.61318C13.0979 8.77168 13.2002 8.9264 13.3587 8.95879C13.3785 8.96291 13.3982 8.96486 13.4177 8.96486C13.5539 8.96486 13.6761 8.86907 13.7044 8.73037C13.7865 8.32834 13.828 7.9144 13.828 7.4999C13.828 6.57739 13.628 5.68967 13.2333 4.86135C13.1637 4.71532 12.989 4.6533 12.8428 4.72288C12.6967 4.79246 12.6348 4.96732 12.7043 5.11346C13.0612 5.86236 13.2421 6.66528 13.2421 7.4999Z" fill="white"/>
-                                        <path id="Shape" fill-rule="evenodd" clip-rule="evenodd" d="M8.67188 10.1367H8.96484C9.12666 10.1367 9.25781 10.2679 9.25781 10.4297V11.6016C9.25781 11.7634 9.12666 11.8945 8.96484 11.8945H6.03516C5.87334 11.8945 5.74219 11.7634 5.74219 11.6016V10.4297C5.74219 10.2679 5.87334 10.1367 6.03516 10.1367H6.32812V7.79297H6.03516C5.87334 7.79297 5.74219 7.66182 5.74219 7.5V6.32812C5.74219 6.16631 5.87334 6.03516 6.03516 6.03516H8.37891C8.54073 6.03516 8.67188 6.16631 8.67188 6.32812V10.1367ZM6.32812 11.3086H8.67188V10.7227H8.37891C8.2172 10.7227 8.08594 10.5915 8.08594 10.4297V6.62109H6.32812V7.20703H6.62109C6.78291 7.20703 6.91406 7.33818 6.91406 7.5V10.4297C6.91406 10.5915 6.78291 10.7227 6.62109 10.7227H6.32812V11.3086Z" fill="white"/>
-                                        <path id="Shape_2" fill-rule="evenodd" clip-rule="evenodd" d="M8.67188 4.27734C8.67188 4.92348 8.14613 5.44922 7.5 5.44922C6.85387 5.44922 6.32812 4.92348 6.32812 4.27734C6.32812 3.63121 6.85387 3.10547 7.5 3.10547C8.14613 3.10547 8.67188 3.63121 8.67188 4.27734ZM8.08594 4.27734C8.08594 3.95428 7.82307 3.69141 7.5 3.69141C7.17693 3.69141 6.91406 3.95428 6.91406 4.27734C6.91406 4.60041 7.17693 4.86328 7.5 4.86328C7.82307 4.86328 8.08594 4.60041 8.08594 4.27734Z" fill="white"/>
-                                        <path id="Shape_3" fill-rule="evenodd" clip-rule="evenodd" d="M1.27758e-05 7.5C1.27758e-05 3.45119 3.45773 0 7.50001 0C11.5485 0 15 3.45669 15 7.5C15 11.5483 11.5433 15 7.50001 15C6.11699 15 4.6462 14.6038 3.53383 13.9355L0.385679 14.9849C0.280965 15.0199 0.164693 14.993 0.0858435 14.9142C0.007337 14.8358 -0.0200144 14.7196 0.0150045 14.6144L1.06454 11.4663C0.396322 10.3538 1.27758e-05 8.88302 1.27758e-05 7.5ZM3.72781 13.3668C4.76316 14.0226 6.1733 14.4141 7.50001 14.4141C11.2478 14.4141 14.4141 11.2478 14.4141 7.5C14.4141 3.75217 11.2478 0.585938 7.50001 0.585938C3.75219 0.585938 0.58595 3.75217 0.58595 7.5C0.58595 8.82671 0.977453 10.237 1.6332 11.2722C1.68035 11.3466 1.69156 11.4381 1.66364 11.5217L0.756238 14.2438L3.47833 13.3364C3.56302 13.3081 3.65445 13.3204 3.72781 13.3668Z" fill="white"/>
-                                    </g>
-                                </svg>
-                                <input id="drinkerStrip" name="packStrip" type="radio" checked>
-                                <label for="drinkerStrip">Drinker</label>
-                                <div class="musicRoom__buyPriceTooltip">
-                                    <div class="tooltip__title">
-                                        Singer
-                                    </div>
-                                    <div class="tooltip__text">
-                                        For those who like to sing, but
-                                        not too much to drink
-                                    </div>
-                                    <div class="tooltip__price">
-                                        Price to pay
-                                        <span>16000 HUF ≈ 48 €</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="radio">
-                                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" class="tooltip-icon" xmlns="http://www.w3.org/2000/svg">
-                                    <g id="information">
-                                        <path id="Path" fill-rule="evenodd" clip-rule="evenodd" d="M12.0703 3.98438C12.0703 4.14608 12.2016 4.27734 12.3633 4.27734C12.525 4.27734 12.6562 4.14608 12.6562 3.98438C12.6562 3.82267 12.525 3.69141 12.3633 3.69141C12.2016 3.69141 12.0703 3.82267 12.0703 3.98438Z" fill="white"/>
-                                        <path id="Path_2" fill-rule="evenodd" clip-rule="evenodd" d="M13.2421 7.4999C13.2421 7.87515 13.2044 8.24972 13.1303 8.61318C13.0979 8.77168 13.2002 8.9264 13.3587 8.95879C13.3785 8.96291 13.3982 8.96486 13.4177 8.96486C13.5539 8.96486 13.6761 8.86907 13.7044 8.73037C13.7865 8.32834 13.828 7.9144 13.828 7.4999C13.828 6.57739 13.628 5.68967 13.2333 4.86135C13.1637 4.71532 12.989 4.6533 12.8428 4.72288C12.6967 4.79246 12.6348 4.96732 12.7043 5.11346C13.0612 5.86236 13.2421 6.66528 13.2421 7.4999Z" fill="white"/>
-                                        <path id="Shape" fill-rule="evenodd" clip-rule="evenodd" d="M8.67188 10.1367H8.96484C9.12666 10.1367 9.25781 10.2679 9.25781 10.4297V11.6016C9.25781 11.7634 9.12666 11.8945 8.96484 11.8945H6.03516C5.87334 11.8945 5.74219 11.7634 5.74219 11.6016V10.4297C5.74219 10.2679 5.87334 10.1367 6.03516 10.1367H6.32812V7.79297H6.03516C5.87334 7.79297 5.74219 7.66182 5.74219 7.5V6.32812C5.74219 6.16631 5.87334 6.03516 6.03516 6.03516H8.37891C8.54073 6.03516 8.67188 6.16631 8.67188 6.32812V10.1367ZM6.32812 11.3086H8.67188V10.7227H8.37891C8.2172 10.7227 8.08594 10.5915 8.08594 10.4297V6.62109H6.32812V7.20703H6.62109C6.78291 7.20703 6.91406 7.33818 6.91406 7.5V10.4297C6.91406 10.5915 6.78291 10.7227 6.62109 10.7227H6.32812V11.3086Z" fill="white"/>
-                                        <path id="Shape_2" fill-rule="evenodd" clip-rule="evenodd" d="M8.67188 4.27734C8.67188 4.92348 8.14613 5.44922 7.5 5.44922C6.85387 5.44922 6.32812 4.92348 6.32812 4.27734C6.32812 3.63121 6.85387 3.10547 7.5 3.10547C8.14613 3.10547 8.67188 3.63121 8.67188 4.27734ZM8.08594 4.27734C8.08594 3.95428 7.82307 3.69141 7.5 3.69141C7.17693 3.69141 6.91406 3.95428 6.91406 4.27734C6.91406 4.60041 7.17693 4.86328 7.5 4.86328C7.82307 4.86328 8.08594 4.60041 8.08594 4.27734Z" fill="white"/>
-                                        <path id="Shape_3" fill-rule="evenodd" clip-rule="evenodd" d="M1.27758e-05 7.5C1.27758e-05 3.45119 3.45773 0 7.50001 0C11.5485 0 15 3.45669 15 7.5C15 11.5483 11.5433 15 7.50001 15C6.11699 15 4.6462 14.6038 3.53383 13.9355L0.385679 14.9849C0.280965 15.0199 0.164693 14.993 0.0858435 14.9142C0.007337 14.8358 -0.0200144 14.7196 0.0150045 14.6144L1.06454 11.4663C0.396322 10.3538 1.27758e-05 8.88302 1.27758e-05 7.5ZM3.72781 13.3668C4.76316 14.0226 6.1733 14.4141 7.50001 14.4141C11.2478 14.4141 14.4141 11.2478 14.4141 7.5C14.4141 3.75217 11.2478 0.585938 7.50001 0.585938C3.75219 0.585938 0.58595 3.75217 0.58595 7.5C0.58595 8.82671 0.977453 10.237 1.6332 11.2722C1.68035 11.3466 1.69156 11.4381 1.66364 11.5217L0.756238 14.2438L3.47833 13.3364C3.56302 13.3081 3.65445 13.3204 3.72781 13.3668Z" fill="white"/>
-                                    </g>
-                                </svg>
-                                <input id="singerStrip" name="packStrip" type="radio">
-                                <label for="singerStrip">Singer</label>
-                                <div class="musicRoom__buyPriceTooltip">
-                                    <div class="tooltip__title">
-                                        Singer
-                                    </div>
-                                    <div class="tooltip__text">
-                                        For those who like to sing, but
-                                        not too much to drink
-                                    </div>
-                                    <div class="tooltip__price">
-                                        Price to pay
-                                        <span>16000 HUF ≈ 48 €</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="musicRoom__price">
-                            <div class="musicRoom__priceValueOld">30 900 HUF</div>
-                            <div class="musicRoom__priceValueNew">29 000 HUF</div>
-                            <div class="musicRoom__priceValuePerson">3 900 HUF/person</div>
-                        </div>
-                        <div class="musicRoom__buyBtn">
-                            <span class="booking-name-room">Strip</span>
-                        </div>
-                    </div>
-                    <div class="musicRoom__buyItem disabled">
-                        <span class="musicRoom__buyItemTime">21h00-23h00</span>
-                        <div class="musicRoom__buyBtnDisabled">Booked</div>
-                    </div>
-                </div>
-            </div>
-            <div class="line-divider step-two"></div>
-            <div class="musicRoom__item step-two">
-                <div class="room-descrBlock">
-                    <div class="musicRoom__image">
-                        <img src="img/reggae.jpg">
-                    </div>
-                    <div class="musicRoom__descr">
-                        <div class="musicRoom__title">Room Reggae
-                            <span class="musicRoom__count">Max - 25 persons</span>
-                        </div>
-                        <div class="dop-info">
-                            <div class="musicRoom__userMessage">The space is perfectly adapted to the size of your group</div>
-                            <div class="musicRoom__userMessageTime">This book has been booked 8 times for last 24 hours</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="musicRoom__buyWrap">
-                    <div class="musicRoom__buyItem"><span class="musicRoom__buyItemTime">18h00-21h00</span>
-                        <div class="musicRoom__buyPrice">
-                            <div class="radio">
-                                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" class="tooltip-icon" xmlns="http://www.w3.org/2000/svg">
-                                    <g>
-                                        <path id="Path" fill-rule="evenodd" clip-rule="evenodd" d="M12.0703 3.98438C12.0703 4.14608 12.2016 4.27734 12.3633 4.27734C12.525 4.27734 12.6562 4.14608 12.6562 3.98438C12.6562 3.82267 12.525 3.69141 12.3633 3.69141C12.2016 3.69141 12.0703 3.82267 12.0703 3.98438Z" fill="white"/>
-                                        <path id="Path_2" fill-rule="evenodd" clip-rule="evenodd" d="M13.2421 7.4999C13.2421 7.87515 13.2044 8.24972 13.1303 8.61318C13.0979 8.77168 13.2002 8.9264 13.3587 8.95879C13.3785 8.96291 13.3982 8.96486 13.4177 8.96486C13.5539 8.96486 13.6761 8.86907 13.7044 8.73037C13.7865 8.32834 13.828 7.9144 13.828 7.4999C13.828 6.57739 13.628 5.68967 13.2333 4.86135C13.1637 4.71532 12.989 4.6533 12.8428 4.72288C12.6967 4.79246 12.6348 4.96732 12.7043 5.11346C13.0612 5.86236 13.2421 6.66528 13.2421 7.4999Z" fill="white"/>
-                                        <path id="Shape" fill-rule="evenodd" clip-rule="evenodd" d="M8.67188 10.1367H8.96484C9.12666 10.1367 9.25781 10.2679 9.25781 10.4297V11.6016C9.25781 11.7634 9.12666 11.8945 8.96484 11.8945H6.03516C5.87334 11.8945 5.74219 11.7634 5.74219 11.6016V10.4297C5.74219 10.2679 5.87334 10.1367 6.03516 10.1367H6.32812V7.79297H6.03516C5.87334 7.79297 5.74219 7.66182 5.74219 7.5V6.32812C5.74219 6.16631 5.87334 6.03516 6.03516 6.03516H8.37891C8.54073 6.03516 8.67188 6.16631 8.67188 6.32812V10.1367ZM6.32812 11.3086H8.67188V10.7227H8.37891C8.2172 10.7227 8.08594 10.5915 8.08594 10.4297V6.62109H6.32812V7.20703H6.62109C6.78291 7.20703 6.91406 7.33818 6.91406 7.5V10.4297C6.91406 10.5915 6.78291 10.7227 6.62109 10.7227H6.32812V11.3086Z" fill="white"/>
-                                        <path id="Shape_2" fill-rule="evenodd" clip-rule="evenodd" d="M8.67188 4.27734C8.67188 4.92348 8.14613 5.44922 7.5 5.44922C6.85387 5.44922 6.32812 4.92348 6.32812 4.27734C6.32812 3.63121 6.85387 3.10547 7.5 3.10547C8.14613 3.10547 8.67188 3.63121 8.67188 4.27734ZM8.08594 4.27734C8.08594 3.95428 7.82307 3.69141 7.5 3.69141C7.17693 3.69141 6.91406 3.95428 6.91406 4.27734C6.91406 4.60041 7.17693 4.86328 7.5 4.86328C7.82307 4.86328 8.08594 4.60041 8.08594 4.27734Z" fill="white"/>
-                                        <path id="Shape_3" fill-rule="evenodd" clip-rule="evenodd" d="M1.27758e-05 7.5C1.27758e-05 3.45119 3.45773 0 7.50001 0C11.5485 0 15 3.45669 15 7.5C15 11.5483 11.5433 15 7.50001 15C6.11699 15 4.6462 14.6038 3.53383 13.9355L0.385679 14.9849C0.280965 15.0199 0.164693 14.993 0.0858435 14.9142C0.007337 14.8358 -0.0200144 14.7196 0.0150045 14.6144L1.06454 11.4663C0.396322 10.3538 1.27758e-05 8.88302 1.27758e-05 7.5ZM3.72781 13.3668C4.76316 14.0226 6.1733 14.4141 7.50001 14.4141C11.2478 14.4141 14.4141 11.2478 14.4141 7.5C14.4141 3.75217 11.2478 0.585938 7.50001 0.585938C3.75219 0.585938 0.58595 3.75217 0.58595 7.5C0.58595 8.82671 0.977453 10.237 1.6332 11.2722C1.68035 11.3466 1.69156 11.4381 1.66364 11.5217L0.756238 14.2438L3.47833 13.3364C3.56302 13.3081 3.65445 13.3204 3.72781 13.3668Z" fill="white"/>
-                                    </g>
-                                </svg>
-                                <input id="drinkerReggae" name="packReggae" type="radio" checked>
-                                <label for="drinkerReggae">Drinker</label>
-                                <div class="musicRoom__buyPriceTooltip">
-                                    <div class="tooltip__title">
-                                        Singer
-                                    </div>
-                                    <div class="tooltip__text">
-                                        For those who like to sing, but
-                                        not too much to drink
-                                    </div>
-                                    <div class="tooltip__price">
-                                        Price to pay
-                                        <span>16000 HUF ≈ 48 €</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="radio">
-                                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" class="tooltip-icon" xmlns="http://www.w3.org/2000/svg">
-                                    <g id="information">
-                                        <path id="Path" fill-rule="evenodd" clip-rule="evenodd" d="M12.0703 3.98438C12.0703 4.14608 12.2016 4.27734 12.3633 4.27734C12.525 4.27734 12.6562 4.14608 12.6562 3.98438C12.6562 3.82267 12.525 3.69141 12.3633 3.69141C12.2016 3.69141 12.0703 3.82267 12.0703 3.98438Z" fill="white"/>
-                                        <path id="Path_2" fill-rule="evenodd" clip-rule="evenodd" d="M13.2421 7.4999C13.2421 7.87515 13.2044 8.24972 13.1303 8.61318C13.0979 8.77168 13.2002 8.9264 13.3587 8.95879C13.3785 8.96291 13.3982 8.96486 13.4177 8.96486C13.5539 8.96486 13.6761 8.86907 13.7044 8.73037C13.7865 8.32834 13.828 7.9144 13.828 7.4999C13.828 6.57739 13.628 5.68967 13.2333 4.86135C13.1637 4.71532 12.989 4.6533 12.8428 4.72288C12.6967 4.79246 12.6348 4.96732 12.7043 5.11346C13.0612 5.86236 13.2421 6.66528 13.2421 7.4999Z" fill="white"/>
-                                        <path id="Shape" fill-rule="evenodd" clip-rule="evenodd" d="M8.67188 10.1367H8.96484C9.12666 10.1367 9.25781 10.2679 9.25781 10.4297V11.6016C9.25781 11.7634 9.12666 11.8945 8.96484 11.8945H6.03516C5.87334 11.8945 5.74219 11.7634 5.74219 11.6016V10.4297C5.74219 10.2679 5.87334 10.1367 6.03516 10.1367H6.32812V7.79297H6.03516C5.87334 7.79297 5.74219 7.66182 5.74219 7.5V6.32812C5.74219 6.16631 5.87334 6.03516 6.03516 6.03516H8.37891C8.54073 6.03516 8.67188 6.16631 8.67188 6.32812V10.1367ZM6.32812 11.3086H8.67188V10.7227H8.37891C8.2172 10.7227 8.08594 10.5915 8.08594 10.4297V6.62109H6.32812V7.20703H6.62109C6.78291 7.20703 6.91406 7.33818 6.91406 7.5V10.4297C6.91406 10.5915 6.78291 10.7227 6.62109 10.7227H6.32812V11.3086Z" fill="white"/>
-                                        <path id="Shape_2" fill-rule="evenodd" clip-rule="evenodd" d="M8.67188 4.27734C8.67188 4.92348 8.14613 5.44922 7.5 5.44922C6.85387 5.44922 6.32812 4.92348 6.32812 4.27734C6.32812 3.63121 6.85387 3.10547 7.5 3.10547C8.14613 3.10547 8.67188 3.63121 8.67188 4.27734ZM8.08594 4.27734C8.08594 3.95428 7.82307 3.69141 7.5 3.69141C7.17693 3.69141 6.91406 3.95428 6.91406 4.27734C6.91406 4.60041 7.17693 4.86328 7.5 4.86328C7.82307 4.86328 8.08594 4.60041 8.08594 4.27734Z" fill="white"/>
-                                        <path id="Shape_3" fill-rule="evenodd" clip-rule="evenodd" d="M1.27758e-05 7.5C1.27758e-05 3.45119 3.45773 0 7.50001 0C11.5485 0 15 3.45669 15 7.5C15 11.5483 11.5433 15 7.50001 15C6.11699 15 4.6462 14.6038 3.53383 13.9355L0.385679 14.9849C0.280965 15.0199 0.164693 14.993 0.0858435 14.9142C0.007337 14.8358 -0.0200144 14.7196 0.0150045 14.6144L1.06454 11.4663C0.396322 10.3538 1.27758e-05 8.88302 1.27758e-05 7.5ZM3.72781 13.3668C4.76316 14.0226 6.1733 14.4141 7.50001 14.4141C11.2478 14.4141 14.4141 11.2478 14.4141 7.5C14.4141 3.75217 11.2478 0.585938 7.50001 0.585938C3.75219 0.585938 0.58595 3.75217 0.58595 7.5C0.58595 8.82671 0.977453 10.237 1.6332 11.2722C1.68035 11.3466 1.69156 11.4381 1.66364 11.5217L0.756238 14.2438L3.47833 13.3364C3.56302 13.3081 3.65445 13.3204 3.72781 13.3668Z" fill="white"/>
-                                    </g>
-                                </svg>
-                                <input id="singerReggae" name="packReggae" type="radio">
-                                <label for="singerReggae">Singer</label>
-                                <div class="musicRoom__buyPriceTooltip">
-                                    <div class="tooltip__title">
-                                        Singer
-                                    </div>
-                                    <div class="tooltip__text">
-                                        For those who like to sing, but
-                                        not too much to drink
-                                    </div>
-                                    <div class="tooltip__price">
-                                        Price to pay
-                                        <span>16000 HUF ≈ 48 €</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="musicRoom__price">
-                            <div class="musicRoom__priceValueOld">30 900 HUF</div>
-                            <div class="musicRoom__priceValueNew">29 000 HUF</div>
-                            <div class="musicRoom__priceValuePerson">3 900 HUF/person</div>
-                        </div>
-                        <div class="musicRoom__buyBtn">
-                            <span class="booking-name-room">Reggae</span>
-                        </div>
-                    </div>
-                    <div class="musicRoom__buyItem disabled">
-                        <span class="musicRoom__buyItemTime">21h00-23h00</span>
-                        <div class="musicRoom__buyBtnDisabled">Booked</div>
-                    </div>
-                </div>
-            </div>
-            <div class="line-divider step-two"></div>
-            <div class="musicRoom__item step-two">
-                <div class="room-descrBlock">
-                    <div class="musicRoom__image">
-                        <img src="img/gatsby.jpg">
-                    </div>
-                    <div class="musicRoom__descr">
-                        <div class="musicRoom__title">Room Gatsby
-                            <span class="musicRoom__count">Max - 25 persons</span>
-                        </div>
-                        <div class="dop-info">
-                            <div class="musicRoom__userMessage">The space is perfectly adapted to the size of your group</div>
-                            <div class="musicRoom__userMessageTime">This book has been booked 8 times for last 24 hours</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="musicRoom__buyWrap">
-                    <div class="musicRoom__buyItem"><span class="musicRoom__buyItemTime">18h00-21h00</span>
-                        <div class="musicRoom__buyPrice">
-                            <div class="radio">
-                                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" class="tooltip-icon" xmlns="http://www.w3.org/2000/svg">
-                                    <g>
-                                        <path id="Path" fill-rule="evenodd" clip-rule="evenodd" d="M12.0703 3.98438C12.0703 4.14608 12.2016 4.27734 12.3633 4.27734C12.525 4.27734 12.6562 4.14608 12.6562 3.98438C12.6562 3.82267 12.525 3.69141 12.3633 3.69141C12.2016 3.69141 12.0703 3.82267 12.0703 3.98438Z" fill="white"/>
-                                        <path id="Path_2" fill-rule="evenodd" clip-rule="evenodd" d="M13.2421 7.4999C13.2421 7.87515 13.2044 8.24972 13.1303 8.61318C13.0979 8.77168 13.2002 8.9264 13.3587 8.95879C13.3785 8.96291 13.3982 8.96486 13.4177 8.96486C13.5539 8.96486 13.6761 8.86907 13.7044 8.73037C13.7865 8.32834 13.828 7.9144 13.828 7.4999C13.828 6.57739 13.628 5.68967 13.2333 4.86135C13.1637 4.71532 12.989 4.6533 12.8428 4.72288C12.6967 4.79246 12.6348 4.96732 12.7043 5.11346C13.0612 5.86236 13.2421 6.66528 13.2421 7.4999Z" fill="white"/>
-                                        <path id="Shape" fill-rule="evenodd" clip-rule="evenodd" d="M8.67188 10.1367H8.96484C9.12666 10.1367 9.25781 10.2679 9.25781 10.4297V11.6016C9.25781 11.7634 9.12666 11.8945 8.96484 11.8945H6.03516C5.87334 11.8945 5.74219 11.7634 5.74219 11.6016V10.4297C5.74219 10.2679 5.87334 10.1367 6.03516 10.1367H6.32812V7.79297H6.03516C5.87334 7.79297 5.74219 7.66182 5.74219 7.5V6.32812C5.74219 6.16631 5.87334 6.03516 6.03516 6.03516H8.37891C8.54073 6.03516 8.67188 6.16631 8.67188 6.32812V10.1367ZM6.32812 11.3086H8.67188V10.7227H8.37891C8.2172 10.7227 8.08594 10.5915 8.08594 10.4297V6.62109H6.32812V7.20703H6.62109C6.78291 7.20703 6.91406 7.33818 6.91406 7.5V10.4297C6.91406 10.5915 6.78291 10.7227 6.62109 10.7227H6.32812V11.3086Z" fill="white"/>
-                                        <path id="Shape_2" fill-rule="evenodd" clip-rule="evenodd" d="M8.67188 4.27734C8.67188 4.92348 8.14613 5.44922 7.5 5.44922C6.85387 5.44922 6.32812 4.92348 6.32812 4.27734C6.32812 3.63121 6.85387 3.10547 7.5 3.10547C8.14613 3.10547 8.67188 3.63121 8.67188 4.27734ZM8.08594 4.27734C8.08594 3.95428 7.82307 3.69141 7.5 3.69141C7.17693 3.69141 6.91406 3.95428 6.91406 4.27734C6.91406 4.60041 7.17693 4.86328 7.5 4.86328C7.82307 4.86328 8.08594 4.60041 8.08594 4.27734Z" fill="white"/>
-                                        <path id="Shape_3" fill-rule="evenodd" clip-rule="evenodd" d="M1.27758e-05 7.5C1.27758e-05 3.45119 3.45773 0 7.50001 0C11.5485 0 15 3.45669 15 7.5C15 11.5483 11.5433 15 7.50001 15C6.11699 15 4.6462 14.6038 3.53383 13.9355L0.385679 14.9849C0.280965 15.0199 0.164693 14.993 0.0858435 14.9142C0.007337 14.8358 -0.0200144 14.7196 0.0150045 14.6144L1.06454 11.4663C0.396322 10.3538 1.27758e-05 8.88302 1.27758e-05 7.5ZM3.72781 13.3668C4.76316 14.0226 6.1733 14.4141 7.50001 14.4141C11.2478 14.4141 14.4141 11.2478 14.4141 7.5C14.4141 3.75217 11.2478 0.585938 7.50001 0.585938C3.75219 0.585938 0.58595 3.75217 0.58595 7.5C0.58595 8.82671 0.977453 10.237 1.6332 11.2722C1.68035 11.3466 1.69156 11.4381 1.66364 11.5217L0.756238 14.2438L3.47833 13.3364C3.56302 13.3081 3.65445 13.3204 3.72781 13.3668Z" fill="white"/>
-                                    </g>
-                                </svg>
-                                <input id="drinkerGatsby" name="packGatsby" type="radio" checked>
-                                <label for="drinkerGatsby">Drinker</label>
-                                <div class="musicRoom__buyPriceTooltip">
-                                    <div class="tooltip__title">
-                                        Singer
-                                    </div>
-                                    <div class="tooltip__text">
-                                        For those who like to sing, but
-                                        not too much to drink
-                                    </div>
-                                    <div class="tooltip__price">
-                                        Price to pay
-                                        <span>16000 HUF ≈ 48 €</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="radio">
-                                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" class="tooltip-icon" xmlns="http://www.w3.org/2000/svg">
-                                    <g>
-                                        <path id="Path" fill-rule="evenodd" clip-rule="evenodd" d="M12.0703 3.98438C12.0703 4.14608 12.2016 4.27734 12.3633 4.27734C12.525 4.27734 12.6562 4.14608 12.6562 3.98438C12.6562 3.82267 12.525 3.69141 12.3633 3.69141C12.2016 3.69141 12.0703 3.82267 12.0703 3.98438Z" fill="white"/>
-                                        <path id="Path_2" fill-rule="evenodd" clip-rule="evenodd" d="M13.2421 7.4999C13.2421 7.87515 13.2044 8.24972 13.1303 8.61318C13.0979 8.77168 13.2002 8.9264 13.3587 8.95879C13.3785 8.96291 13.3982 8.96486 13.4177 8.96486C13.5539 8.96486 13.6761 8.86907 13.7044 8.73037C13.7865 8.32834 13.828 7.9144 13.828 7.4999C13.828 6.57739 13.628 5.68967 13.2333 4.86135C13.1637 4.71532 12.989 4.6533 12.8428 4.72288C12.6967 4.79246 12.6348 4.96732 12.7043 5.11346C13.0612 5.86236 13.2421 6.66528 13.2421 7.4999Z" fill="white"/>
-                                        <path id="Shape" fill-rule="evenodd" clip-rule="evenodd" d="M8.67188 10.1367H8.96484C9.12666 10.1367 9.25781 10.2679 9.25781 10.4297V11.6016C9.25781 11.7634 9.12666 11.8945 8.96484 11.8945H6.03516C5.87334 11.8945 5.74219 11.7634 5.74219 11.6016V10.4297C5.74219 10.2679 5.87334 10.1367 6.03516 10.1367H6.32812V7.79297H6.03516C5.87334 7.79297 5.74219 7.66182 5.74219 7.5V6.32812C5.74219 6.16631 5.87334 6.03516 6.03516 6.03516H8.37891C8.54073 6.03516 8.67188 6.16631 8.67188 6.32812V10.1367ZM6.32812 11.3086H8.67188V10.7227H8.37891C8.2172 10.7227 8.08594 10.5915 8.08594 10.4297V6.62109H6.32812V7.20703H6.62109C6.78291 7.20703 6.91406 7.33818 6.91406 7.5V10.4297C6.91406 10.5915 6.78291 10.7227 6.62109 10.7227H6.32812V11.3086Z" fill="white"/>
-                                        <path id="Shape_2" fill-rule="evenodd" clip-rule="evenodd" d="M8.67188 4.27734C8.67188 4.92348 8.14613 5.44922 7.5 5.44922C6.85387 5.44922 6.32812 4.92348 6.32812 4.27734C6.32812 3.63121 6.85387 3.10547 7.5 3.10547C8.14613 3.10547 8.67188 3.63121 8.67188 4.27734ZM8.08594 4.27734C8.08594 3.95428 7.82307 3.69141 7.5 3.69141C7.17693 3.69141 6.91406 3.95428 6.91406 4.27734C6.91406 4.60041 7.17693 4.86328 7.5 4.86328C7.82307 4.86328 8.08594 4.60041 8.08594 4.27734Z" fill="white"/>
-                                        <path id="Shape_3" fill-rule="evenodd" clip-rule="evenodd" d="M1.27758e-05 7.5C1.27758e-05 3.45119 3.45773 0 7.50001 0C11.5485 0 15 3.45669 15 7.5C15 11.5483 11.5433 15 7.50001 15C6.11699 15 4.6462 14.6038 3.53383 13.9355L0.385679 14.9849C0.280965 15.0199 0.164693 14.993 0.0858435 14.9142C0.007337 14.8358 -0.0200144 14.7196 0.0150045 14.6144L1.06454 11.4663C0.396322 10.3538 1.27758e-05 8.88302 1.27758e-05 7.5ZM3.72781 13.3668C4.76316 14.0226 6.1733 14.4141 7.50001 14.4141C11.2478 14.4141 14.4141 11.2478 14.4141 7.5C14.4141 3.75217 11.2478 0.585938 7.50001 0.585938C3.75219 0.585938 0.58595 3.75217 0.58595 7.5C0.58595 8.82671 0.977453 10.237 1.6332 11.2722C1.68035 11.3466 1.69156 11.4381 1.66364 11.5217L0.756238 14.2438L3.47833 13.3364C3.56302 13.3081 3.65445 13.3204 3.72781 13.3668Z" fill="white"/>
-                                    </g>
-                                </svg>
-                                <input id="singerGatsby" name="packGatsby" type="radio">
-                                <label for="singerGatsby">Singer</label>
-                                <div class="musicRoom__buyPriceTooltip">
-                                    <div class="tooltip__title">
-                                        Singer
-                                    </div>
-                                    <div class="tooltip__text">
-                                        For those who like to sing, but
-                                        not too much to drink
-                                    </div>
-                                    <div class="tooltip__price">
-                                        Price to pay
-                                        <span>16000 HUF ≈ 48 €</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="musicRoom__price">
-                            <div class="musicRoom__priceValueOld">30 900 HUF</div>
-                            <div class="musicRoom__priceValueNew">29 000 HUF</div>
-                            <div class="musicRoom__priceValuePerson">3 900 HUF/person</div>
-                        </div>
-                        <div class="musicRoom__buyBtn">
-                            <span class="booking-name-room">Gatsby</span>
-                        </div>
-                    </div>
-                    <div class="musicRoom__buyItem disabled">
-                        <span class="musicRoom__buyItemTime">21h00-23h00</span>
-                        <div class="musicRoom__buyBtnDisabled">Booked</div>
-                    </div>
-                </div>
-            </div>
-            <div class="line-divider step-two"></div>
-            <div class="musicRoom__item step-two">
-                <div class="room-descrBlock">
-                    <div class="musicRoom__image">
-                        <img src="img/comics.jpg">
-                    </div>
-                    <div class="musicRoom__descr">
-                        <div class="musicRoom__title">Room Comics
-                            <span class="musicRoom__count">Max - 25 persons</span>
-                        </div>
-                        <div class="dop-info">
-                            <div class="musicRoom__userMessage">The space is perfectly adapted to the size of your group</div>
-                            <div class="musicRoom__userMessageTime">This book has been booked 8 times for last 24 hours</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="musicRoom__buyWrap">
-                    <div class="musicRoom__buyItem"><span class="musicRoom__buyItemTime">18h00-21h00</span>
-                        <div class="musicRoom__buyPrice">
-                            <div class="radio">
-                                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" class="tooltip-icon" xmlns="http://www.w3.org/2000/svg">
-                                    <g>
-                                        <path id="Path" fill-rule="evenodd" clip-rule="evenodd" d="M12.0703 3.98438C12.0703 4.14608 12.2016 4.27734 12.3633 4.27734C12.525 4.27734 12.6562 4.14608 12.6562 3.98438C12.6562 3.82267 12.525 3.69141 12.3633 3.69141C12.2016 3.69141 12.0703 3.82267 12.0703 3.98438Z" fill="white"/>
-                                        <path id="Path_2" fill-rule="evenodd" clip-rule="evenodd" d="M13.2421 7.4999C13.2421 7.87515 13.2044 8.24972 13.1303 8.61318C13.0979 8.77168 13.2002 8.9264 13.3587 8.95879C13.3785 8.96291 13.3982 8.96486 13.4177 8.96486C13.5539 8.96486 13.6761 8.86907 13.7044 8.73037C13.7865 8.32834 13.828 7.9144 13.828 7.4999C13.828 6.57739 13.628 5.68967 13.2333 4.86135C13.1637 4.71532 12.989 4.6533 12.8428 4.72288C12.6967 4.79246 12.6348 4.96732 12.7043 5.11346C13.0612 5.86236 13.2421 6.66528 13.2421 7.4999Z" fill="white"/>
-                                        <path id="Shape" fill-rule="evenodd" clip-rule="evenodd" d="M8.67188 10.1367H8.96484C9.12666 10.1367 9.25781 10.2679 9.25781 10.4297V11.6016C9.25781 11.7634 9.12666 11.8945 8.96484 11.8945H6.03516C5.87334 11.8945 5.74219 11.7634 5.74219 11.6016V10.4297C5.74219 10.2679 5.87334 10.1367 6.03516 10.1367H6.32812V7.79297H6.03516C5.87334 7.79297 5.74219 7.66182 5.74219 7.5V6.32812C5.74219 6.16631 5.87334 6.03516 6.03516 6.03516H8.37891C8.54073 6.03516 8.67188 6.16631 8.67188 6.32812V10.1367ZM6.32812 11.3086H8.67188V10.7227H8.37891C8.2172 10.7227 8.08594 10.5915 8.08594 10.4297V6.62109H6.32812V7.20703H6.62109C6.78291 7.20703 6.91406 7.33818 6.91406 7.5V10.4297C6.91406 10.5915 6.78291 10.7227 6.62109 10.7227H6.32812V11.3086Z" fill="white"/>
-                                        <path id="Shape_2" fill-rule="evenodd" clip-rule="evenodd" d="M8.67188 4.27734C8.67188 4.92348 8.14613 5.44922 7.5 5.44922C6.85387 5.44922 6.32812 4.92348 6.32812 4.27734C6.32812 3.63121 6.85387 3.10547 7.5 3.10547C8.14613 3.10547 8.67188 3.63121 8.67188 4.27734ZM8.08594 4.27734C8.08594 3.95428 7.82307 3.69141 7.5 3.69141C7.17693 3.69141 6.91406 3.95428 6.91406 4.27734C6.91406 4.60041 7.17693 4.86328 7.5 4.86328C7.82307 4.86328 8.08594 4.60041 8.08594 4.27734Z" fill="white"/>
-                                        <path id="Shape_3" fill-rule="evenodd" clip-rule="evenodd" d="M1.27758e-05 7.5C1.27758e-05 3.45119 3.45773 0 7.50001 0C11.5485 0 15 3.45669 15 7.5C15 11.5483 11.5433 15 7.50001 15C6.11699 15 4.6462 14.6038 3.53383 13.9355L0.385679 14.9849C0.280965 15.0199 0.164693 14.993 0.0858435 14.9142C0.007337 14.8358 -0.0200144 14.7196 0.0150045 14.6144L1.06454 11.4663C0.396322 10.3538 1.27758e-05 8.88302 1.27758e-05 7.5ZM3.72781 13.3668C4.76316 14.0226 6.1733 14.4141 7.50001 14.4141C11.2478 14.4141 14.4141 11.2478 14.4141 7.5C14.4141 3.75217 11.2478 0.585938 7.50001 0.585938C3.75219 0.585938 0.58595 3.75217 0.58595 7.5C0.58595 8.82671 0.977453 10.237 1.6332 11.2722C1.68035 11.3466 1.69156 11.4381 1.66364 11.5217L0.756238 14.2438L3.47833 13.3364C3.56302 13.3081 3.65445 13.3204 3.72781 13.3668Z" fill="white"/>
-                                    </g>
-                                </svg>
-                                <input id="drinkerComics" name="packComics" type="radio" checked>
-                                <label for="drinkerComics">Drinker</label>
-                                <div class="musicRoom__buyPriceTooltip">
-                                    <div class="tooltip__title">
-                                        Singer
-                                    </div>
-                                    <div class="tooltip__text">
-                                        For those who like to sing, but
-                                        not too much to drink
-                                    </div>
-                                    <div class="tooltip__price">
-                                        Price to pay
-                                        <span>16000 HUF ≈ 48 €</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="radio">
-                                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" class="tooltip-icon" xmlns="http://www.w3.org/2000/svg">
-                                    <g id="information">
-                                        <path id="Path" fill-rule="evenodd" clip-rule="evenodd" d="M12.0703 3.98438C12.0703 4.14608 12.2016 4.27734 12.3633 4.27734C12.525 4.27734 12.6562 4.14608 12.6562 3.98438C12.6562 3.82267 12.525 3.69141 12.3633 3.69141C12.2016 3.69141 12.0703 3.82267 12.0703 3.98438Z" fill="white"/>
-                                        <path id="Path_2" fill-rule="evenodd" clip-rule="evenodd" d="M13.2421 7.4999C13.2421 7.87515 13.2044 8.24972 13.1303 8.61318C13.0979 8.77168 13.2002 8.9264 13.3587 8.95879C13.3785 8.96291 13.3982 8.96486 13.4177 8.96486C13.5539 8.96486 13.6761 8.86907 13.7044 8.73037C13.7865 8.32834 13.828 7.9144 13.828 7.4999C13.828 6.57739 13.628 5.68967 13.2333 4.86135C13.1637 4.71532 12.989 4.6533 12.8428 4.72288C12.6967 4.79246 12.6348 4.96732 12.7043 5.11346C13.0612 5.86236 13.2421 6.66528 13.2421 7.4999Z" fill="white"/>
-                                        <path id="Shape" fill-rule="evenodd" clip-rule="evenodd" d="M8.67188 10.1367H8.96484C9.12666 10.1367 9.25781 10.2679 9.25781 10.4297V11.6016C9.25781 11.7634 9.12666 11.8945 8.96484 11.8945H6.03516C5.87334 11.8945 5.74219 11.7634 5.74219 11.6016V10.4297C5.74219 10.2679 5.87334 10.1367 6.03516 10.1367H6.32812V7.79297H6.03516C5.87334 7.79297 5.74219 7.66182 5.74219 7.5V6.32812C5.74219 6.16631 5.87334 6.03516 6.03516 6.03516H8.37891C8.54073 6.03516 8.67188 6.16631 8.67188 6.32812V10.1367ZM6.32812 11.3086H8.67188V10.7227H8.37891C8.2172 10.7227 8.08594 10.5915 8.08594 10.4297V6.62109H6.32812V7.20703H6.62109C6.78291 7.20703 6.91406 7.33818 6.91406 7.5V10.4297C6.91406 10.5915 6.78291 10.7227 6.62109 10.7227H6.32812V11.3086Z" fill="white"/>
-                                        <path id="Shape_2" fill-rule="evenodd" clip-rule="evenodd" d="M8.67188 4.27734C8.67188 4.92348 8.14613 5.44922 7.5 5.44922C6.85387 5.44922 6.32812 4.92348 6.32812 4.27734C6.32812 3.63121 6.85387 3.10547 7.5 3.10547C8.14613 3.10547 8.67188 3.63121 8.67188 4.27734ZM8.08594 4.27734C8.08594 3.95428 7.82307 3.69141 7.5 3.69141C7.17693 3.69141 6.91406 3.95428 6.91406 4.27734C6.91406 4.60041 7.17693 4.86328 7.5 4.86328C7.82307 4.86328 8.08594 4.60041 8.08594 4.27734Z" fill="white"/>
-                                        <path id="Shape_3" fill-rule="evenodd" clip-rule="evenodd" d="M1.27758e-05 7.5C1.27758e-05 3.45119 3.45773 0 7.50001 0C11.5485 0 15 3.45669 15 7.5C15 11.5483 11.5433 15 7.50001 15C6.11699 15 4.6462 14.6038 3.53383 13.9355L0.385679 14.9849C0.280965 15.0199 0.164693 14.993 0.0858435 14.9142C0.007337 14.8358 -0.0200144 14.7196 0.0150045 14.6144L1.06454 11.4663C0.396322 10.3538 1.27758e-05 8.88302 1.27758e-05 7.5ZM3.72781 13.3668C4.76316 14.0226 6.1733 14.4141 7.50001 14.4141C11.2478 14.4141 14.4141 11.2478 14.4141 7.5C14.4141 3.75217 11.2478 0.585938 7.50001 0.585938C3.75219 0.585938 0.58595 3.75217 0.58595 7.5C0.58595 8.82671 0.977453 10.237 1.6332 11.2722C1.68035 11.3466 1.69156 11.4381 1.66364 11.5217L0.756238 14.2438L3.47833 13.3364C3.56302 13.3081 3.65445 13.3204 3.72781 13.3668Z" fill="white"/>
-                                    </g>
-                                </svg>
-                                <input id="singerComics" name="packComics" type="radio">
-                                <label for="singerComics">Singer</label>
-                                <div class="musicRoom__buyPriceTooltip">
-                                    <div class="tooltip__title">
-                                        Singer
-                                    </div>
-                                    <div class="tooltip__text">
-                                        For those who like to sing, but
-                                        not too much to drink
-                                    </div>
-                                    <div class="tooltip__price">
-                                        Price to pay
-                                        <span>16000 HUF ≈ 48 €</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="musicRoom__price">
-                            <div class="musicRoom__priceValueOld">30 900 HUF</div>
-                            <div class="musicRoom__priceValueNew">29 000 HUF</div>
-                            <div class="musicRoom__priceValuePerson">3 900 HUF/person</div>
-                        </div>
-                        <div class="musicRoom__buyBtn">
-                            <span class="booking-name-room">Comics</span>
-                        </div>
-                    </div>
-                    <div class="musicRoom__buyItem disabled">
-                        <span class="musicRoom__buyItemTime">21h00-23h00</span>
-                        <div class="musicRoom__buyBtnDisabled">Booked</div>
-                    </div>
-                </div>
-            </div>
-            <div class="line-divider step-two"></div>
-            <div class="musicRoom__item step-two">
-                <div class="room-descrBlock">
-                    <div class="musicRoom__image">
-                        <img src="img/icberg.jpg">
-                    </div>
-                    <div class="musicRoom__descr">
-                        <div class="musicRoom__title">Room Iceberg
-                            <span class="musicRoom__count">Max - 25 persons</span>
-                        </div>
-                        <div class="dop-info">
-                            <div class="musicRoom__userMessage">The space is perfectly adapted to the size of your group</div>
-                            <div class="musicRoom__userMessageTime">This book has been booked 8 times for last 24 hours</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="musicRoom__buyWrap">
-                    <div class="musicRoom__buyItem"><span class="musicRoom__buyItemTime">18h00-21h00</span>
-                        <div class="musicRoom__buyPrice">
-                            <div class="radio">
-                                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" class="tooltip-icon" xmlns="http://www.w3.org/2000/svg">
-                                    <g>
-                                        <path id="Path" fill-rule="evenodd" clip-rule="evenodd" d="M12.0703 3.98438C12.0703 4.14608 12.2016 4.27734 12.3633 4.27734C12.525 4.27734 12.6562 4.14608 12.6562 3.98438C12.6562 3.82267 12.525 3.69141 12.3633 3.69141C12.2016 3.69141 12.0703 3.82267 12.0703 3.98438Z" fill="white"/>
-                                        <path id="Path_2" fill-rule="evenodd" clip-rule="evenodd" d="M13.2421 7.4999C13.2421 7.87515 13.2044 8.24972 13.1303 8.61318C13.0979 8.77168 13.2002 8.9264 13.3587 8.95879C13.3785 8.96291 13.3982 8.96486 13.4177 8.96486C13.5539 8.96486 13.6761 8.86907 13.7044 8.73037C13.7865 8.32834 13.828 7.9144 13.828 7.4999C13.828 6.57739 13.628 5.68967 13.2333 4.86135C13.1637 4.71532 12.989 4.6533 12.8428 4.72288C12.6967 4.79246 12.6348 4.96732 12.7043 5.11346C13.0612 5.86236 13.2421 6.66528 13.2421 7.4999Z" fill="white"/>
-                                        <path id="Shape" fill-rule="evenodd" clip-rule="evenodd" d="M8.67188 10.1367H8.96484C9.12666 10.1367 9.25781 10.2679 9.25781 10.4297V11.6016C9.25781 11.7634 9.12666 11.8945 8.96484 11.8945H6.03516C5.87334 11.8945 5.74219 11.7634 5.74219 11.6016V10.4297C5.74219 10.2679 5.87334 10.1367 6.03516 10.1367H6.32812V7.79297H6.03516C5.87334 7.79297 5.74219 7.66182 5.74219 7.5V6.32812C5.74219 6.16631 5.87334 6.03516 6.03516 6.03516H8.37891C8.54073 6.03516 8.67188 6.16631 8.67188 6.32812V10.1367ZM6.32812 11.3086H8.67188V10.7227H8.37891C8.2172 10.7227 8.08594 10.5915 8.08594 10.4297V6.62109H6.32812V7.20703H6.62109C6.78291 7.20703 6.91406 7.33818 6.91406 7.5V10.4297C6.91406 10.5915 6.78291 10.7227 6.62109 10.7227H6.32812V11.3086Z" fill="white"/>
-                                        <path id="Shape_2" fill-rule="evenodd" clip-rule="evenodd" d="M8.67188 4.27734C8.67188 4.92348 8.14613 5.44922 7.5 5.44922C6.85387 5.44922 6.32812 4.92348 6.32812 4.27734C6.32812 3.63121 6.85387 3.10547 7.5 3.10547C8.14613 3.10547 8.67188 3.63121 8.67188 4.27734ZM8.08594 4.27734C8.08594 3.95428 7.82307 3.69141 7.5 3.69141C7.17693 3.69141 6.91406 3.95428 6.91406 4.27734C6.91406 4.60041 7.17693 4.86328 7.5 4.86328C7.82307 4.86328 8.08594 4.60041 8.08594 4.27734Z" fill="white"/>
-                                        <path id="Shape_3" fill-rule="evenodd" clip-rule="evenodd" d="M1.27758e-05 7.5C1.27758e-05 3.45119 3.45773 0 7.50001 0C11.5485 0 15 3.45669 15 7.5C15 11.5483 11.5433 15 7.50001 15C6.11699 15 4.6462 14.6038 3.53383 13.9355L0.385679 14.9849C0.280965 15.0199 0.164693 14.993 0.0858435 14.9142C0.007337 14.8358 -0.0200144 14.7196 0.0150045 14.6144L1.06454 11.4663C0.396322 10.3538 1.27758e-05 8.88302 1.27758e-05 7.5ZM3.72781 13.3668C4.76316 14.0226 6.1733 14.4141 7.50001 14.4141C11.2478 14.4141 14.4141 11.2478 14.4141 7.5C14.4141 3.75217 11.2478 0.585938 7.50001 0.585938C3.75219 0.585938 0.58595 3.75217 0.58595 7.5C0.58595 8.82671 0.977453 10.237 1.6332 11.2722C1.68035 11.3466 1.69156 11.4381 1.66364 11.5217L0.756238 14.2438L3.47833 13.3364C3.56302 13.3081 3.65445 13.3204 3.72781 13.3668Z" fill="white"/>
-                                    </g>
-                                </svg>
-                                <input id="drinkerIceberg" name="packIceberg" type="radio" checked>
-                                <label for="drinkerIceberg">Drinker</label>
-                                <div class="musicRoom__buyPriceTooltip">
-                                    <div class="tooltip__title">
-                                        Singer
-                                    </div>
-                                    <div class="tooltip__text">
-                                        For those who like to sing, but
-                                        not too much to drink
-                                    </div>
-                                    <div class="tooltip__price">
-                                        Price to pay
-                                        <span>16000 HUF ≈ 48 €</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="radio">
-                                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" class="tooltip-icon" xmlns="http://www.w3.org/2000/svg">
-                                    <g id="information">
-                                        <path id="Path" fill-rule="evenodd" clip-rule="evenodd" d="M12.0703 3.98438C12.0703 4.14608 12.2016 4.27734 12.3633 4.27734C12.525 4.27734 12.6562 4.14608 12.6562 3.98438C12.6562 3.82267 12.525 3.69141 12.3633 3.69141C12.2016 3.69141 12.0703 3.82267 12.0703 3.98438Z" fill="white"/>
-                                        <path id="Path_2" fill-rule="evenodd" clip-rule="evenodd" d="M13.2421 7.4999C13.2421 7.87515 13.2044 8.24972 13.1303 8.61318C13.0979 8.77168 13.2002 8.9264 13.3587 8.95879C13.3785 8.96291 13.3982 8.96486 13.4177 8.96486C13.5539 8.96486 13.6761 8.86907 13.7044 8.73037C13.7865 8.32834 13.828 7.9144 13.828 7.4999C13.828 6.57739 13.628 5.68967 13.2333 4.86135C13.1637 4.71532 12.989 4.6533 12.8428 4.72288C12.6967 4.79246 12.6348 4.96732 12.7043 5.11346C13.0612 5.86236 13.2421 6.66528 13.2421 7.4999Z" fill="white"/>
-                                        <path id="Shape" fill-rule="evenodd" clip-rule="evenodd" d="M8.67188 10.1367H8.96484C9.12666 10.1367 9.25781 10.2679 9.25781 10.4297V11.6016C9.25781 11.7634 9.12666 11.8945 8.96484 11.8945H6.03516C5.87334 11.8945 5.74219 11.7634 5.74219 11.6016V10.4297C5.74219 10.2679 5.87334 10.1367 6.03516 10.1367H6.32812V7.79297H6.03516C5.87334 7.79297 5.74219 7.66182 5.74219 7.5V6.32812C5.74219 6.16631 5.87334 6.03516 6.03516 6.03516H8.37891C8.54073 6.03516 8.67188 6.16631 8.67188 6.32812V10.1367ZM6.32812 11.3086H8.67188V10.7227H8.37891C8.2172 10.7227 8.08594 10.5915 8.08594 10.4297V6.62109H6.32812V7.20703H6.62109C6.78291 7.20703 6.91406 7.33818 6.91406 7.5V10.4297C6.91406 10.5915 6.78291 10.7227 6.62109 10.7227H6.32812V11.3086Z" fill="white"/>
-                                        <path id="Shape_2" fill-rule="evenodd" clip-rule="evenodd" d="M8.67188 4.27734C8.67188 4.92348 8.14613 5.44922 7.5 5.44922C6.85387 5.44922 6.32812 4.92348 6.32812 4.27734C6.32812 3.63121 6.85387 3.10547 7.5 3.10547C8.14613 3.10547 8.67188 3.63121 8.67188 4.27734ZM8.08594 4.27734C8.08594 3.95428 7.82307 3.69141 7.5 3.69141C7.17693 3.69141 6.91406 3.95428 6.91406 4.27734C6.91406 4.60041 7.17693 4.86328 7.5 4.86328C7.82307 4.86328 8.08594 4.60041 8.08594 4.27734Z" fill="white"/>
-                                        <path id="Shape_3" fill-rule="evenodd" clip-rule="evenodd" d="M1.27758e-05 7.5C1.27758e-05 3.45119 3.45773 0 7.50001 0C11.5485 0 15 3.45669 15 7.5C15 11.5483 11.5433 15 7.50001 15C6.11699 15 4.6462 14.6038 3.53383 13.9355L0.385679 14.9849C0.280965 15.0199 0.164693 14.993 0.0858435 14.9142C0.007337 14.8358 -0.0200144 14.7196 0.0150045 14.6144L1.06454 11.4663C0.396322 10.3538 1.27758e-05 8.88302 1.27758e-05 7.5ZM3.72781 13.3668C4.76316 14.0226 6.1733 14.4141 7.50001 14.4141C11.2478 14.4141 14.4141 11.2478 14.4141 7.5C14.4141 3.75217 11.2478 0.585938 7.50001 0.585938C3.75219 0.585938 0.58595 3.75217 0.58595 7.5C0.58595 8.82671 0.977453 10.237 1.6332 11.2722C1.68035 11.3466 1.69156 11.4381 1.66364 11.5217L0.756238 14.2438L3.47833 13.3364C3.56302 13.3081 3.65445 13.3204 3.72781 13.3668Z" fill="white"/>
-                                    </g>
-                                </svg>
-                                <input id="singerIceberg" name="packIceberg" type="radio">
-                                <label for="singerIceberg">Singer</label>
-                                <div class="musicRoom__buyPriceTooltip">
-                                    <div class="tooltip__title">
-                                        Singer
-                                    </div>
-                                    <div class="tooltip__text">
-                                        For those who like to sing, but
-                                        not too much to drink
-                                    </div>
-                                    <div class="tooltip__price">
-                                        Price to pay
-                                        <span>16000 HUF ≈ 48 €</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="musicRoom__price">
-                            <div class="musicRoom__priceValueOld">30 900 HUF</div>
-                            <div class="musicRoom__priceValueNew">29 000 HUF</div>
-                            <div class="musicRoom__priceValuePerson">3 900 HUF/person</div>
-                        </div>
-                        <div class="musicRoom__buyBtn">
-                            <span class="booking-name-room">Iceberg</span>
-                        </div>
-                    </div>
-                    <div class="musicRoom__buyItem disabled">
-                        <span class="musicRoom__buyItemTime">21h00-23h00</span>
-                        <div class="musicRoom__buyBtnDisabled">Booked</div>
-                    </div>
-                </div>
-            </div>
-        </div>
             <div class="booking__foodStepWrap">
                 <a class="booking__stepLink" href="">Back to previous steps</a>
                 <h1>Booking</h1>
@@ -1398,8 +1058,8 @@
             <div class="footer__divider"></div>
             <div class="footer__col footerTime">
                 <div class="footer__infoTitle">OPENING HOURS:</div>
-                <div class="footer__infoValue">Sunday - Thursday 19:00-3:00</div>
-                <div class="footer__infoValue">Friday - Saturday 19:00-4:00</div>
+                <div class="footer__infoValue">Sunday - Thursday 20:00-3:00</div>
+                <div class="footer__infoValue">Friday - Saturday 20:00-4:00</div>
                 <div class="footer__infoTitle">ADDRESS: </div>
                 <div class="footer__infoValue">Blue Bird Karaoke Rooms</div>
                 <div class="footer__infoValue">Dob utca 16 Gozsdu udvar, Budapest, Hungary 1072</div>

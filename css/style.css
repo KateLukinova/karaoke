@@ -873,10 +873,8 @@ a.nav__secondary-item.bus {
 
 section.main {
 	position: relative;
-	cursor: url("../img/cursor.png"), auto;
-	background: -webkit-gradient(linear, left bottom, left top, from(#1C0B3F), to(rgba(28, 11, 63, 0.95)));
-	background: -o-linear-gradient(bottom, #1C0B3F 0%, rgba(28, 11, 63, 0.95) 100%);
-	background: linear-gradient(360deg, #1C0B3F 0%, rgba(28, 11, 63, 0.95) 100%);
+	cursor: none;
+	background: linear-gradient(360deg, #1C0B3F 0%, rgba(28, 11, 63, 0.3) 100%);
 }
 
 .main-img {
@@ -947,14 +945,14 @@ a.btn.dashed:hover {
 
 a.nav__secondary-item.bus svg {
 	fill: #ffffff;
-	stroke: #ffffff;
+	stroke: transparent;
 	margin-right: 15px;
 	width: 30px;
 }
 
 a.nav__secondary-item.bus:hover svg {
 	fill: #CAFD35;
-	stroke: #CAFD35;
+	stroke: transparent;
 }
 
 a.btn-long {
@@ -2293,6 +2291,7 @@ a.logo-companies:hover svg {
 	height: 100%;
 	opacity: 0;
 	cursor: pointer;
+    z-index: 5;
 }
 
 .chosen-date {
@@ -4292,10 +4291,6 @@ section.main-birthday, section.main-disco {
 	background: linear-gradient(66.62deg, #6219D7 11.53%, #481A77 29.61%, #2B1753 43.44%, #351675 90.41%);
 }
 
-section.main-bachelor {
-	background: -o-linear-gradient(24.31deg, #200A43 11.48%, #0F056A 33.6%, #13052F 85.83%);
-	background: linear-gradient(65.69deg, #200A43 11.48%, #0F056A 33.6%, #13052F 85.83%);
-}
 
 .page-event.bachelor {
 	background: -o-linear-gradient(24.31deg, #200A43 11.48%, #0F056A 33.6%, #13052F 85.83%);
@@ -5921,6 +5916,23 @@ section.page-block-dark-bg {
 }
 
 @media screen and (max-width: 1300px) {
+	.room-name {
+		bottom: -10px;
+	}
+
+	.rooms-data .button-box {
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-ms-flex-direction: column;
+		flex-direction: column;
+	}
+
+	.rooms-data .button-box .btn {
+		width: 128px;
+		height: 50px;
+		margin-top: 20px;
+	}
+
 	.booking__priceInfo {
 		font-size: 16px;
 	}
@@ -6028,6 +6040,10 @@ section.page-block-dark-bg {
 		margin-left: 3.5%;
 		width: 100%;
 	}
+
+    a.btn-long {
+        margin-bottom: 2vh;
+    }
 }
 
 @media screen and (max-width: 1024px) {
@@ -6051,7 +6067,6 @@ section.page-block-dark-bg {
 	a.btn-long {
 		min-width: 200px;
 		height: 65px;
-		margin-bottom: 80px;
 	}
 	header .bus, .scroll-down {
 		display: none;
@@ -6086,19 +6101,6 @@ section.page-block-dark-bg {
 
 	.rooms-accordion__item:hover {
 		width: 100%;
-	}
-
-	.rooms-data .button-box {
-		-webkit-box-orient: vertical;
-		-webkit-box-direction: normal;
-		-ms-flex-direction: column;
-		flex-direction: column;
-	}
-
-	.rooms-data .button-box .btn {
-		width: 128px;
-		height: 50px;
-		margin-top: 20px;
 	}
 
 	.main-room-features {
@@ -6780,6 +6782,32 @@ section.page-block-dark-bg {
 		margin-bottom: 20px;
 		margin-top: 5px;
 	}
+
+    .booking__pricePanelBottom {
+        position: fixed;
+        bottom: 0;
+        z-index: 10;
+    }
+
+    .booking__pricePanel {
+        z-index: 10;
+    }
+
+    .booking__pricePanelTotalPriceTitle {
+        font-size: 14px;
+    }
+
+    .booking__pricePanelTotalPriceValue {
+        font-size: 20px;
+    }
+
+    .booking__pricePanelTotalPrice {
+        padding: 5px 0;
+    }
+
+    .booking__pricePanelBookBtn {
+        height: 70px;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -7664,6 +7692,14 @@ section.page-block-dark-bg {
 	.box3d__button {
 		margin-top: 30px;
 	}
+
+    .rooms-caption {
+        height: auto;
+    }
+
+    .booking__pricePanelBottom {
+        bottom: 60px;
+    }
 }
 
 .step-two {

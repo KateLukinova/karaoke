@@ -17,11 +17,11 @@ var currentBookingData = {
     dayName: '',
 };
 var tables = {
-    1: 'Strip',
-    2: 'Reggae',
-    3: 'Gatsby',
-    4: 'Comics',
-    5: 'Iceberg'
+    1: 'strip',
+    2: 'reggae',
+    3: 'gatsby',
+    4: 'comics',
+    5: 'iceberg'
 }
 
 $(document).ready(function () {
@@ -117,50 +117,144 @@ $(document).ready(function () {
         showFoodTitle();
     });
 
-    //main-cursor
-    $(document).on('mousemove', function (e) {
-        let x = e.pageX - 130;
-        let y = e.pageY + 7;
-        $('.main').css({
-            'background': `radial-gradient(circle at ${x}px ${y}px,  rgba(0, 0, 0, 0) 200px, rgba(28, 11, 63, 0.85) 15%)`
+    if ($(window).width() >= '1200') {
+        //main-cursor
+        $(document).on('mousemove', function (e) {
+            let x = e.pageX - 130;
+            let y = e.pageY + 7;
+            $('.main').css({
+                'background': `radial-gradient(circle at ${x}px ${y}px,
+                           rgb(202, 253, 53) 8px, 
+                           rgba(0, 0, 0, 0) 8px,
+                           rgba(0, 0, 0, 0) 152px,
+                           rgb(202, 253, 53) 152px, 
+                           rgb(202, 253, 53) 153px,
+                           rgba(28, 11, 63, 0.85) 153px,                                                
+                           rgba(28, 11, 63, 0.85) 15%)`
+            });
+            $('#strip').css({
+                'background': `radial-gradient(circle at ${x}px ${y}px,
+                           rgb(202, 253, 53) 8px, 
+                           rgba(0, 0, 0, 0) 8px,
+                           rgba(0, 0, 0, 0) 152px,
+                           rgb(202, 253, 53) 152px, 
+                           rgb(202, 253, 53) 153px,
+                           rgba(49, 18, 135, 0.7) 153px,
+                           rgba(49, 18, 135, 0.7) 20%)`
+            });
+            $('#reggae').css({
+                'background': `radial-gradient(circle at ${x}px ${y}px,
+                           rgb(202, 253, 53) 8px, 
+                           rgba(0, 0, 0, 0) 8px,
+                           rgba(0, 0, 0, 0) 152px,
+                           rgb(202, 253, 53) 152px, 
+                           rgb(202, 253, 53) 153px,
+                           rgba(231, 18, 109, 0.7) 153px,
+                           rgba(231, 18, 109, 0.7) 20%)`
+            });
+            $('#gatsby').css({
+                'background': `radial-gradient(circle at ${x}px ${y}px,
+                           rgb(202, 253, 53) 8px, 
+                           rgba(0, 0, 0, 0) 8px,
+                           rgba(0, 0, 0, 0) 152px,
+                           rgb(202, 253, 53) 152px, 
+                           rgb(202, 253, 53) 153px,
+                           rgba(97, 4, 95, 0.8) 153px,
+                           rgba(97, 4, 95, 0.8) 20%)`
+            });
+            $('#comics').css({
+                'background': `radial-gradient(circle at ${x}px ${y}px,
+                           rgb(202, 253, 53) 8px, 
+                           rgba(0, 0, 0, 0) 8px,
+                           rgba(0, 0, 0, 0) 152px,
+                           rgb(202, 253, 53) 152px, 
+                           rgb(202, 253, 53) 153px,
+                           rgba(5, 117, 230, 0.8) 153px,
+                           rgba(5, 117, 230, 0.8) 20%)`
+            });
+            $('#iceberg').css({
+                'background': `radial-gradient(circle at ${x}px ${y}px,
+                           rgb(202, 253, 53) 8px, 
+                           rgba(0, 0, 0, 0) 8px,
+                           rgba(0, 0, 0, 0) 152px,
+                           rgb(202, 253, 53) 152px, 
+                           rgb(202, 253, 53) 153px,
+                           rgba(5, 117, 230, 0.7) 153px,
+                           rgba(5, 117, 230, 0.7) 20%)`
+            });
+            $('#birthday').css({
+                'background': `radial-gradient(circle at ${x}px ${y}px, 
+                           rgb(202, 253, 53) 8px, 
+                           rgba(0, 0, 0, 0) 8px,
+                           rgba(0, 0, 0, 0) 152px,
+                           rgb(202, 253, 53) 152px, 
+                           rgb(202, 253, 53) 153px,
+                           rgba(28, 11, 63, 0.83) 153px,
+                           rgba(28, 11, 63, 0.83) 20%)`
+            });
+            $('#bachelor').css({
+                'background': `radial-gradient(circle at ${x}px ${y}px,
+                           rgb(202, 253, 53) 8px, 
+                           rgba(0, 0, 0, 0) 8px,
+                           rgba(0, 0, 0, 0) 152px,
+                           rgb(202, 253, 53) 152px, 
+                           rgb(202, 253, 53) 153px,
+                           rgba(19, 5, 47, 0.8) 153px,
+                           rgba(19, 5, 47, 0.8) 20%)`
+            });
+            $('#hen').css({
+                'background': `radial-gradient(circle at ${x}px ${y}px,
+                           rgb(202, 253, 53) 8px, 
+                           rgba(0, 0, 0, 0) 8px,
+                           rgba(0, 0, 0, 0) 152px,
+                           rgb(202, 253, 53) 152px, 
+                           rgb(202, 253, 53) 153px,
+                           rgba(56, 9, 65, 0.8) 153px,
+                           rgba(56, 9, 65, 0.8) 20%)`
+            });
+            $('#private').css({
+                'background': `radial-gradient(circle at ${x}px ${y}px,
+                           rgb(202, 253, 53) 8px, 
+                           rgba(0, 0, 0, 0) 8px,
+                           rgba(0, 0, 0, 0) 152px,
+                           rgb(202, 253, 53) 152px, 
+                           rgb(202, 253, 53) 153px,
+                           rgba(44, 16, 102, 0.8) 153px,
+                           rgba(44, 16, 102, 0.8) 20%)`
+            });
+            $('#graduation').css({
+                'background': `radial-gradient(circle at ${x}px ${y}px,
+                           rgb(202, 253, 53) 8px, 
+                           rgba(0, 0, 0, 0) 8px,
+                           rgba(0, 0, 0, 0) 152px,
+                           rgb(202, 253, 53) 152px, 
+                           rgb(202, 253, 53) 153px,
+                           rgba(32, 12, 98, 0.8) 153px,
+                           rgba(32, 12, 98, 0.8) 20%)`
+            });
+            $('#corporate').css({
+                'background': `radial-gradient(circle at ${x}px ${y}px,
+                           rgb(202, 253, 53) 8px, 
+                           rgba(0, 0, 0, 0) 8px,
+                           rgba(0, 0, 0, 0) 152px,
+                           rgb(202, 253, 53) 152px, 
+                           rgb(202, 253, 53) 153px,
+                           rgba(44, 16, 102, 0.8) 153px,
+                           rgba(44, 16, 102, 0.8) 20%)`
+            });
+            $('#disco').css({
+                'background': `radial-gradient(circle at ${x}px ${y}px,
+                           rgb(202, 253, 53) 8px, 
+                           rgba(0, 0, 0, 0) 8px,
+                           rgba(0, 0, 0, 0) 152px,
+                           rgb(202, 253, 53) 152px, 
+                           rgb(202, 253, 53) 153px,
+                           rgba(28, 11, 63, 0.83) 153px,
+                           rgba(28, 11, 63, 0.83) 20%)`
+            });
         });
-        $('#strip').css({
-            'background': `radial-gradient(circle at ${x}px ${y}px, rgba(0, 0, 0, 0), rgba(49, 18, 135, 0.7) 20%)`
-        });
-        $('#reggae').css({
-            'background': `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0), rgba(231, 18, 109, 0.7) 20%)`
-        });
-        $('#gatsby').css({
-            'background': `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0), rgba(97, 4, 95, 0.8) 20%)`
-        });
-        $('#comics').css({
-            'background': `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0), rgba(5, 117, 230, 0.8) 20%)`
-        });
-        $('#iceberg').css({
-            'background': `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0), rgba(5, 117, 230, 0.7) 20%)`
-        });
-        $('#birthday').css({
-            'background': `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0), rgba(28, 11, 63, 0.83) 20%)`
-        });
-        $('#bachelor').css({
-            'background': `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0), rgba(19, 5, 47, 0.8) 20%)`
-        });
-        $('#hen').css({
-            'background': `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0), rgba(56, 9, 65, 0.8) 20%)`
-        });
-        $('#private').css({
-            'background': `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0), rgba(44, 16, 102, 0.8) 20%)`
-        });
-        $('#graduation').css({
-            'background': `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0), rgba(32, 12, 98, 0.8) 20%)`
-        });
-        $('#corporate').css({
-            'background': `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0), rgba(44, 16, 102, 0.8) 20%)`
-        });
-        $('#disco').css({
-            'background': `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0), rgba(28, 11, 63, 0.83) 20%)`
-        });
-    });
+    }
+
 
     initCarousel();
 
@@ -189,6 +283,13 @@ $(document).ready(function () {
                 margin: 15,
             },
             1025: {
+                items: 3,
+                dots: false,
+                stagePadding: 120,
+                margin: 30,
+                nav: true
+            },
+            1300: {
                 items: 4,
                 dots: false,
                 stagePadding: 120,
@@ -239,20 +340,6 @@ $(document).ready(function () {
 
 
 
-    $('.musicRoom__buyBtn').click(
-        function () {
-            var nameRoom = $(this).find('.booking-name-room').text();
-            var timeBooking = $(this).parent().find('.musicRoom__buyItemTime').text();
-            console.log(timeBooking);
-            $("#booking-room").text(nameRoom);
-            $("#booking-time-start").text(timeBooking);
-            $(this).toggleClass('choosed').parent().toggleClass('choosed');
-
-            if (isStepTwoContinue()) {
-                continueStepTwo()
-            }
-        }
-    );
 
     // input-current
     $('.minus-person').click(function () {
@@ -353,44 +440,45 @@ $(document).ready(function () {
 
     if (window.location.href.includes('index')) {
 
+        if ($(window).width() >= 1024) {
+            // scrolling to block
+            var anchors = [];
+            var currentAnchor = -1;
+            var isAnimating = false;
+            $(function () {
+                function updateAnchors() {
+                    anchors = [];
+                    $('.anchor').each(function (i, element) {
+                        anchors.push($(element).offset().top);
+                    });
+                }
 
-        // scrolling to block
-        var anchors = [];
-        var currentAnchor = -1;
-        var isAnimating = false;
-        $(function () {
-            function updateAnchors() {
-                anchors = [];
-                $('.anchor').each(function (i, element) {
-                    anchors.push($(element).offset().top);
+                $('.scroll-down').on('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (isAnimating) {
+                        return false;
+                    }
+                    isAnimating = true;
+                    if (e.originalEvent.wheelDelta >= 0) {
+                        currentAnchor--;
+                    } else {
+                        currentAnchor++;
+                    }
+                    if (currentAnchor > (anchors.length - 1)
+                        || currentAnchor < 0) {
+                        currentAnchor = 0;
+                    }
+                    isAnimating = true;
+                    $('html, body').animate({
+                        scrollTop: parseInt(anchors[currentAnchor])
+                    }, 300, 'swing', function () {
+                        isAnimating = false;
+                    });
                 });
-            }
-
-            $('.scroll-down').on('click', function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                if (isAnimating) {
-                    return false;
-                }
-                isAnimating = true;
-                if (e.originalEvent.wheelDelta >= 0) {
-                    currentAnchor--;
-                } else {
-                    currentAnchor++;
-                }
-                if (currentAnchor > (anchors.length - 1)
-                    || currentAnchor < 0) {
-                    currentAnchor = 0;
-                }
-                isAnimating = true;
-                $('html, body').animate({
-                    scrollTop: parseInt(anchors[currentAnchor])
-                }, 300, 'swing', function () {
-                    isAnimating = false;
-                });
+                updateAnchors();
             });
-            updateAnchors();
-        });
+        }
 
 
         function checkOffset() {
@@ -499,7 +587,23 @@ $(document).ready(function () {
 
 
     //!!!!!!!!!!!!!!!!!!  BOOKING PAGE BEGIN   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    if (window.location.href.includes('pageBooking')) {
+
+    if (window.location.href.includes('pageBooking') ||
+        window.location.href.includes('index') ||
+        window.location.href.includes('pageEventBachelor') ||
+        window.location.href.includes('pageEventBachelor') ||
+        window.location.href.includes('pageEventBirthday') ||
+        window.location.href.includes('pageEventCorporate') ||
+        window.location.href.includes('pageEventDisco') ||
+        window.location.href.includes('pageEventGraduation') ||
+        window.location.href.includes('pageEventHen') ||
+        window.location.href.includes('pageEventPrivate') ||
+        window.location.href.includes('pageRoomStrip') ||
+        window.location.href.includes('pageRoomReggae') ||
+        window.location.href.includes('pageRoomGatsby') ||
+        window.location.href.includes('pageRoomComics') ||
+        window.location.href.includes('pageRoomIcberg')
+    ) {
         getBookingData();
 
         // datepicker
@@ -552,6 +656,13 @@ $(document).ready(function () {
 
         var datePicker = $('#datepicker').data('datepicker');
         datePicker.selectDate(new Date());
+
+        $('.chosen-date').click(() => {
+            datePicker.show()
+        });
+    }
+
+    if (window.location.href.includes('pageBooking')) {
 
         $('.chosen-date').click(() => {
             datePicker.show()
@@ -985,57 +1096,159 @@ function isStepTwoVisible() {
 }
 
 function showStepTwo () {
-    var opening = bookingData.opening.find(obj => {
+    let opening = bookingData.opening.find(obj => {
         return obj.day === currentBookingData.dayName;
     });
 
-    var startHours = moment(opening.from, "HH:mm");
-    var endHours = moment(opening.to, "HH:mm");
+    let startHours = moment(opening.from, "HH:mm");
+    let endHours = moment(opening.to, "HH:mm");
 
-    var startDate = moment(currentBookingData.date.format('YYYY-MM-DD') + ' ' + opening.from, 'YYYY-MM-DD HH:mm');
-    var endDate = moment(currentBookingData.date.format('YYYY-MM-DD') + ' ' + opening.to, 'YYYY-MM-DD HH:mm');
+    let startDate = moment(currentBookingData.date.format('YYYY-MM-DD') + ' ' + opening.from, 'YYYY-MM-DD HH:mm');
+    let endDate = moment(currentBookingData.date.format('YYYY-MM-DD') + ' ' + opening.to, 'YYYY-MM-DD HH:mm');
 
     if( endHours.isBefore(startHours) ) {
         endDate.add(1, 'day');
     }
 
-    // [20, 21, 22, 23, 00, 01, 02, 03]
-    var workingHours = getHours(startDate, endDate);
+    // [2021, 2122, 2223, 2300, 0001, 0102, 0203]
+    let workingHours = getHours(startDate, endDate);
 
-    var tablesFreeHours = {
-        1: workingHours,
-        2: workingHours,
-        3: workingHours,
-        4: workingHours,
-        5: workingHours
-    };
-
-    for (index = 0; index < bookingData.length; ++index) {
-        var timeFrom = moment(bookingData[index].time_from);
-        var timeTo = moment(bookingData[index].time_to);
-
-        if (
-            currentBookingData.date.isAfter(timeFrom) &&
-            currentBookingData.date.isBefore(timeTo)
-        ) {
-            let bookedHours = getHours(timeFrom, timeTo);
-            tablesFreeHours[bookingData[index].table_id] = tablesFreeHours[bookingData[index].table_id].filter(n => ! bookedHours.includes(n));
+    let tablesBookings = {};
+    for (i = 0; i < bookingData.tables.length; ++i) {
+        tablesBookings[bookingData.tables[i].id] = {
+            freeHours: workingHours,
+            freeSlots: [],
+            bookedSlots: []
         }
     }
 
-    let test = tablesFreeHours[1].filter(n => ! ['0001', '0102'].includes(n));
-    console.log(test);
-    console.log(getDurationSlots(test, 3));
+    for (index = 0; index < bookingData.bookings.length; ++index) {
+        var timeFrom = moment(bookingData.bookings[index].time_from);
+        var timeTo = moment(bookingData.bookings[index].time_to);
 
-    var tablesFreeDurationSlots = {
-        1: [],
-        2: [],
-        3: [],
-        4: [],
-        5: []
-    };
+        if (
+            startDate.isBefore(timeFrom) &&
+            endDate.isAfter(timeTo)
+        ) {
+            let bookedHours = getHours(timeFrom, timeTo);
+            tablesBookings[bookingData.bookings[index].table_id].freeHours = tablesBookings[bookingData.bookings[index].table_id].freeHours.filter(n => ! bookedHours.includes(n));
+            tablesBookings[bookingData.bookings[index].table_id].bookedSlots.push({start: bookedHours[0], end: bookedHours[bookedHours.length - 1]});
+        }
+    }
+
+    for (i = 0; i < bookingData.tables.length; ++i) {
+        tablesBookings[bookingData.tables[i].id].freeSlots = getDurationSlots(tablesBookings[bookingData.tables[i].id].freeHours, currentBookingData.duration[0]);
+    }
+
+    getBookingsHtml(tablesBookings);
 
     $('.step-two').css('display', 'flex');
+}
+
+function getBookingsHtml(tablesData) {
+    getRoomsHtml();
+
+    for (i = 0; i < bookingData.tables.length; ++i) {
+        let html = '';
+
+        let bookedSlots = tablesData[bookingData.tables[i].id].bookedSlots;
+        for (j = 0; j < bookedSlots.length; ++j) {
+            let start = bookedSlots[j].start.substring(0, 2);
+            let end = bookedSlots[j].end.slice(-2);
+
+            html += '<div class="musicRoom__buyItem disabled">' +
+                        '<span class="musicRoom__buyItemTime">' + start + 'h00-' + end + 'h00</span>' +
+                        '<div class="musicRoom__buyBtnDisabled">Booked</div>' +
+                    '</div>';
+        }
+
+        let freeSlots = tablesData[bookingData.tables[i].id].freeSlots;
+        let roomName = capitalizeFirstLetter(bookingData.tables[i].table_number);
+
+        for (j = 0; j < freeSlots.length; ++j) {
+            let start = freeSlots[j].start.substring(0, 2);
+            let end = freeSlots[j].end.slice(-2);
+
+            html += '<div class="musicRoom__buyItem"><span class="musicRoom__buyItemTime">' + start + 'h00-' + end + 'h00</span>' +
+                        '<div class="musicRoom__buyPrice">';
+
+            for (k = 0; k < bookingData.packages.length; ++k) {
+                let packageName = capitalizeFirstLetter(bookingData.packages[k].name);
+                let packageDescription = bookingData.packages[k].description;
+
+                html += '<div class="radio">' +
+                            '<svg width="15" height="15" viewBox="0 0 15 15" fill="none" class="tooltip-icon" xmlns="http://www.w3.org/2000/svg">' +
+                                '<g id="information">' +
+                                    '<path id="Path" fill-rule="evenodd" clip-rule="evenodd" d="M12.0703 3.98438C12.0703 4.14608 12.2016 4.27734 12.3633 4.27734C12.525 4.27734 12.6562 4.14608 12.6562 3.98438C12.6562 3.82267 12.525 3.69141 12.3633 3.69141C12.2016 3.69141 12.0703 3.82267 12.0703 3.98438Z" fill="white"/>' +
+                                    '<path id="Path_2" fill-rule="evenodd" clip-rule="evenodd" d="M13.2421 7.4999C13.2421 7.87515 13.2044 8.24972 13.1303 8.61318C13.0979 8.77168 13.2002 8.9264 13.3587 8.95879C13.3785 8.96291 13.3982 8.96486 13.4177 8.96486C13.5539 8.96486 13.6761 8.86907 13.7044 8.73037C13.7865 8.32834 13.828 7.9144 13.828 7.4999C13.828 6.57739 13.628 5.68967 13.2333 4.86135C13.1637 4.71532 12.989 4.6533 12.8428 4.72288C12.6967 4.79246 12.6348 4.96732 12.7043 5.11346C13.0612 5.86236 13.2421 6.66528 13.2421 7.4999Z" fill="white"/>' +
+                                    '<path id="Shape" fill-rule="evenodd" clip-rule="evenodd" d="M8.67188 10.1367H8.96484C9.12666 10.1367 9.25781 10.2679 9.25781 10.4297V11.6016C9.25781 11.7634 9.12666 11.8945 8.96484 11.8945H6.03516C5.87334 11.8945 5.74219 11.7634 5.74219 11.6016V10.4297C5.74219 10.2679 5.87334 10.1367 6.03516 10.1367H6.32812V7.79297H6.03516C5.87334 7.79297 5.74219 7.66182 5.74219 7.5V6.32812C5.74219 6.16631 5.87334 6.03516 6.03516 6.03516H8.37891C8.54073 6.03516 8.67188 6.16631 8.67188 6.32812V10.1367ZM6.32812 11.3086H8.67188V10.7227H8.37891C8.2172 10.7227 8.08594 10.5915 8.08594 10.4297V6.62109H6.32812V7.20703H6.62109C6.78291 7.20703 6.91406 7.33818 6.91406 7.5V10.4297C6.91406 10.5915 6.78291 10.7227 6.62109 10.7227H6.32812V11.3086Z" fill="white"/>' +
+                                    '<path id="Shape_2" fill-rule="evenodd" clip-rule="evenodd" d="M8.67188 4.27734C8.67188 4.92348 8.14613 5.44922 7.5 5.44922C6.85387 5.44922 6.32812 4.92348 6.32812 4.27734C6.32812 3.63121 6.85387 3.10547 7.5 3.10547C8.14613 3.10547 8.67188 3.63121 8.67188 4.27734ZM8.08594 4.27734C8.08594 3.95428 7.82307 3.69141 7.5 3.69141C7.17693 3.69141 6.91406 3.95428 6.91406 4.27734C6.91406 4.60041 7.17693 4.86328 7.5 4.86328C7.82307 4.86328 8.08594 4.60041 8.08594 4.27734Z" fill="white"/>' +
+                                    '<path id="Shape_3" fill-rule="evenodd" clip-rule="evenodd" d="M1.27758e-05 7.5C1.27758e-05 3.45119 3.45773 0 7.50001 0C11.5485 0 15 3.45669 15 7.5C15 11.5483 11.5433 15 7.50001 15C6.11699 15 4.6462 14.6038 3.53383 13.9355L0.385679 14.9849C0.280965 15.0199 0.164693 14.993 0.0858435 14.9142C0.007337 14.8358 -0.0200144 14.7196 0.0150045 14.6144L1.06454 11.4663C0.396322 10.3538 1.27758e-05 8.88302 1.27758e-05 7.5ZM3.72781 13.3668C4.76316 14.0226 6.1733 14.4141 7.50001 14.4141C11.2478 14.4141 14.4141 11.2478 14.4141 7.5C14.4141 3.75217 11.2478 0.585938 7.50001 0.585938C3.75219 0.585938 0.58595 3.75217 0.58595 7.5C0.58595 8.82671 0.977453 10.237 1.6332 11.2722C1.68035 11.3466 1.69156 11.4381 1.66364 11.5217L0.756238 14.2438L3.47833 13.3364C3.56302 13.3081 3.65445 13.3204 3.72781 13.3668Z" fill="white"/>' +
+                                '</g>' +
+                            '</svg>' +
+                            '<input id="' + packageName + roomName + j + '" name="pack' + roomName + '" type="radio" checked>' +
+                            '<label for="' + packageName + roomName + j + '">' + packageName + '</label>' +
+                            '<div class="musicRoom__buyPriceTooltip">' +
+                                '<div class="tooltip__title">' + packageName + '</div>' +
+                                '<div class="tooltip__text">' + packageDescription + '</div>' +
+                                '<div class="tooltip__price">' +
+                                    'Price to pay' +
+                                    '<span>16000 HUF ≈ 48 €</span>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>';
+            }
+
+            html += '</div>' +
+                '<div class="musicRoom__price">' +
+                    '<div class="musicRoom__priceValueOld">30 900 HUF</div>' +
+                        '<div class="musicRoom__priceValueNew">29 000 HUF</div>' +
+                        '<div class="musicRoom__priceValuePerson">3 900 HUF/person</div>' +
+                    '</div>' +
+                    '<div class="musicRoom__buyBtn">' +
+                        '<span class="booking-name-room">' + roomName + '</span>' +
+                    '</div>' +
+                '</div>' +
+            '</div>';
+        }
+
+        $('#' + bookingData.tables[i].table_number + '-room').html(html);
+        handleBookButtonClick();
+    }
+}
+
+function getRoomsHtml() {
+    let html = '';
+
+    for (i = 0; i < bookingData.tables.length; ++i) {
+        html += '<div class="musicRoom__item step-two">' +
+                   '<div class="room-descrBlock">' +
+                       '<div class="musicRoom__image">' +
+                           '<img src="img/roombook1.jpg">' +
+                       '</div>' +
+                       '<div class="musicRoom__descr">' +
+                           '<div class="musicRoom__title">Room ' + capitalizeFirstLetter(bookingData.tables[i].table_number) +
+                               '<span class="musicRoom__count">Max - 25 persons</span>' +
+                           '</div>' +
+                           '<div class="dop-info">' +
+                               '<div class="musicRoom__userMessage">The space is perfectly adapted to the size of your group</div>' +
+                               '<div class="musicRoom__userMessageTime">This book has been booked 8 times for last 24 hours</div>' +
+                           '</div>' +
+                       '</div>' +
+                   '</div>' +
+                   '<div class="musicRoom__buyWrap" id="' + bookingData.tables[i].table_number + '-room"></div>' +
+               '</div>';
+
+        if (i < bookingData.tables.length - 1) {
+            html += '<div class="line-divider step-two"></div>';
+        }
+    }
+
+    $('#rooms-bookings').append(html);
+}
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 function getDurationSlots(freeTimes, duration) {
@@ -1082,13 +1295,14 @@ function getDurationSlots(freeTimes, duration) {
 // e.g. ['2021', '2122']
 function getHours(start, end) {
     let result = [];
+    let startCopy = start.clone();
 
-    while (start.isBefore(end)) {
-        let begginingHour = start.format('HH');
+    while (startCopy.isBefore(end)) {
+        let begginingHour = startCopy.format('HH');
 
-        start.add(1, 'hour');
+        startCopy.add(1, 'hour');
 
-        let endingHour = start.format('HH');
+        let endingHour = startCopy.format('HH');
 
         result.push(begginingHour.toString() + endingHour.toString());
     }
@@ -1108,6 +1322,23 @@ function showFoodTitle() {
     $('.price-panel__food-title').css('display', 'flex')
 }
 
+function handleBookButtonClick() {
+    $('.musicRoom__buyBtn').click(
+        function () {
+            var nameRoom = $(this).find('.booking-name-room').text();
+            var timeBooking = $(this).parent().find('.musicRoom__buyItemTime').text();
+            console.log(timeBooking);
+            $("#booking-room").text(nameRoom);
+            $("#booking-time-start").text(timeBooking);
+            $(this).toggleClass('choosed').parent().toggleClass('choosed');
+
+            if (isStepTwoContinue()) {
+                continueStepTwo()
+            }
+        }
+    );
+}
+
 function getDayName(dayNumber) {
     var weekdays = new Array(7);
     weekdays[0] = "Sunday";
@@ -1120,9 +1351,3 @@ function getDayName(dayNumber) {
 
     return weekdays[dayNumber];
 }
-
-
-
-
-
-
