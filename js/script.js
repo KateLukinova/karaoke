@@ -99,12 +99,6 @@ $(document).ready(function () {
         isOpenedMenu = false;
     });
 
-
-    $('.booking__stepFoodItem').click(function () {
-        $(this).toggleClass('active');
-        showFoodTitle();
-    });
-
     if ($(window).width() >= '1200') {
         //main-cursor
         $(document).on('mousemove', function (e) {
@@ -406,26 +400,6 @@ $(document).ready(function () {
         return false;
     });
 
-    $('.minus-portion').click(function () {
-        var $input = $(this).parent().find('input');
-        var count = parseInt($input.val()) - 1;
-        count = count < 1 ? 1 : count;
-        $input.val(count);
-        $input.change();
-        // $("#booking-time").text(count + ' hours');
-        setCurrentBookingData();
-        return false;
-    });
-    $('.plus-portion').click(function () {
-        var $input = $(this).parent().find('input');
-        $input.val(parseInt($input.val()) + 1);
-        $input.change();
-        // $("#booking-time").text($input.val() + ' hours');
-        setCurrentBookingData();
-        return false;
-    });
-
-
     if (window.location.href.includes('index')) {
 
         if ($(window).width() >= 1024) {
@@ -575,7 +549,6 @@ $(document).ready(function () {
 
 
     //!!!!!!!!!!!!!!!!!!  BOOKING PAGE BEGIN   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
     if (window.location.href.includes('pageBooking') ||
         window.location.href.includes('index') ||
         window.location.href.includes('pageEventBachelor') ||
@@ -590,7 +563,8 @@ $(document).ready(function () {
         window.location.href.includes('pageRoomReggae') ||
         window.location.href.includes('pageRoomGatsby') ||
         window.location.href.includes('pageRoomComics') ||
-        window.location.href.includes('pageRoomIcberg')
+        window.location.href.includes('pageRoomIcberg') ||
+        window.location.href === 'http://obobrazovanii.ru/'
     ) {
         getBookingData();
 
@@ -1131,6 +1105,7 @@ function showStepTwo () {
     getBookingsHtml(tablesBookings);
 
     $('.step-two').css('display', 'flex');
+    getServicesHtml();
 }
 
 function getPromotionsDiscount() {
@@ -1226,7 +1201,7 @@ function getBookingsHtml(tablesData) {
             html += '</div>' +
                 '<div class="musicRoom__price">' +
                     '<div class="musicRoom__priceValueOld">' + totalPrice + ' HUF</div>' +
-                        '<div class="musicRoom__priceValueNew">' + totalPriceWithDiscount + ' HUF</div>' +
+                        '<div class="musicRoom__priceValueNew"><span class="actual-price">' + totalPriceWithDiscount + '</span> HUF</div>' +
                         '<div class="musicRoom__priceValuePerson">' + priceForPerson + ' HUF/person</div>' +
                     '</div>' +
                     '<div class="musicRoom__buyBtn">' +
@@ -1272,6 +1247,39 @@ function getRoomsHtml() {
 
     $('#rooms-bookings').append(html);
 }
+
+function getServicesHtml() {
+    let html = '';
+    html += '<div class="booking__stepFoodWrap tabs__content active owl-carousel">';
+
+    for (i = 1; i < 3; ++i) {
+        let service = bookingData.services[i];
+
+        html += '<div class="booking__stepFoodItem">' +
+                    '<div class="number-food-wrap">' +
+                        '<div class="number">' +
+                            '<span class="minus minus-portion">-</span>' +
+                            '<span class="add-food">Add</span>' +
+                            '<span class="plus plus-portion">+</span>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="booking__stepFoodItemImage"><img src="https://bbrooms.zerrno.com' + service.photo_url + '"></div>' +
+                    '<div style="display: none" class="hidden-service-price">' + service.price + '</div>' +
+                    '<div class="booking__stepFoodItemText">' +
+                        '<div class="booking__stepFoodItemTitle">' + service.name + '</div>' +
+                        '<div class="booking__stepFoodItemDescr">' + service.description + '</div>' +
+                        '<div class="booking__stepFoodItemPrice"><span>3 900 HUF </span><br><span>≈ 12 €</span></div>' +
+                    '</div>' +
+                '</div> ';
+    }
+
+    html += '</div>';
+
+    $(html).insertAfter('.booking__stepTypeFood');
+    handleServiceAdditionClick();
+    // handleServiceItemClick();
+}
+
 
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -1353,16 +1361,50 @@ function handleBookButtonClick() {
         function () {
             var nameRoom = $(this).find('.booking-name-room').text();
             var timeBooking = $(this).parent().find('.musicRoom__buyItemTime').text();
-            console.log(timeBooking);
+
             $("#booking-room").text(nameRoom);
             $("#booking-time-start").text(timeBooking);
             $(this).toggleClass('choosed').parent().toggleClass('choosed');
+            let price = $(this).siblings('.musicRoom__price').find('.actual-price').text();
+            $('#total-price-span').text(price);
+            $('#currency-span').css('display', 'flex');
 
             if (isStepTwoContinue()) {
                 continueStepTwo()
             }
         }
     );
+}
+
+function handleServiceAdditionClick() {
+    $('body').on('click', '.plus-portion', function() {
+        let currentPrice = parseInt($('#total-price-span').text());
+        let servicePrice = parseInt($(this).parent().parent().parent().find('.hidden-service-price').text());
+        let input = $(this).parent().find('input');
+        let serviceCount = parseInt(input.val()) + 1;
+        input.val(serviceCount);
+        input.change();
+        // setCurrentBookingData();
+        $('#total-price-span').text(currentPrice + servicePrice);
+
+        return false;
+    });
+    $('body').on('click', '.minus-portion', function() {
+        let currentPrice = parseInt($('#total-price-span').text());
+        let servicePrice = parseInt($(this).parent().parent().parent().find('.hidden-service-price').text());
+        let input = $(this).parent().find('input');
+        let serviceCount = parseInt(input.val());
+        if (serviceCount > 0) {
+            serviceCount--;
+            input.val(serviceCount);
+            input.change();
+            // setCurrentBookingData();
+
+            $('#total-price-span').text(currentPrice - servicePrice);
+        }
+
+        return false;
+    });
 }
 
 function getDayName(dayNumber) {
@@ -1408,6 +1450,21 @@ function handlePackageRadioButtonClick() {
         priceDiv.find('.musicRoom__priceValuePerson').text(prices.priceForPerson + ' HUF/person');
     });
 }
+
+function handleServiceItemClick() {
+    $('.booking__stepFoodItem').click(function () {
+        $(this).toggleClass('active');
+        showFoodTitle();
+        let serviceName = $(this).find('.booking__stepFoodItemTitle').text();
+        let serviceCount = $(this).find('input').val();
+        let html = '<div class="booking__priceInfo">' +
+            '<div class="booking__priceInfoTitle">' + serviceName + '</div>' +
+            '<div class="booking__priceInfoValue">' + serviceCount + '</div>' +
+            '</div>';
+        $(html).insertBefore('.booking__priceInfoUserMessage');
+    });
+}
+
 
 function getPrices(package) {
     let priceGradation = JSON.parse(package.price_gradation);
