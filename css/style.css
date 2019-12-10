@@ -2,27 +2,32 @@
 @font-face {
 	font-family: 'GothamPro-Black';
 	src: url("../fonts/GothamPro-Black.ttf");
+	font-display: swap;
 }
 
 @font-face {
 	font-family: 'GothamPro';
 	src: url("../fonts/GothamPro.ttf");
+	font-display: swap;
 }
 
 
 @font-face {
 	font-family: 'GothamPro-Light';
 	src: url("../fonts/GothamPro-Light.ttf");
+	font-display: swap;
 }
 
 @font-face {
 	font-family: 'GothamPro-Bold';
 	src: url("../fonts/GothamPro-Bold.ttf");
+	font-display: swap;
 }
 
 @font-face {
 	font-family: 'GothamPro-Medium';
 	src: url("../fonts/GothamPro-Medium.ttf");
+	font-display: swap;
 }
 
 @font-face {
@@ -363,7 +368,6 @@ a.logo svg {
 	width: 80%!important;
 	height: auto;
 	padding: 15px 2%;
-	max-height: 250px;
 	z-index: -1;
 	bottom: auto;
 	padding-top: 30px;
@@ -545,7 +549,6 @@ select.nav__lang {
 .nav__rooms, .nav .bus {
 	display: none;
 }
-
 
 /*menu-icon animation*/
 
@@ -841,6 +844,8 @@ a.nav__secondary-item.bus {
 	position: absolute;
 	top: 50%;
 	left: 0;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
 	transform: translateY(-50%);
 	width: 100%;
 	height: 120%;
@@ -875,6 +880,8 @@ a.nav__secondary-item.bus {
 section.main {
 	position: relative;
 	cursor: none;
+	background: -webkit-gradient(linear, left bottom, left top, from(#1C0B3F), to(rgba(28, 11, 63, 0.3)));
+	background: -o-linear-gradient(bottom, #1C0B3F 0%, rgba(28, 11, 63, 0.3) 100%);
 	background: linear-gradient(360deg, #1C0B3F 0%, rgba(28, 11, 63, 0.3) 100%);
 }
 
@@ -1234,8 +1241,9 @@ section.about {
 	opacity: 0.3;
 }
 
-
 /*accordion*/
+
+/* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.23, autoprefixer: v9.7.3) */
 
 
 .rooms-accordion {
@@ -1460,8 +1468,8 @@ section.about {
 	-ms-flex-align: center;
 	align-items: center;
 	padding: 0 1vw;
-	background: -webkit-gradient(linear, left top, right top, color-stop(-35%, rgba(60, 26, 115, 0.0001)), to(#1C0B3F));
 	background: -o-linear-gradient(left, rgba(60, 26, 115, 0.0001) -35%, #1C0B3F 100%);
+	background: -webkit-gradient(linear, left top, right top, color-stop(-35%, rgba(60, 26, 115, 0.0001)), to(#1C0B3F));
 	background: linear-gradient(90deg, rgba(60, 26, 115, 0.0001) -35%, #1C0B3F 100%);
 }
 
@@ -1696,8 +1704,8 @@ section.page-block {
 	-webkit-box-align: center;
 	-ms-flex-align: center;
 	align-items: center;
-	background: -webkit-gradient(linear, left top, left bottom, from(rgba(42, 15, 83, 0.0001)), to(#260E4A));
 	background: -o-linear-gradient(top, rgba(42, 15, 83, 0.0001) 0%, #260E4A 100%);
+	background: -webkit-gradient(linear, left top, left bottom, from(rgba(42, 15, 83, 0.0001)), to(#260E4A));
 	background: linear-gradient(180deg, rgba(42, 15, 83, 0.0001) 0%, #260E4A 100%);
 }
 
@@ -2210,8 +2218,9 @@ a.logo-companies:hover svg {
 	max-width: 1140px;
 }
 
-
 /*datepicker styles*/
+/* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.23, autoprefixer: v9.7.3) */
+
 
 .datepicker{
 	width: 320px;
@@ -2293,7 +2302,7 @@ a.logo-companies:hover svg {
 	height: 100%;
 	opacity: 0;
 	cursor: pointer;
-    z-index: 5;
+	z-index: 5;
 }
 
 .chosen-date {
@@ -2309,7 +2318,6 @@ a.logo-companies:hover svg {
 	font-size: 1.5vw;
 	margin-top: 0.6vw;
 }
-
 
 /*pageBooking*/
 
@@ -2432,9 +2440,6 @@ section.booking h1 {
 
 
 .musicRoom__buyPriceTooltip {
-	/*display: -webkit-box;*/
-	/*display: -ms-flexbox;*/
-	/*display: flex;*/
 	display: none;
 	opacity: 0;
 	position: absolute;
@@ -2525,11 +2530,12 @@ section.booking h1 {
 	-webkit-box-align: center;
 	-ms-flex-align: center;
 	align-items: center;
+	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	height: auto;
 	min-height: 100px;
 	padding: 15px 2.5%;
-	width: 95%;
+	width: 100%;
 	background-color: #6437E1;
 	margin-bottom: 10px;
 }
@@ -2696,7 +2702,11 @@ section.booking h1 {
 
 .musicRoom__buyBtn {
 	position: relative;
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
 	justify-content: center;
 	font-family: 'GothamPro-Bold', sans-serif;
 	cursor: pointer;
@@ -2982,7 +2992,7 @@ input[type='checkbox'] {
 
 .country .jq-selectbox__select-text {
 	max-width: 250px;
-	color: rgb(117, 117, 108);
+	color: white;
 }
 
 .booking__stepFoodWrap {
@@ -3052,24 +3062,34 @@ input[type='checkbox'] {
 	position: absolute;
 	left: 50%;
 	bottom: 15px;
+	-webkit-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
 	transform: translateX(-50%);
 	width: 160px;
 }
 
-.number-food-wrap .number .add-food {
+.number-food-wrap .number .add-food, .service-count {
 	width: 70px;
 	height: 30px;
 	background-color: #F734C0;
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
 	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
 	align-items: center;
 	font-family: 'GothamPro-Black', sans-serif;
 	font-size: 14px;
 	color: white;
 	text-align: center;
+	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	border-radius: 25px;
 }
+
 
 .number-food-wrap .number .plus, .number-food-wrap .number .minus {
 	top: 0;
@@ -3212,6 +3232,10 @@ input[type='checkbox'] {
 	mix-blend-mode: normal;
 }
 
+.form__row .jq-selectbox {
+	z-index: 1;
+}
+
 .form__row .country .jq-selectbox__select:hover {
 	border: 1px solid rgba(255, 255, 255, 1);
 	background-color: transparent!important;
@@ -3236,13 +3260,22 @@ input[type='checkbox'] {
 }
 
 .form__row:before {
+	width: 50px;
+	height: 50px;
+	background-color: #1c0b3f;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
 	content: "";
 	position: absolute;
 	bottom: 10px;
-	-webkit-transform: translateY(-50%);
-	-ms-transform: translateY(-50%);
-	transform: translateY(-50%);
-	right: 25px;
+	right: 10px;
 }
 
 
@@ -3287,6 +3320,12 @@ input[type='checkbox'] {
 	margin-bottom: 17px;
 }
 
+#what-to-email .booking__priceInfoValue {
+	max-width: 160px;
+	overflow: hidden;
+	-o-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+}
 
 .booking__userInfoPayment {
 	width: 80%;
@@ -3759,8 +3798,8 @@ label .discount {
 
 
 section.main-strip {
-	background: -webkit-gradient(linear, left bottom, left top, from(#311287), to(rgba(45, 16, 128, 0.45)));
 	background: -o-linear-gradient(bottom, #311287 0%, rgba(45, 16, 128, 0.45) 100%);
+	background: -webkit-gradient(linear, left bottom, left top, from(#311287), to(rgba(45, 16, 128, 0.45)));
 	background: linear-gradient(360deg, #311287 0%, rgba(45, 16, 128, 0.45) 100%);
 }
 
@@ -3986,8 +4025,8 @@ section.main-strip {
 }
 
 section.main-reggae {
-	background: -webkit-gradient(linear, left bottom, left top, from(#E7126D), color-stop(94.81%, rgba(231, 18, 108, 0.0001)));
 	background: -o-linear-gradient(bottom, #E7126D 0%, rgba(231, 18, 108, 0.0001) 94.81%);
+	background: -webkit-gradient(linear, left bottom, left top, from(#E7126D), color-stop(94.81%, rgba(231, 18, 108, 0.0001)));
 	background: linear-gradient(360deg, #E7126D 0%, rgba(231, 18, 108, 0.0001) 94.81%);
 }
 
@@ -3997,8 +4036,8 @@ section.main-reggae {
 }
 
 section.main-gatsby {
-	background: -webkit-gradient(linear, left bottom, left top, from(#61045F), to(rgba(95, 8, 110, 0.0001)));
 	background: -o-linear-gradient(bottom, #61045F 0%, rgba(95, 8, 110, 0.0001) 100%);
+	background: -webkit-gradient(linear, left bottom, left top, from(#61045F), to(rgba(95, 8, 110, 0.0001)));
 	background: linear-gradient(0deg, #61045F 0%, rgba(95, 8, 110, 0.0001) 100%);
 }
 
@@ -4008,8 +4047,8 @@ section.main-gatsby {
 }
 
 section.main-comics {
-	background: -webkit-gradient(linear, left bottom, left top, from(#0575E6), to(rgba(5, 117, 230, 0.0001)));
 	background: -o-linear-gradient(bottom, #0575E6 0%, rgba(5, 117, 230, 0.0001) 100%);
+	background: -webkit-gradient(linear, left bottom, left top, from(#0575E6), to(rgba(5, 117, 230, 0.0001)));
 	background: linear-gradient(360deg, #0575E6 0%, rgba(5, 117, 230, 0.0001) 100%);
 }
 
@@ -4019,8 +4058,8 @@ section.main-comics {
 }
 
 section.main-iceberg {
-	background: -webkit-gradient(linear, left bottom, left top, from(#0575E6), color-stop(99.1%, rgba(5, 117, 230, 0.0001)));
 	background: -o-linear-gradient(bottom, #0575E6 0%, rgba(5, 117, 230, 0.0001) 99.1%);
+	background: -webkit-gradient(linear, left bottom, left top, from(#0575E6), color-stop(99.1%, rgba(5, 117, 230, 0.0001)));
 	background: linear-gradient(360deg, #0575E6 0%, rgba(5, 117, 230, 0.0001) 99.1%);
 }
 
@@ -4094,7 +4133,6 @@ section.main-iceberg {
 	from { width: 0 }
 	to { width: 100%; color:white }
 }
-
 
 
 /*style page event*/
@@ -4286,8 +4324,8 @@ ul.text-ul li::before {
 }
 
 section.main-birthday, section.main-disco {
-	background: -webkit-gradient(linear, left bottom, left top, from(#351675), to(rgba(53, 22, 117, 0.0001)));
 	background: -o-linear-gradient(bottom, #351675 0%, rgba(53, 22, 117, 0.0001) 100%);
+	background: -webkit-gradient(linear, left bottom, left top, from(#351675), to(rgba(53, 22, 117, 0.0001)));
 	background: linear-gradient(360deg, #351675 0%, rgba(53, 22, 117, 0.0001) 100%);
 }
 
@@ -4303,8 +4341,8 @@ section.main-birthday, section.main-disco {
 }
 
 section.main-hen {
-	background: -webkit-gradient(linear, left bottom, left top, color-stop(2.15%, #380941), to(rgba(56, 9, 65, 0.0001)));
 	background: -o-linear-gradient(bottom, #380941 2.15%, rgba(56, 9, 65, 0.0001) 100%);
+	background: -webkit-gradient(linear, left bottom, left top, color-stop(2.15%, #380941), to(rgba(56, 9, 65, 0.0001)));
 	background: linear-gradient(360deg, #380941 2.15%, rgba(56, 9, 65, 0.0001) 100%);
 }
 
@@ -4314,8 +4352,8 @@ section.main-hen {
 }
 
 section.main-private, section.graduation, section.corporate {
-	background: -webkit-gradient(linear, left bottom, left top, from(#2C1066), to(rgba(44, 16, 101, 0.0001)));
 	background: -o-linear-gradient(bottom, #2C1066 0%, rgba(44, 16, 101, 0.0001) 100%);
+	background: -webkit-gradient(linear, left bottom, left top, from(#2C1066), to(rgba(44, 16, 101, 0.0001)));
 	background: linear-gradient(360deg, #2C1066 0%, rgba(44, 16, 101, 0.0001) 100%);
 }
 
@@ -4439,9 +4477,8 @@ section.block--no-bg {
 	line-height: 2;
 	color: white;
 }
+
 /*menu*/
-
-
 .menu-box {
 	display: -webkit-box;
 	display: -ms-flexbox;
@@ -4589,8 +4626,10 @@ section.block--no-bg {
 .menu-box .booking__stepFoodWrap:before {
 	content: none;
 }
-
 /*price list*/
+
+/* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.23, autoprefixer: v9.7.3) */
+
 
 .price-caption {
 	position: relative;
@@ -4820,8 +4859,8 @@ section.terms-block {
 	left: 0;
 	width: 100%;
 	height: 70%;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(1.39%, rgba(28, 11, 63, 0.0001)), to(rgba(28, 11, 63, 0.89957)));
 	background: -o-linear-gradient(top, rgba(28, 11, 63, 0.0001) 1.39%, rgba(28, 11, 63, 0.89957) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(1.39%, rgba(28, 11, 63, 0.0001)), to(rgba(28, 11, 63, 0.89957)));
 	background: linear-gradient(180deg, rgba(28, 11, 63, 0.0001) 1.39%, rgba(28, 11, 63, 0.89957) 100%);
 	display: -webkit-box;
 	display: -ms-flexbox;
@@ -4963,8 +5002,8 @@ section.terms-block {
 	bottom: 0;
 	width: 100%;
 	height: 50%;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(1.39%, rgba(28, 11, 63, 0.0001)), to(rgb(48, 16, 88)));
 	background: -o-linear-gradient(top, rgba(28, 11, 63, 0.0001) 1.39%, rgb(48, 16, 88) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(1.39%, rgba(28, 11, 63, 0.0001)), to(rgb(48, 16, 88)));
 	background: linear-gradient(180deg, rgba(28, 11, 63, 0.0001) 1.39%, rgb(48, 16, 88) 100%);
 	mix-blend-mode: normal;
 }
@@ -5002,6 +5041,7 @@ section.terms-block {
 	width: 70%;
 	text-align: center;
 }
+
 /*post*/
 
 .h1-post {
@@ -5187,9 +5227,6 @@ section.page-post {
 	width: 100%;
 }
 /*contacts*/
-
-/* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.23, autoprefixer: v9.7.3) */
-
 
 section.contacts {
 	background-color: #33135D;
@@ -5430,6 +5467,9 @@ section.page-404, section.page-3d {
 	transform: translateY(17px);
 }
 
+section.page-3d {
+	padding-bottom: 0;
+}
 
 .jq-selectbox__dropdown li {
 	cursor: pointer!important;
@@ -5508,8 +5548,8 @@ section.page-404, section.page-3d {
 }
 
 section.main-services {
-	background: -webkit-gradient(linear, left bottom, left top, from(#1B0A3E), color-stop(170%, rgba(27, 10, 62, 0.0001)));
 	background: -o-linear-gradient(bottom, #1B0A3E 0%, rgba(27, 10, 62, 0.0001) 170%);
+	background: -webkit-gradient(linear, left bottom, left top, from(#1B0A3E), color-stop(170%, rgba(27, 10, 62, 0.0001)));
 	background: linear-gradient(360deg, #1B0A3E 0%, rgba(27, 10, 62, 0.0001) 170%);
 }
 
@@ -5609,9 +5649,7 @@ section.page-block-dark-bg {
 }
 
 
-
 /*modal*/
-
 
 .modal {
 	position: fixed;
@@ -5659,6 +5697,7 @@ section.page-block-dark-bg {
 	-webkit-transform: translate(-57%, -50%);
 	-ms-transform: translate(-57%, -50%);
 	transform: translate(-57%, -50%);
+	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	width: 90%;
 	max-width: 1140px;
@@ -5681,9 +5720,18 @@ section.page-block-dark-bg {
 }
 
 .modal-body {
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
 	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
 	align-items: center;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
 	flex-direction: column;
 	width: 90%;
 	max-width: 354px;
@@ -5977,9 +6025,9 @@ section.page-block-dark-bg {
 		width: 100%;
 	}
 
-    a.btn-long {
-        margin-bottom: 2vh;
-    }
+	a.btn-long {
+		margin-bottom: 2vh;
+	}
 }
 
 @media screen and (max-width: 1024px) {
@@ -6290,44 +6338,44 @@ section.page-block-dark-bg {
 	}
 
 	section.main {
-		background: -webkit-gradient(linear, left bottom, left top, from(#1C0B3F), to(rgba(28, 11, 63, 0.2)));
 		background: -o-linear-gradient(bottom, #1C0B3F 0%, rgba(28, 11, 63, 0.2) 100%);
+		background: -webkit-gradient(linear, left bottom, left top, from(#1C0B3F), to(rgba(28, 11, 63, 0.2)));
 		background: linear-gradient(360deg, #1C0B3F 0%, rgba(28, 11, 63, 0.2) 100%);
 	}
 
 	section.main-strip {
-		background: -webkit-gradient(linear, left bottom, left top, from(#311287), to(rgba(45, 16, 128, 0.45)));
 		background: -o-linear-gradient(bottom, #311287 0%, rgba(45, 16, 128, 0.45) 100%);
+		background: -webkit-gradient(linear, left bottom, left top, from(#311287), to(rgba(45, 16, 128, 0.45)));
 		background: linear-gradient(360deg, #311287 0%, rgba(45, 16, 128, 0.45) 100%);
 	}
 
 	section.main-reggae {
-		background: -webkit-gradient(linear, left bottom, left top, from(#E7126D), color-stop(94.81%, rgba(231, 18, 108, 0.0001)));
 		background: -o-linear-gradient(bottom, #E7126D 0%, rgba(231, 18, 108, 0.0001) 94.81%);
+		background: -webkit-gradient(linear, left bottom, left top, from(#E7126D), color-stop(94.81%, rgba(231, 18, 108, 0.0001)));
 		background: linear-gradient(360deg, #E7126D 0%, rgba(231, 18, 108, 0.0001) 94.81%);
 	}
 
 	section.main-gatsby {
-		background: -webkit-gradient(linear, left bottom, left top, from(#61045F), to(rgba(95, 8, 110, 0.0001)));
 		background: -o-linear-gradient(bottom, #61045F 0%, rgba(95, 8, 110, 0.0001) 100%);
+		background: -webkit-gradient(linear, left bottom, left top, from(#61045F), to(rgba(95, 8, 110, 0.0001)));
 		background: linear-gradient(0deg, #61045F 0%, rgba(95, 8, 110, 0.0001) 100%);
 	}
 
 	section.main-comics {
-		background: -webkit-gradient(linear, left bottom, left top, from(#0575E6), to(rgba(5, 117, 230, 0.0001)));
 		background: -o-linear-gradient(bottom, #0575E6 0%, rgba(5, 117, 230, 0.0001) 100%);
+		background: -webkit-gradient(linear, left bottom, left top, from(#0575E6), to(rgba(5, 117, 230, 0.0001)));
 		background: linear-gradient(360deg, #0575E6 0%, rgba(5, 117, 230, 0.0001) 100%);
 	}
 
 	section.main-iceberg {
-		background: -webkit-gradient(linear, left bottom, left top, from(#0575E6), color-stop(99.1%, rgba(5, 117, 230, 0.0001)));
 		background: -o-linear-gradient(bottom, #0575E6 0%, rgba(5, 117, 230, 0.0001) 99.1%);
+		background: -webkit-gradient(linear, left bottom, left top, from(#0575E6), color-stop(99.1%, rgba(5, 117, 230, 0.0001)));
 		background: linear-gradient(360deg, #0575E6 0%, rgba(5, 117, 230, 0.0001) 99.1%);
 	}
 
 	section.main-birthday, section.main-disco {
-		background: -webkit-gradient(linear, left bottom, left top, from(#351675), to(rgba(53, 22, 117, 0.0001)));
 		background: -o-linear-gradient(bottom, #351675 0%, rgba(53, 22, 117, 0.0001) 100%);
+		background: -webkit-gradient(linear, left bottom, left top, from(#351675), to(rgba(53, 22, 117, 0.0001)));
 		background: linear-gradient(360deg, #351675 0%, rgba(53, 22, 117, 0.0001) 100%);
 	}
 
@@ -6337,14 +6385,14 @@ section.page-block-dark-bg {
 	}
 
 	section.main-hen {
-		background: -webkit-gradient(linear, left bottom, left top, color-stop(2.15%, #380941), to(rgba(56, 9, 65, 0.0001)));
 		background: -o-linear-gradient(bottom, #380941 2.15%, rgba(56, 9, 65, 0.0001) 100%);
+		background: -webkit-gradient(linear, left bottom, left top, color-stop(2.15%, #380941), to(rgba(56, 9, 65, 0.0001)));
 		background: linear-gradient(360deg, #380941 2.15%, rgba(56, 9, 65, 0.0001) 100%);
 	}
 
 	section.main-private, section.graduation, section.corporate {
-		background: -webkit-gradient(linear, left bottom, left top, from(#2C1066), to(rgba(44, 16, 101, 0.0001)));
 		background: -o-linear-gradient(bottom, #2C1066 0%, rgba(44, 16, 101, 0.0001) 100%);
+		background: -webkit-gradient(linear, left bottom, left top, from(#2C1066), to(rgba(44, 16, 101, 0.0001)));
 		background: linear-gradient(360deg, #2C1066 0%, rgba(44, 16, 101, 0.0001) 100%);
 	}
 
@@ -6392,6 +6440,8 @@ section.page-block-dark-bg {
 	}
 
 	.musicRoom__buyItem {
+		height: -webkit-max-content;
+		height: -moz-max-content;
 		height: max-content;
 		padding: 15px;
 	}
@@ -6412,8 +6462,8 @@ section.page-block-dark-bg {
 		-ms-flex-align: center;
 		align-items: center;
 		padding: 0 1vw;
-		background: -webkit-gradient(linear, left top, right top, color-stop(-35%, rgba(60, 26, 115, 0.0001)), to(#1C0B3F));
 		background: -o-linear-gradient(left, rgba(60, 26, 115, 0.0001) -35%, #1C0B3F 100%);
+		background: -webkit-gradient(linear, left top, right top, color-stop(-35%, rgba(60, 26, 115, 0.0001)), to(#1C0B3F));
 		background: linear-gradient(90deg, rgba(60, 26, 115, 0.0001) -35%, #1C0B3F 100%);
 	}
 
@@ -6442,6 +6492,8 @@ section.page-block-dark-bg {
 
 	.room-features .btn {
 		opacity: 1;
+		display: -webkit-box;
+		display: -ms-flexbox;
 		display: flex;
 	}
 
@@ -6706,7 +6758,12 @@ section.page-block-dark-bg {
 	}
 
 	.footer__main-nav {
+		display: -webkit-box;
+		display: -ms-flexbox;
 		display: flex;
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-ms-flex-direction: column;
 		flex-direction: column;
 		width: 30%;
 	}
@@ -6719,31 +6776,32 @@ section.page-block-dark-bg {
 		margin-top: 5px;
 	}
 
-    .booking__pricePanelBottom {
-        position: fixed;
-        bottom: 0;
-        z-index: 10;
-    }
+	.booking__pricePanelBottom {
+		position: fixed;
+		bottom: 0;
+		z-index: 10;
+	}
 
-    .booking__pricePanel {
-        z-index: 10;
-    }
+	.booking__pricePanel {
+		z-index: 10;
+	}
 
-    .booking__pricePanelTotalPriceTitle {
-        font-size: 14px;
-    }
+	.booking__pricePanelTotalPriceTitle {
+		font-size: 14px;
+	}
 
-    .booking__pricePanelTotalPriceValue {
-        font-size: 20px;
-    }
+	.booking__pricePanelTotalPriceValue {
+		font-size: 20px;
+	}
 
-    .booking__pricePanelTotalPrice {
-        padding: 5px 0;
-    }
+	.booking__pricePanelTotalPrice {
+		padding: 5px 0;
+	}
 
-    .booking__pricePanelBookBtn {
-        height: 70px;
-    }
+	.booking__pricePanelBookBtn {
+		height: 70px;
+		background-color: #CAFD35;
+	}
 }
 
 @media screen and (max-width: 768px) {
@@ -6769,6 +6827,8 @@ section.page-block-dark-bg {
 		display: -webkit-box;
 		display: -ms-flexbox;
 		display: flex;
+		-webkit-box-pack: start;
+		-ms-flex-pack: start;
 		justify-content: flex-start;
 		-webkit-box-align: start;
 		-ms-flex-align: start;
@@ -7228,6 +7288,8 @@ section.page-block-dark-bg {
 	}
 
 	.btn.btn-sidebar-mobile {
+		display: -webkit-box;
+		display: -ms-flexbox;
 		display: flex;
 		width: 35px;
 		color: white;
@@ -7248,11 +7310,15 @@ section.page-block-dark-bg {
 	}
 
 	.item-logo {
+		-webkit-box-pack: start;
+		-ms-flex-pack: start;
 		justify-content: flex-start;
 		margin-left: 10px;
 	}
 
 	.item-btn {
+		-webkit-box-pack: end;
+		-ms-flex-pack: end;
 		justify-content: flex-end;
 		margin-right: 10px;
 	}
@@ -7285,10 +7351,17 @@ section.page-block-dark-bg {
 		display: flex;
 	}
 	.sidebar {
+		-webkit-box-pack: justify;
+		-ms-flex-pack: justify;
 		justify-content: space-between;
 		height: 100%;
 		background-color: #F734C0;
+		-webkit-transition: all 0.3s ease;
+		-o-transition: all 0.3s ease;
 		transition: all 0.3s ease;
+		-webkit-box-orient: horizontal;
+		-webkit-box-direction: normal;
+		-ms-flex-direction: row;
 		flex-direction: row;
 	}
 	.logo-mobile {
@@ -7629,13 +7702,13 @@ section.page-block-dark-bg {
 		margin-top: 30px;
 	}
 
-    .rooms-caption {
-        height: auto;
-    }
+	.rooms-caption {
+		height: auto;
+	}
 
-    .booking__pricePanelBottom {
-        bottom: 60px;
-    }
+	.booking__pricePanelBottom {
+		bottom: 60px;
+	}
 
 	.booking__step1Wrap {
 		margin-top: 0;
@@ -7645,3 +7718,5 @@ section.page-block-dark-bg {
 .step-two {
 	display: none;
 }
+
+

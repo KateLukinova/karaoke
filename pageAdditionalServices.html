@@ -10,8 +10,7 @@
     <link rel="stylesheet" href="css/datepicker.css">
     <link rel="stylesheet" href="css/jquery.formstyler.css">
     <link rel="stylesheet" href="owl-carousel/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <script type="text/javascript" src="js/jquery.js"></script>
+    <link rel="preload" as="style" href="css/style.css" onload="this.rel='stylesheet'">    <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="owl-carousel/owl.carousel.min.js"></script>
     <script type="text/javascript" src="js/datepicker.js"></script>
     <script type="text/javascript" src="js/datepicker.en.js"></script>
@@ -45,13 +44,14 @@
         <div class="nav__button-box">
             <select name="nav__lang" class="nav__lang">
                 <option value="En">En</option>
-                <option value="Hun">Hun</option>
+                <option value="Hun">Hu</option>
             </select>
             <a href="pageBooking.html" class="btn mobile-none">Book now</a>
             <a href="3dtour.html" class="btn transparent">3d tour</a>
         </div>
         <div class="nav-wrap">
             <select name="events" class="rooms nav__rooms" onchange="location = this.value;">
+                <option value="Events">Events</option>
                 <option value="pageEventBirthday.html">Birthday</option>
                 <option value="pageEventBachelor.html">Bachelor</option>
                 <option value="pageEventCorporate.html">Corporate</option>
@@ -175,6 +175,7 @@
             </a>
         </div>
         <select name="rooms" class="rooms header__rooms" onchange="location = this.value;">
+            <option value="Rooms">Rooms</option>
             <option value="pageRoomStrip.html">Strip</option>
             <option value="pageRoomReggae.html">Reggae</option>
             <option value="pageRoomGatsby.html">Gatsby</option>
@@ -197,7 +198,7 @@
             </a>
             <select name="lang" class="lang">
                 <option value="En">En</option>
-                <option value="Hun">Hun</option>
+                <option value="Hun">Hu</option>
             </select>
             <a href="pageBooking.html" class="btn">Book now</a>
             <a href="3dtour.html" class="btn transparent">3d tour</a>
@@ -240,24 +241,24 @@
                     <a href="#" class="btn order">order</a>
                 </div>
             </div>
-            <div class="services-block__item reverse">
-                <div class="services-block__photo">
-                    <img src="img/photo2.jpg" alt="">
-                </div>
-                <div class="order-box">
-                    <div class="order-box__title">
-                        PHOTO-GLASS / PHOTO-MIRROR /<br> POLAROID CAMERA
-                    </div>
-                    <div class="order-box__description">
-                        Photo-Glass — Unique device with which you can easily and quickly capture most important moments
-                        party in Budapest! As an alternative we offer — Photo Mirror or Polaroid camera with instant photo printing
-                    </div>
-                    <div class="order-box__text">
-                        Rent: 56.000 forint ≈ 200€
-                    </div>
-                    <a href="#" class="btn order">order</a>
-                </div>
-            </div>
+<!--            <div class="services-block__item reverse">-->
+<!--                <div class="services-block__photo">-->
+<!--                    <img src="img/photo2.jpg" alt="">-->
+<!--                </div>-->
+<!--                <div class="order-box">-->
+<!--                    <div class="order-box__title">-->
+<!--                        PHOTO-GLASS / PHOTO-MIRROR /<br> POLAROID CAMERA-->
+<!--                    </div>-->
+<!--                    <div class="order-box__description">-->
+<!--                        Photo-Glass — Unique device with which you can easily and quickly capture most important moments-->
+<!--                        party in Budapest! As an alternative we offer — Photo Mirror or Polaroid camera with instant photo printing-->
+<!--                    </div>-->
+<!--                    <div class="order-box__text">-->
+<!--                        Rent: 56.000 forint ≈ 200€-->
+<!--                    </div>-->
+<!--                    <a href="#" class="btn order">order</a>-->
+<!--                </div>-->
+<!--            </div>-->
             <div class="services-block__item">
                 <div class="services-block__photo">
                     <img src="img/photo3.jpg" alt="">
@@ -276,25 +277,25 @@
                     <a href="#" class="btn order">order</a>
                 </div>
             </div>
-            <div class="services-block__item reverse">
-                <div class="services-block__photo">
-                    <img src="img/photo4.jpg" alt="">
-                </div>
-                <div class="order-box">
-                    <div class="order-box__title">
-                        Striptease
-                    </div>
-                    <div class="order-box__description">
-                        Striptease — Unique device with which you can easily and quickly capture most important
-                        moments party in Budapest! As an alternative we offer — Photo Mirror
-                        or Polaroid camera with instant photo printing
-                    </div>
-                    <div class="order-box__text">
-                        Rent: 56.000 forint ≈ 200€
-                    </div>
-                    <a href="#" class="btn order">order</a>
-                </div>
-            </div>
+<!--            <div class="services-block__item reverse">-->
+<!--                <div class="services-block__photo">-->
+<!--                    <img src="img/photo4.jpg" alt="">-->
+<!--                </div>-->
+<!--                <div class="order-box">-->
+<!--                    <div class="order-box__title">-->
+<!--                        Striptease-->
+<!--                    </div>-->
+<!--                    <div class="order-box__description">-->
+<!--                        Striptease — Unique device with which you can easily and quickly capture most important-->
+<!--                        moments party in Budapest! As an alternative we offer — Photo Mirror-->
+<!--                        or Polaroid camera with instant photo printing-->
+<!--                    </div>-->
+<!--                    <div class="order-box__text">-->
+<!--                        Rent: 56.000 forint ≈ 200€-->
+<!--                    </div>-->
+<!--                    <a href="#" class="btn order">order</a>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
     </section>
     <footer class="footer anchor">

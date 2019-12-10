@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/datepicker.css">
     <link rel="stylesheet" href="css/jquery.formstyler.css">
     <link rel="stylesheet" href="owl-carousel/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="preload" as="style" href="css/style.css" onload="this.rel='stylesheet'">
 </head>
 <body>
     <div class="menu">
@@ -39,13 +39,14 @@
         <div class="nav__button-box">
             <select name="nav__lang" class="nav__lang">
                 <option value="En">En</option>
-                <option value="Hun">Hun</option>
+                <option value="Hun">Hu</option>
             </select>
             <a href="pageBooking.html" class="btn mobile-none">Book now</a>
             <a href="3dtour.html" class="btn transparent">3d tour</a>
         </div>
         <div class="nav-wrap">
             <select name="events" class="rooms nav__rooms" onchange="location = this.value;">
+                <option value="Events">Events</option>
                 <option value="pageEventBirthday.html">Birthday</option>
                 <option value="pageEventBachelor.html">Bachelor</option>
                 <option value="pageEventCorporate.html">Corporate</option>
@@ -169,6 +170,7 @@
         </a>
     </div>
     <select name="rooms" class="rooms header__rooms" onchange="location = this.value;">
+        <option value="Rooms">Rooms</option>
         <option value="pageRoomStrip.html">Strip</option>
         <option value="pageRoomReggae.html">Reggae</option>
         <option value="pageRoomGatsby.html">Gatsby</option>
@@ -191,28 +193,30 @@
         </a>
         <select name="lang" class="lang">
             <option value="En">En</option>
-            <option value="Hun">Hun</option>
+            <option value="Hun">Hu</option>
         </select>
         <a href="pageBooking.html" class="btn">Book now</a>
         <a href="3dtour.html" class="btn transparent">3d tour</a>
     </div>
 </header>
     <section class="section main page-block page-3d">
-        <img data-src="img/icberg.jpg" alt="" class="main-img">
-        <div class="box3d">
-            <div class="box3d__h2">Blue Bird Karaoke Rooms </div>
-            <div class="box3d__h1">Explore 3D space</div>
-            <div class="box3d__button">
-                <select name="rooms" class="rooms tour__rooms">
-                    <option value="Strip">Strip</option>
-                    <option value="Reggae">Reggae</option>
-                    <option value="Gatsby">Gatsby</option>
-                    <option value="Comics">Comics</option>
-                    <option value="Iceberg" selected>Iceberg</option>
-                </select>
-                <a href="https://my.matterport.com/show/?m=MaY4NGr9gvK&fov=100&start=%7B%22camera_position%22:%7B%22x%22:0.1767,%22y%22:1.2467,%22z%22:-5.2559%7D,%22camera_quaternion%22:%7B%22x%22:-0.0491,%22y%22:-0.199,%22z%22:-0.01,%22w%22:0.9787%7D,%22camera_mode%22:1,%22scan_id%22:%22fb93a2bf880b43a5bfd6925e36724f26%22%7D" class="btn">explore now</a>
-            </div>
-        </div>
+<!--        <img data-src="img/icberg.jpg" alt="" class="main-img">-->
+<!--        <div class="box3d">-->
+<!--            <div class="box3d__h2">Blue Bird Karaoke Rooms </div>-->
+<!--            <div class="box3d__h1">Explore 3D space</div>-->
+<!--            <div class="box3d__button">-->
+<!--                <select name="rooms" class="rooms tour__rooms">-->
+<!--                    <option value="Strip">Strip</option>-->
+<!--                    <option value="Reggae">Reggae</option>-->
+<!--                    <option value="Gatsby">Gatsby</option>-->
+<!--                    <option value="Comics">Comics</option>-->
+<!--                    <option value="Iceberg" selected>Iceberg</option>-->
+<!--                </select>-->
+<!--                <a href="https://my.matterport.com/show/?m=MaY4NGr9gvK&fov=100&start=%7B%22camera_position%22:%7B%22x%22:0.1767,%22y%22:1.2467,%22z%22:-5.2559%7D,%22camera_quaternion%22:%7B%22x%22:-0.0491,%22y%22:-0.199,%22z%22:-0.01,%22w%22:0.9787%7D,%22camera_mode%22:1,%22scan_id%22:%22fb93a2bf880b43a5bfd6925e36724f26%22%7D" class="btn">explore now</a>-->
+<!--            </div>-->
+<!--        </div>-->
+
+        <iframe frameborder="0" width="100%" border="0" height="100%" class="iframe-tour" allowfullscreen="" src="https://my.matterport.com/show/?m=MaY4NGr9gvK&amp;fov=100&amp;start=%7B%22camera_position%22:%7B%22x%22:0.1767,%22y%22:1.2467,%22z%22:-5.2559%7D,%22camera_quaternion%22:%7B%22x%22:-0.0491,%22y%22:-0.199,%22z%22:-0.01,%22w%22:0.9787%7D,%22camera_mode%22:1,%22scan_id%22:%22fb93a2bf880b43a5bfd6925e36724f26%22%7D"></iframe>
     </section>
     <footer class="footer">
         <div class="footer_navList">

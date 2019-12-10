@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/datepicker.css">
     <link rel="stylesheet" href="css/jquery.formstyler.css">
     <link rel="stylesheet" href="owl-carousel/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="preload" as="style" href="css/style.css" onload="this.rel='stylesheet'">css/style.css">
 </head>
 <body>
     <div class="menu">
@@ -39,13 +39,14 @@
         <div class="nav__button-box">
             <select name="nav__lang" class="nav__lang">
                 <option value="En">En</option>
-                <option value="Hun">Hun</option>
+                <option value="Hun">Hu</option>
             </select>
             <a href="pageBooking.html" class="btn mobile-none">Book now</a>
             <a href="3dtour.html" class="btn transparent">3d tour</a>
         </div>
         <div class="nav-wrap">
             <select name="events" class="rooms nav__rooms" onchange="location = this.value;">
+                <option value="Events">Events</option>
                 <option value="pageEventBirthday.html">Birthday</option>
                 <option value="pageEventBachelor.html">Bachelor</option>
                 <option value="pageEventCorporate.html">Corporate</option>
@@ -169,6 +170,7 @@
         </a>
     </div>
     <select name="rooms" class="rooms header__rooms" onchange="location = this.value;">
+        <option value="Rooms">Rooms</option>
         <option value="pageRoomStrip.html">Strip</option>
         <option value="pageRoomReggae.html">Reggae</option>
         <option value="pageRoomGatsby.html">Gatsby</option>
@@ -191,7 +193,7 @@
         </a>
         <select name="lang" class="lang">
             <option value="En">En</option>
-            <option value="Hun">Hun</option>
+            <option value="Hun">Hu</option>
         </select>
         <a href="pageBooking.html" class="btn">Book now</a>
         <a href="3dtour.html" class="btn transparent">3d tour</a>

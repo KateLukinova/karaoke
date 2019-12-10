@@ -1,4 +1,5 @@
 var bookingData = {};
+var isRoomChoosed = false;
 var currentBookingData = {
     duration: 0,
     persons: 0,
@@ -7,6 +8,7 @@ var currentBookingData = {
     room: '',
     event: '',
     addServices: [],
+    services: {},
     name: '',
     email: '',
     phone: '',
@@ -338,6 +340,7 @@ $(document).ready(function () {
             if (isStepTwoContinue()) {
                 continueStepTwo()
             }
+
         }
 
         return false;
@@ -537,16 +540,8 @@ $(document).ready(function () {
         }
     });
 
-    // modal
-    $('.modal-toggle').on('click', function (e) {
-        e.preventDefault();
-        $('.modal').toggleClass('is-visible');
-    });
-
     var isPhotographerChecked = false;
     var isDecorChecked = false;
-
-
 
     //!!!!!!!!!!!!!!!!!!  BOOKING PAGE BEGIN   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     if (window.location.href.includes('pageBooking') ||
@@ -1201,7 +1196,7 @@ function getBookingsHtml(tablesData) {
             html += '</div>' +
                 '<div class="musicRoom__price">' +
                     '<div class="musicRoom__priceValueOld">' + totalPrice + ' HUF</div>' +
-                        '<div class="musicRoom__priceValueNew"><span class="actual-price">' + totalPriceWithDiscount + '</span> HUF</div>' +
+                        getTotalPriceDiv(totalPriceWithDiscount) +
                         '<div class="musicRoom__priceValuePerson">' + priceForPerson + ' HUF/person</div>' +
                     '</div>' +
                     '<div class="musicRoom__buyBtn">' +
@@ -1246,38 +1241,6 @@ function getRoomsHtml() {
     }
 
     $('#rooms-bookings').append(html);
-}
-
-function getServicesHtml() {
-    let html = '';
-    html += '<div class="booking__stepFoodWrap tabs__content active owl-carousel">';
-
-    for (i = 1; i < 3; ++i) {
-        let service = bookingData.services[i];
-
-        html += '<div class="booking__stepFoodItem">' +
-                    '<div class="number-food-wrap">' +
-                        '<div class="number">' +
-                            '<span class="minus minus-portion">-</span>' +
-                            '<span class="add-food">Add</span>' +
-                            '<span class="plus plus-portion">+</span>' +
-                        '</div>' +
-                    '</div>' +
-                    '<div class="booking__stepFoodItemImage"><img src="https://bbrooms.zerrno.com' + service.photo_url + '"></div>' +
-                    '<div style="display: none" class="hidden-service-price">' + service.price + '</div>' +
-                    '<div class="booking__stepFoodItemText">' +
-                        '<div class="booking__stepFoodItemTitle">' + service.name + '</div>' +
-                        '<div class="booking__stepFoodItemDescr">' + service.description + '</div>' +
-                        '<div class="booking__stepFoodItemPrice"><span>3 900 HUF </span><br><span>≈ 12 €</span></div>' +
-                    '</div>' +
-                '</div> ';
-    }
-
-    html += '</div>';
-
-    $(html).insertAfter('.booking__stepTypeFood');
-    handleServiceAdditionClick();
-    // handleServiceItemClick();
 }
 
 
@@ -1345,29 +1308,61 @@ function getHours(start, end) {
 }
 
 function isStepTwoContinue() {
-    return isStepTwoVisible() && currentBookingData.room && currentBookingData.time;
+    let result = isStepTwoVisible() && currentBookingData.room.trim() && currentBookingData.time.trim();
+
+    if (! result) {
+        $('.booking__pricePanelBookBtn').css('cursor', 'not-allowed');
+    }
+
+    return result;
 }
 
 function continueStepTwo () {
-    $('.booking__pricePanelBookBtn').css('cursor', 'pointer');
+        $('.booking__pricePanelBookBtn').css('cursor', 'pointer');
 }
 
-function showFoodTitle() {
-    $('.price-panel__food-title').css('display', 'flex')
+function isServicesNotEmpty() {
+    if (Object.keys(currentBookingData.services).length) {
+        return true;
+    }
+
+    return false;
+}
+
+function setPriceDivHtml(price) {
+    let currencySpan = $('#currency-span');
+    $('#total-price-span').text(price);
+    currencySpan.text(getEuroPrice(price));
 }
 
 function handleBookButtonClick() {
     $('.musicRoom__buyBtn').click(
         function () {
-            var nameRoom = $(this).find('.booking-name-room').text();
-            var timeBooking = $(this).parent().find('.musicRoom__buyItemTime').text();
+            let nameRoom = $(this).find('.booking-name-room').text();
+            let timeBooking = $(this).parent().find('.musicRoom__buyItemTime').text();
+            let currencySpan = $('#currency-span');
 
-            $("#booking-room").text(nameRoom);
-            $("#booking-time-start").text(timeBooking);
-            $(this).toggleClass('choosed').parent().toggleClass('choosed');
-            let price = $(this).siblings('.musicRoom__price').find('.actual-price').text();
-            $('#total-price-span').text(price);
-            $('#currency-span').css('display', 'flex');
+            if ($(this).hasClass('choosed')) {
+                currencySpan.css('display', 'none');
+                $('#total-price-span').text('');
+                $("#booking-room").text('');
+                $("#booking-time-start").text('');
+                $(this).toggleClass('choosed').parent().toggleClass('choosed');
+                isRoomChoosed = false;
+            } else {
+                if (! isRoomChoosed) {
+                    let price = $(this).siblings('.musicRoom__price').first().find('.actual-price').text();
+                    setPriceDivHtml(price);
+                    $('#total-price-span').text(price);
+                    currencySpan.css('display', 'flex');
+                    $("#booking-room").text(nameRoom);
+                    $("#booking-time-start").text(timeBooking);
+                    $(this).toggleClass('choosed').parent().toggleClass('choosed');
+                    isRoomChoosed = true;
+                }
+            }
+
+            setCurrentBookingData();
 
             if (isStepTwoContinue()) {
                 continueStepTwo()
@@ -1376,34 +1371,9 @@ function handleBookButtonClick() {
     );
 }
 
-function handleServiceAdditionClick() {
-    $('body').on('click', '.plus-portion', function() {
-        let currentPrice = parseInt($('#total-price-span').text());
-        let servicePrice = parseInt($(this).parent().parent().parent().find('.hidden-service-price').text());
-        let input = $(this).parent().find('input');
-        let serviceCount = parseInt(input.val()) + 1;
-        input.val(serviceCount);
-        input.change();
-        // setCurrentBookingData();
-        $('#total-price-span').text(currentPrice + servicePrice);
-
-        return false;
-    });
-    $('body').on('click', '.minus-portion', function() {
-        let currentPrice = parseInt($('#total-price-span').text());
-        let servicePrice = parseInt($(this).parent().parent().parent().find('.hidden-service-price').text());
-        let input = $(this).parent().find('input');
-        let serviceCount = parseInt(input.val());
-        if (serviceCount > 0) {
-            serviceCount--;
-            input.val(serviceCount);
-            input.change();
-            // setCurrentBookingData();
-
-            $('#total-price-span').text(currentPrice - servicePrice);
-        }
-
-        return false;
+function handleAddServiceButtonClick() {
+    $('body').on('click', '.add-food', function() {
+        $(this).siblings('.plus-portion').trigger('click');
     });
 }
 
@@ -1446,25 +1416,164 @@ function handlePackageRadioButtonClick() {
         let priceDiv = $(this).parent().parent().find('.musicRoom__price');
 
         priceDiv.find('.musicRoom__priceValueOld').text(prices.totalPrice + ' HUF');
-        priceDiv.find('.musicRoom__priceValueNew').text(prices.totalPriceWithDiscount + ' HUF');
+        priceDiv.find('.musicRoom__priceValueNew').html(getTotalPriceDiv(prices.totalPriceWithDiscount));
         priceDiv.find('.musicRoom__priceValuePerson').text(prices.priceForPerson + ' HUF/person');
     });
 }
 
-function handleServiceItemClick() {
-    $('.booking__stepFoodItem').click(function () {
-        $(this).toggleClass('active');
-        showFoodTitle();
-        let serviceName = $(this).find('.booking__stepFoodItemTitle').text();
-        let serviceCount = $(this).find('input').val();
-        let html = '<div class="booking__priceInfo">' +
-            '<div class="booking__priceInfoTitle">' + serviceName + '</div>' +
-            '<div class="booking__priceInfoValue">' + serviceCount + '</div>' +
-            '</div>';
-        $(html).insertBefore('.booking__priceInfoUserMessage');
+function getTotalPriceDiv(price) {
+    return '<div class="musicRoom__priceValueNew"><span class="actual-price">' + price + '</span> HUF</div>';
+}
+
+function getEuroPrice(price) {
+    return ' HUF ≈ ' + price * bookingData.settings.forinta_euro + ' €';
+}
+
+function getServicesHtml() {
+    let html = '';
+    for (j = 1; j < 3; ++j) {
+        let activeClass = '';
+        let services = [];
+
+        if (j === 1) {
+            activeClass = 'active';
+            for (service in bookingData.services) {
+                if (bookingData.services[service].type == 'food') {
+                    services.push(bookingData.services[service]);
+                }
+            }
+        } else {
+            for (service in bookingData.services) {
+                if (bookingData.services[service].type == 'drink') {
+                    services.push(bookingData.services[service]);
+                }
+            }
+        }
+
+        html += '<div class="booking__stepFoodWrap tabs__content ' + activeClass + ' owl-carousel">';
+
+        for (i = 0; i < services.length; ++i) {
+            let service = services[i];
+
+            html += '<div class="booking__stepFoodItem">' +
+                '<div class="number-food-wrap">' +
+                    '<div class="number">' +
+                        '<span class="minus minus-portion">-</span>' +
+                        '<span class="add-food">Add</span>' +
+                        '<div class="service-id" style="display: none;">' + service.id + '</div>' +
+                        '<span class="service-count" style="display: none;">0</span>' +
+                        '<span class="plus plus-portion">+</span>' +
+                    '</div>' +
+                    '</div>' +
+                        '<div class="booking__stepFoodItemImage"><img src="https://bbrooms.zerrno.com' + service.photo_url + '"></div>' +
+                        '<div style="display: none" class="hidden-service-price">' + service.price + '</div>' +
+                        '<div class="booking__stepFoodItemText">' +
+                        '<div class="booking__stepFoodItemTitle">' + service.name + '</div>' +
+                        '<div class="booking__stepFoodItemDescr">' + service.description + '</div>' +
+                        '<div class="booking__stepFoodItemPrice"><span>' + service.price + '</span><br><span>' + getEuroPrice(service.price) + '</span></div>' +
+                    '</div>' +
+                '</div> ';
+        }
+
+        html += '</div>';
+    }
+
+    $(html).insertAfter('.booking__stepTypeFood');
+    handleServiceAdditionClick();
+    handleAddServiceButtonClick();
+}
+
+function handleServicesHtml() {
+    if (isServicesNotEmpty()) {
+        $('.price-panel__food-title').css('display', 'flex');
+
+        let services = currentBookingData.services;
+
+        for (service in services) {
+            let serviceId = services[service].id;
+            let serviceName = services[service].name;
+            let serviceCount = services[service].amount;
+            let serviceItemDiv = $('#service-item-div-' + serviceId);
+            let servicePrice = services[service].price * serviceCount;
+
+            if (serviceItemDiv.length) {
+                serviceItemDiv.find('.x-count').text(' x' + serviceCount);
+                serviceItemDiv.find('.service-item-div-price').text(servicePrice);
+            } else {
+                let html = '<div class="booking__priceInfo service-item-div" id="service-item-div-' + serviceId + '">' +
+                               '<div class="booking__priceInfoTitle">' +
+                                   serviceName +
+                                   '<span class="x-count"> x' + serviceCount + '</span>' +
+                               '</div>' +
+                               '<div class="booking__priceInfoValue">' +
+                                    '<span class="service-item-div-price">' + servicePrice + '</span>' + ' HUF' +
+                               '</div>' +
+                           '</div>';
+                $(html).insertBefore('.booking__priceInfoUserMessage');
+            }
+        }
+    } else {
+        $('.price-panel__food-title').css('display', 'none');
+    }
+}
+
+function handleServiceAdditionClick() {
+    $('body').on('click', '.plus-portion', function() {
+        let serviceCountSpan = $(this).siblings('.service-count');
+        let serviceCount = parseInt(serviceCountSpan.text());
+        let currentPrice = parseInt($('#total-price-span').text());
+        let servicePrice = parseInt($(this).parent().parent().parent().find('.hidden-service-price').text());
+        let serviceId = parseInt($(this).siblings('.service-id').text());
+        let serviceName = $(this).parent().parent().siblings('.booking__stepFoodItemText').find('.booking__stepFoodItemTitle').text();
+        serviceCount++;
+
+        $(this).siblings('.add-food').css('display', 'none');
+        $(this).siblings('.service-count').css('display', 'flex');
+
+        serviceCountSpan.text(serviceCount);
+
+        setPriceDivHtml(currentPrice + servicePrice);
+        handleServices(serviceId, serviceCount, servicePrice, serviceName);
+    });
+
+    $('body').on('click', '.minus-portion', function() {
+        let serviceCountSpan = $(this).siblings('.service-count');
+        let serviceCount = parseInt(serviceCountSpan.text());
+        let currentPrice = parseInt($('#total-price-span').text());
+        let servicePrice = parseInt($(this).parent().parent().parent().find('.hidden-service-price').text());
+        let serviceId = parseInt($(this).siblings('.service-id').text());
+        let serviceName = $(this).parent().parent().siblings('.booking__stepFoodItemText').find('.booking__stepFoodItemTitle').text();
+
+        if (serviceCount > 0) {
+            serviceCount--;
+            serviceCountSpan.text(serviceCount);
+
+            if (serviceCount == 0) {
+                $(this).siblings('.add-food').css('display', 'flex');
+                $(this).siblings('.service-count').css('display', 'none');
+                $('#service-item-div-' + serviceId).remove();
+            }
+
+            setPriceDivHtml(currentPrice - servicePrice);
+        }
+        handleServices(serviceId, serviceCount, servicePrice, serviceName);
     });
 }
 
+function handleServices(serviceId, serviceCount, servicePrice, serviceName) {
+    if (serviceCount == 0) {
+        delete currentBookingData.services[serviceId];
+    } else {
+        currentBookingData.services[serviceId] = {
+            id: serviceId,
+            amount: serviceCount,
+            price: servicePrice,
+            name: serviceName
+        }
+    }
+
+    handleServicesHtml();
+}
 
 function getPrices(package) {
     let priceGradation = JSON.parse(package.price_gradation);
