@@ -1,4 +1,5 @@
 var bookingData = {};
+var isTimerStarted = false;
 var isRoomChoosed = false;
 var currentBookingData = {
     duration: 0,
@@ -12,19 +13,13 @@ var currentBookingData = {
     name: '',
     email: '',
     phone: '',
-    country: '',
-    paymentMethod: '',
-    paymentType: '',
+    country: 'Hungary',
+    paymentMethod: 'card',
+    paymentType: null,
     couponCode: '',
     dayName: '',
+    packageId: 3
 };
-var tables = {
-    1: 'strip',
-    2: 'reggae',
-    3: 'gatsby',
-    4: 'comics',
-    5: 'iceberg'
-}
 
 $(document).ready(function () {
 
@@ -672,42 +667,49 @@ $(document).ready(function () {
             var contentCelebrate = '<div class="booking__priceInfoTitle">Celebrate:</div>';
             contentCelebrate += '<div class="booking__priceInfoValue">' + $("#celebrate option:selected").text() + '</div>';
             $('#what-to-celebrate').html(contentCelebrate);
+            currentBookingData.event = $("#celebrate option:selected").text();
         });
 
         $('#name-value').change(() => {
             var contentNameValue = '<div class="booking__priceInfoTitle">Name:</div>';
             contentNameValue += '<div class="booking__priceInfoValue">' + $("#name-value").val() + '</div>';
             $('#what-to-name').html(contentNameValue);
+            currentBookingData.name = $("#name-value").val();
         });
 
         $('#email-value').change(() => {
             var contentEmailValue = '<div class="booking__priceInfoTitle">Email:</div>';
             contentEmailValue += '<div class="booking__priceInfoValue">' + $("#email-value").val() + '</div>';
             $('#what-to-email').html(contentEmailValue);
+            currentBookingData.email = $("#email-value").val();
         });
 
         $('#phone-value').change(() => {
             var contentPhoneValue = '<div class="booking__priceInfoTitle">Phone:</div>';
             contentPhoneValue += '<div class="booking__priceInfoValue">' + $("#phone-value").val() + '</div>';
             $('#what-to-phone').html(contentPhoneValue);
+            currentBookingData.phone = $("#phone-value").val();
         });
 
         $('#country-select').change(() => {
             var contentCountry = '<div class="booking__priceInfoTitle">Country:</div>';
             contentCountry += '<div class="booking__priceInfoValue">' + $("#country-select option:selected").text() + '</div>';
             $('#what-to-country').html(contentCountry);
+            currentBookingData.country = $("#country-select option:selected").text();
         });
 
         $('input[name ="payment"]').change(() => {
             var contentPayment = '<div class="booking__priceInfoTitle">Payment:</div>';
             contentPayment += '<div class="booking__priceInfoValue">' + $("#payment-div input[type='radio']:checked").val() + '</div>';
             $('#what-to-payment').html(contentPayment);
+            currentBookingData.paymentMethod = 'Credit card' ? 'card' : 'paypal';
         });
 
         $('input[name ="pay"]').change(() => {
             var contentPay = '<div class="booking__priceInfoTitle">Pay:</div>';
             contentPay += '<div class="booking__priceInfoValue">' + $("#pay-div input[type='radio']:checked").val() + '</div>';
             $('#what-to-pay').html(contentPay);
+            currentBookingData.paymentType = '100%' ? 100 : null;
         });
 
         $('#coupon-cod').change(() => {
@@ -719,6 +721,7 @@ $(document).ready(function () {
 
         // continue booking
         var currentOrderPage = 1;
+        console.log(currentOrderPage)
         var selectCountryWidth = $(".booking__userInfoPersonal").first().width();
         var selectCountryDivWidth = $("#country-select").width();
         $('#country-select').change(() => {
@@ -731,6 +734,10 @@ $(document).ready(function () {
         $('#continue-btn').click(
             function () {
                 if (isStepTwoContinue()) {
+                    if ($('#continue-btn').text() == 'Book a room') {
+                        handlePostRequest();
+                    }
+
                     setTimeout(() => {
                         selectCountryDivWidth = $(".booking__userInfoPersonal").first().width();
                         selectCountryWidth = $(".form__row").first().width();
@@ -754,12 +761,14 @@ $(document).ready(function () {
 
                     if (currentOrderPage == 3) {
                         $('#continue-btn').text('Book a room');
+                    } else {
+                        $('#continue-btn').text('Continue');
                     }
 
                     // timer
-                    if (currentOrderPage == 2) {
-
+                    if (currentOrderPage == 2 && ! isTimerStarted) {
                         function dailyMissionTimer(duration) {
+                            isTimerStarted = true;
 
                             var timer = duration * 3600;
                             var minutes, seconds;
@@ -784,6 +793,7 @@ $(document).ready(function () {
                         dailyMissionTimer(0.25);
                     }
                 }
+                console.log(currentOrderPage)
             }
         );
 
@@ -799,9 +809,9 @@ $(document).ready(function () {
 
                     $('.booking__foodStepWrap').css('display', 'flex');
                     $('.booking__userInfoStepWrap').css('display', 'none');
-                } else {
-
                 }
+                $('#continue-btn').text('Continue');
+                console.log(currentOrderPage)
             }
         );
 
@@ -1048,9 +1058,9 @@ function setCurrentBookingData() {
     currentBookingData.name = $('#what-to-name').find('.booking__priceInfoValue').text();
     currentBookingData.email = $('#what-to-email').find('.booking__priceInfoValue').text();
     currentBookingData.phone = $('#what-to-phone').find('.booking__priceInfoValue').text();
-    currentBookingData.country = $('#what-to-country').find('.booking__priceInfoValue').text();
-    currentBookingData.paymentMethod = $('#what-to-payment').find('.booking__priceInfoValue').text();
-    currentBookingData.paymentType = $('#what-to-pay').find('.booking__priceInfoValue').text();
+    currentBookingData.country = $('#what-to-country').find('.booking__priceInfoValue').text() ? $('#what-to-country').find('.booking__priceInfoValue').text() : currentBookingData.country;
+    currentBookingData.paymentMethod = $('#what-to-payment').find('.booking__priceInfoValue').text() ? $('#what-to-payment').find('.booking__priceInfoValue').text() : currentBookingData.paymentMethod;
+    currentBookingData.paymentType = $('#what-to-pay').find('.booking__priceInfoValue').text() ? $('#what-to-pay').find('.booking__priceInfoValue').text() : currentBookingData.paymentType;
     console.log(currentBookingData)
 }
 
@@ -1208,7 +1218,7 @@ function getPackagesHtml(index, roomName) {
                 initialTotalPriceWithDiscount = totalPriceWithDiscount;
             }
 
-            packagesHtml += '<div class="radio">' +
+            packagesHtml += '<div class="radio handle-prices">' +
                 '<svg width="15" height="15" viewBox="0 0 15 15" fill="none" class="tooltip-icon" xmlns="http://www.w3.org/2000/svg">' +
                 '<g id="information">' +
                 '<path id="Path" fill-rule="evenodd" clip-rule="evenodd" d="M12.0703 3.98438C12.0703 4.14608 12.2016 4.27734 12.3633 4.27734C12.525 4.27734 12.6562 4.14608 12.6562 3.98438C12.6562 3.82267 12.525 3.69141 12.3633 3.69141C12.2016 3.69141 12.0703 3.82267 12.0703 3.98438Z" fill="white"/>' +
@@ -1433,18 +1443,22 @@ function handleTooltipsOfPackages() {
 
 function handlePackageRadioButtonClick() {
     $('body').on('click', '.radio', function() {
-        let packageId = $(this).find('.package-radio').val();
-        let package = bookingData.packages.find(obj => {
-            return obj.id == packageId;
-        });
+        if ($(this).hasClass('handle-prices')) {
+            let packageId = $(this).find('.package-radio').val();
+            let package = bookingData.packages.find(obj => {
+                return obj.id == packageId;
+            });
 
-        let prices = getPrices(package);
+            currentBookingData.packageId = packageId;
 
-        let priceDiv = $(this).parent().parent().find('.musicRoom__price');
+            let prices = getPrices(package);
 
-        priceDiv.find('.musicRoom__priceValueOld').text(prices.totalPrice + ' HUF');
-        priceDiv.find('.musicRoom__priceValueNew').html(getTotalPriceDiv(prices.totalPriceWithDiscount));
-        priceDiv.find('.musicRoom__priceValuePerson').text(prices.priceForPerson + ' HUF/person');
+            let priceDiv = $(this).parent().parent().find('.musicRoom__price');
+
+            priceDiv.find('.musicRoom__priceValueOld').text(prices.totalPrice + ' HUF');
+            priceDiv.find('.musicRoom__priceValueNew').html(getTotalPriceDiv(prices.totalPriceWithDiscount));
+            priceDiv.find('.musicRoom__priceValuePerson').text(prices.priceForPerson + ' HUF/person');
+        }
     });
 }
 
@@ -1629,5 +1643,89 @@ function getPrices(package) {
 }
 
 function handleAdditionalServicePrice(serviceId, isChecked) {
-    
+    let service = bookingData.services[serviceId];
+    let currentPrice = parseInt($('#total-price-span').text());
+
+    if (isChecked) {
+        let price = currentPrice + parseInt(service.price);
+        $('#total-price-span').text(price);
+        $('#currency-span').text(getEuroPrice(price));
+
+        currentBookingData.services[serviceId] = {
+            id: serviceId,
+            amount: 1,
+            price: service.price,
+            name: ''
+        }
+    } else {
+        let price = currentPrice - parseInt(service.price);
+        $('#total-price-span').text(price);
+        $('#currency-span').text(getEuroPrice(price));
+
+        delete currentBookingData.services[serviceId];
+    }
+}
+
+function handlePostRequest() {
+    let postData = {};
+    let table = bookingData.tables.find(table => {
+        return table.table_number == currentBookingData.room;
+    });
+    let dates = getStartAndEndDates(currentBookingData.time);
+
+    let services = {};
+    let servicesAmount = {};
+    let i = 0;
+    for (serviceId in currentBookingData.services) {
+        services[i] = serviceId;
+        servicesAmount[i] = currentBookingData.services[serviceId].amount;
+        i++;
+    }
+
+    postData.amount = currentBookingData.persons;
+    postData.package = currentBookingData.packageId;
+    postData.first_name = currentBookingData.name;
+    postData.phone = currentBookingData.phone;
+    postData.email = currentBookingData.email;
+    postData.tableId = table.id;
+    postData.time_from = dates.start;
+    postData.time_to = dates.end;
+    postData.country = currentBookingData.country;
+    postData.coupon_code = currentBookingData.couponCode;
+    postData.payment_method = currentBookingData.paymentMethod;
+    postData.payment_type = currentBookingData.paymentType;
+    postData.additional_information = currentBookingData.event;
+    postData.language = 'en';
+    postData.service = services;
+    postData.service_amount = servicesAmount;
+
+    var jqxhr = $.post("https://bbrooms.zerrno.com/api/v1/store", postData)
+        .done(function() {
+            alert( "second success" );
+        })
+        .fail(function() {
+            alert( "error" );
+        });
+}
+
+function getStartAndEndDates(hours) {
+    hoursArray = hours.split('-');
+
+    let start = hoursArray[0].substring(0, 2) + ':00';
+    let end = hoursArray[1].substring(0, 2) + ':00';
+
+    let startHours = moment(start, "HH:mm");
+    let endHours = moment(end, "HH:mm");
+
+    let startDate = moment(currentBookingData.date.format('YYYY-MM-DD') + ' ' + start, 'YYYY-MM-DD HH:mm');
+    let endDate = moment(currentBookingData.date.format('YYYY-MM-DD') + ' ' + end, 'YYYY-MM-DD HH:mm');
+
+    if( endHours.isBefore(startHours) ) {
+        endDate.add(1, 'day');
+    }
+
+    return {
+        start: startDate.format('YYYY-MM-DD HH:mm'),
+        end: endDate.format('YYYY-MM-DD HH:mm')
+    }
 }
