@@ -23,6 +23,8 @@ var currentBookingData = {
     packageId: 3
 };
 
+let subTypes = [];
+
 $(document).ready(function () {
 
     //optimization loading img
@@ -1093,6 +1095,8 @@ function getBookingData() {
     $.get("https://bbrooms.zerrno.com/api/v1/index", (data) => {
         bookingData = data.data;
         console.log(bookingData)
+        subTypes = getSubTypes();
+        console.log(subTypes)
     });
 }
 
@@ -1564,27 +1568,85 @@ function getServicesHtml() {
 
         html += '<div class="booking__stepFoodWrap tabs__content ' + activeClass + ' owl-carousel">';
 
-        for (i = 0; i < services.length; ++i) {
-            let service = services[i];
+        if (j === 2) {
+            html += '<div class="tabs">' +
+                        '<div class="tabs-header">' +
+                            '<div class="border"></div>' +
+                            '<ul>';
+            for (r = 0; r < subTypes.length; r++) {
+                let subTypeActive = r == 0 ? 'active' : '';
 
-            html += '<div class="booking__stepFoodItem">' +
-                '<div class="number-food-wrap">' +
+                html += '<li class="' + subTypeActive + '">' +
+                            '<a href="#tab-' + r + '" tab-id="' + r + '" ripple="ripple">' + subTypes[r] + '</a>' +
+                        '</li>';
+            }
+
+            html += '</ul>' +
+                '</div>';
+
+            html += '<div class="tabs-content">';
+
+            console.log(services)
+            for (r = 0; r < subTypes.length; r++) {
+                let subTypeActive = r === 0 ? 'active' : '';
+
+                html += '<div class="tab ' + subTypeActive + ' owl-carousel" tab-id="' + r + '">';
+
+                for (i = 0; i < services.length; ++i) {
+                    let service = services[i];
+
+                    if (service.sub_type !== subTypes[r]) {
+                        continue
+                    }
+
+                    html += '<div class="booking__stepFoodItem">' +
+                                   '<div class="number-food-wrap">' +
+                                   '<div class="number">' +
+                                   '<span class="minus minus-portion">-</span>' +
+                                   '<span class="add-food">Add</span>' +
+                                   '<div class="service-id" style="display: none;">' + service.id + '</div>' +
+                                   '<span class="service-count" style="display: none;">0</span>' +
+                                   '<span class="plus plus-portion">+</span>' +
+                                '</div>' +
+                                '</div>' +
+                                    '<div class="booking__stepFoodItemImage"><img src="https://bbrooms.zerrno.com' + service.photo_url + '"></div>' +
+                                    '<div style="display: none" class="hidden-service-price">' + service.price + '</div>' +
+                                    '<div class="booking__stepFoodItemText">' +
+                                    '<div class="booking__stepFoodItemTitle">' + service.name + '</div>' +
+                                    '<div class="booking__stepFoodItemDescr">' + service.description + '</div>' +
+                                    '<div class="booking__stepFoodItemPrice"><span>' + service.price + '</span><br><span>' + getEuroPrice(service.price) + '</span></div>' +
+                                '</div>' +
+                            '</div> ';
+                }
+
+                html += '</div>' +
+                    '</div>';
+            }
+
+            html += '</div>';
+        } else {
+            for (i = 0; i < services.length; ++i) {
+                let service = services[i];
+
+                html += '<div class="booking__stepFoodItem">' +
+                    '<div class="number-food-wrap">' +
                     '<div class="number">' +
-                        '<span class="minus minus-portion">-</span>' +
-                        '<span class="add-food">Add</span>' +
-                        '<div class="service-id" style="display: none;">' + service.id + '</div>' +
-                        '<span class="service-count" style="display: none;">0</span>' +
-                        '<span class="plus plus-portion">+</span>' +
+                    '<span class="minus minus-portion">-</span>' +
+                    '<span class="add-food">Add</span>' +
+                    '<div class="service-id" style="display: none;">' + service.id + '</div>' +
+                    '<span class="service-count" style="display: none;">0</span>' +
+                    '<span class="plus plus-portion">+</span>' +
                     '</div>' +
                     '</div>' +
-                        '<div class="booking__stepFoodItemImage"><img src="https://bbrooms.zerrno.com' + service.photo_url + '"></div>' +
-                        '<div style="display: none" class="hidden-service-price">' + service.price + '</div>' +
-                        '<div class="booking__stepFoodItemText">' +
-                        '<div class="booking__stepFoodItemTitle">' + service.name + '</div>' +
-                        '<div class="booking__stepFoodItemDescr">' + service.description + '</div>' +
-                        '<div class="booking__stepFoodItemPrice"><span>' + service.price + '</span><br><span>' + getEuroPrice(service.price) + '</span></div>' +
+                    '<div class="booking__stepFoodItemImage"><img src="https://bbrooms.zerrno.com' + service.photo_url + '"></div>' +
+                    '<div style="display: none" class="hidden-service-price">' + service.price + '</div>' +
+                    '<div class="booking__stepFoodItemText">' +
+                    '<div class="booking__stepFoodItemTitle">' + service.name + '</div>' +
+                    '<div class="booking__stepFoodItemDescr">' + service.description + '</div>' +
+                    '<div class="booking__stepFoodItemPrice"><span>' + service.price + '</span><br><span>' + getEuroPrice(service.price) + '</span></div>' +
                     '</div>' +
-                '</div> ';
+                    '</div> ';
+            }
         }
 
         html += '</div>';
@@ -1800,4 +1862,18 @@ function getStartAndEndDates(hours) {
         start: startDate.format('YYYY-MM-DD HH:mm'),
         end: endDate.format('YYYY-MM-DD HH:mm')
     }
+}
+
+function getSubTypes() {
+    let result = [];
+
+    for (var prop in bookingData.services) {
+        if (Object.prototype.hasOwnProperty.call(bookingData.services, prop)) {
+            if (! result.includes(bookingData.services[prop].sub_type) && bookingData.services[prop].sub_type && bookingData.services[prop].type == 'drink') {
+                result.push(bookingData.services[prop].sub_type);
+            }
+        }
+    }
+
+    return result;
 }
