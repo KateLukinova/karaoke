@@ -942,8 +942,29 @@ $(document).ready(function () {
     $('.switch').each(function () {
         $(this).find('.food-radio').each(function (i) {
             $(this).click(function () {
-                $(this).addClass('active').siblings().removeClass('active')
-                    .parents('.booking__foodStepWrap').find('.tabs__content').eq(i).css('display', 'flex').siblings('.tabs__content').hide();
+                $(this).addClass('active')
+                    .siblings()
+                    .removeClass('active')
+                    .parents('.booking__foodStepWrap')
+                    .find('.tabs__content')
+                    .eq(i)
+                    .css('display', 'flex')
+                    .siblings('.tabs__content')
+                    .hide();
+
+                $(this).parents('.booking__foodStepWrap')
+                    .find('.tabs__content')
+                    .eq(i)
+                    .find('.tabs')
+                    .find('li')
+                    .eq(1)
+                    .addClass('active');
+
+                $(this).parents('.booking__foodStepWrap')
+                    .find('.tabs__content')
+                    .eq(i)
+                    .find('.tab')
+                    .addClass('active');
             });
         });
     });
@@ -951,8 +972,14 @@ $(document).ready(function () {
     $('.switch').each(function () {
         $(this).find('.food-radio').each(function (i) {
             $(this).click(function () {
-                $(this).addClass('active').siblings().removeClass('active')
-                    .parents('.menu-box').find('.tabs__content').eq(i).css('display', 'flex').siblings('.tabs__content').hide();
+                $(this).addClass('active')
+                    .siblings()
+                    .removeClass('active')
+                    .parents('.menu-box')
+                    .find('.tabs__content')
+                    .eq(i).css('display', 'flex')
+                    .siblings('.tabs__content')
+                    .hide();
             });
         });
     });
@@ -1550,6 +1577,7 @@ function getServicesHtml() {
     for (j = 1; j < 3; ++j) {
         let activeClass = '';
         let services = [];
+        let subTypesNames = [];
 
         if (j === 1) {
             activeClass = 'active';
@@ -1558,96 +1586,73 @@ function getServicesHtml() {
                     services.push(bookingData.services[service]);
                 }
             }
+            subTypesNames = subTypes.food;
         } else {
             for (service in bookingData.services) {
                 if (bookingData.services[service].type == 'drink') {
                     services.push(bookingData.services[service]);
                 }
             }
+            subTypesNames = subTypes.drink;
         }
 
         html += '<div class="booking__stepFoodWrap tabs__content ' + activeClass + ' owl-carousel">';
 
-        if (j === 2) {
-            html += '<div class="tabs">' +
-                        '<div class="tabs-header">' +
-                            '<div class="border"></div>' +
-                            '<ul>';
-            for (r = 0; r < subTypes.length; r++) {
-                let subTypeActive = r == 0 ? 'active' : '';
+        html += '<div class="tabs">' +
+                    '<div class="tabs-header">' +
+                        '<ul>';
 
-                html += '<li class="' + subTypeActive + '">' +
-                            '<a href="#tab-' + r + '" tab-id="' + r + '" ripple="ripple">' + subTypes[r] + '</a>' +
-                        '</li>';
-            }
+        for (r = 0; r < subTypesNames.length; r++) {
+            let subTypeActive = r === 0 ? 'active' : '';
 
-            html += '</ul>' +
-                '</div>';
+            html += '<li class="' + subTypeActive + '">' +
+                        '<a href="#tab-' + r + '" tab-id="' + j + r + '" ripple="ripple">' + subTypesNames[r] + '</a>' +
+                    '</li>';
+        }
 
-            html += '<div class="tabs-content">';
+        html += '</ul>' +
+            '</div>';
 
-            console.log(services)
-            for (r = 0; r < subTypes.length; r++) {
-                let subTypeActive = r === 0 ? 'active' : '';
+        html += '<div class="tabs-content">';
 
-                html += '<div class="tab ' + subTypeActive + ' owl-carousel" tab-id="' + r + '">';
+        console.log(services)
+        for (r = 0; r < subTypesNames.length; r++) {
+            let subTypeActive = r === 0 ? 'active' : '';
 
-                for (i = 0; i < services.length; ++i) {
-                    let service = services[i];
+            html += '<div class="tab ' + subTypeActive + ' owl-carousel" tab-id="' + j + r + '">';
 
-                    if (service.sub_type !== subTypes[r]) {
-                        continue
-                    }
-
-                    html += '<div class="booking__stepFoodItem">' +
-                                   '<div class="number-food-wrap">' +
-                                   '<div class="number">' +
-                                   '<span class="minus minus-portion">-</span>' +
-                                   '<span class="add-food">Add</span>' +
-                                   '<div class="service-id" style="display: none;">' + service.id + '</div>' +
-                                   '<span class="service-count" style="display: none;">0</span>' +
-                                   '<span class="plus plus-portion">+</span>' +
-                                '</div>' +
-                                '</div>' +
-                                    '<div class="booking__stepFoodItemImage"><img src="https://bbrooms.zerrno.com' + service.photo_url + '"></div>' +
-                                    '<div style="display: none" class="hidden-service-price">' + service.price + '</div>' +
-                                    '<div class="booking__stepFoodItemText">' +
-                                    '<div class="booking__stepFoodItemTitle">' + service.name + '</div>' +
-                                    '<div class="booking__stepFoodItemDescr">' + service.description + '</div>' +
-                                    '<div class="booking__stepFoodItemPrice"><span>' + service.price + '</span><br><span>' + getEuroPrice(service.price) + '</span></div>' +
-                                '</div>' +
-                            '</div> ';
-                }
-
-                html += '</div>' +
-                    '</div>';
-            }
-
-            html += '</div>';
-        } else {
             for (i = 0; i < services.length; ++i) {
                 let service = services[i];
 
+                if (service.sub_type !== subTypesNames[r]) {
+                    continue
+                }
+
                 html += '<div class="booking__stepFoodItem">' +
-                    '<div class="number-food-wrap">' +
-                    '<div class="number">' +
-                    '<span class="minus minus-portion">-</span>' +
-                    '<span class="add-food">Add</span>' +
-                    '<div class="service-id" style="display: none;">' + service.id + '</div>' +
-                    '<span class="service-count" style="display: none;">0</span>' +
-                    '<span class="plus plus-portion">+</span>' +
-                    '</div>' +
-                    '</div>' +
-                    '<div class="booking__stepFoodItemImage"><img src="https://bbrooms.zerrno.com' + service.photo_url + '"></div>' +
-                    '<div style="display: none" class="hidden-service-price">' + service.price + '</div>' +
-                    '<div class="booking__stepFoodItemText">' +
-                    '<div class="booking__stepFoodItemTitle">' + service.name + '</div>' +
-                    '<div class="booking__stepFoodItemDescr">' + service.description + '</div>' +
-                    '<div class="booking__stepFoodItemPrice"><span>' + service.price + '</span><br><span>' + getEuroPrice(service.price) + '</span></div>' +
-                    '</div>' +
-                    '</div> ';
+                               '<div class="number-food-wrap">' +
+                               '<div class="number">' +
+                               '<span class="minus minus-portion">-</span>' +
+                               '<span class="add-food">Add</span>' +
+                               '<div class="service-id" style="display: none;">' + service.id + '</div>' +
+                               '<span class="service-count" style="display: none;">0</span>' +
+                               '<span class="plus plus-portion">+</span>' +
+                            '</div>' +
+                            '</div>' +
+                                '<div class="booking__stepFoodItemImage"><img src="https://bbrooms.zerrno.com' + service.photo_url + '"></div>' +
+                                '<div style="display: none" class="hidden-service-price">' + service.price + '</div>' +
+                                '<div class="booking__stepFoodItemText">' +
+                                '<div class="booking__stepFoodItemTitle">' + service.name + '</div>' +
+                                '<div class="booking__stepFoodItemDescr">' + service.description + '</div>' +
+                                '<div class="booking__stepFoodItemPrice"><span>' + service.price + '</span><br><span>' + getEuroPrice(service.price) + '</span></div>' +
+                            '</div>' +
+                        '</div> ';
             }
+
+            html += '</div>' +
+                '</div>';
         }
+
+        html += '</div>';
 
         html += '</div>';
     }
@@ -1655,6 +1660,7 @@ function getServicesHtml() {
     $(html).insertAfter('.booking__stepTypeFood');
     handleServiceAdditionClick();
     handleAddServiceButtonClick();
+    handleServicesTabs();
 }
 
 function handleServicesHtml() {
@@ -1865,15 +1871,121 @@ function getStartAndEndDates(hours) {
 }
 
 function getSubTypes() {
-    let result = [];
+    let result = {
+        food: [],
+        drink: []
+    };
 
     for (var prop in bookingData.services) {
         if (Object.prototype.hasOwnProperty.call(bookingData.services, prop)) {
-            if (! result.includes(bookingData.services[prop].sub_type) && bookingData.services[prop].sub_type && bookingData.services[prop].type == 'drink') {
-                result.push(bookingData.services[prop].sub_type);
+            if (bookingData.services[prop].sub_type) {
+                if (bookingData.services[prop].type === 'drink') {
+                    if (! result.drink.includes(bookingData.services[prop].sub_type)) {
+                        result.drink.push(bookingData.services[prop].sub_type);
+                    }
+                } else {
+                    if (! result.food.includes(bookingData.services[prop].sub_type)) {
+                        result.food.push(bookingData.services[prop].sub_type);
+                    }
+                }
             }
         }
     }
 
     return result;
+}
+
+function handleServicesTabs() {
+    var activePos = $('.tabs-header .active').position();
+
+    function changePos() {
+
+        activePos = $('.tabs-header .active').position();
+
+        $('.border').stop().css({
+            left: activePos.left,
+            width: $('.tabs-header .active').width()
+        });
+    }
+
+    changePos();
+    var tabHeight = $('.tab.active').height();
+
+    function animateTabHeight() {
+        tabHeight = $('.tab.active').height();
+    }
+
+    animateTabHeight();
+
+    function changeTab() {
+        var getTabId = $('.tabs-header .active a').attr('tab-id');
+
+        $('.tab').stop().fadeOut(300, function () {
+            $(this).removeClass('active');
+        }).hide();
+
+        $('.tab[tab-id=' + getTabId + ']').stop().fadeIn(300, function () {
+            $(this).addClass('active');
+            animateTabHeight();
+        });
+    }
+
+    $('.tabs-header a').on('click', function (e) {
+        e.preventDefault();
+
+        var tabId = $(this).attr('tab-id');
+
+        $('.tabs-header a').stop().parent().removeClass('active');
+
+        $(this).stop().parent().addClass('active');
+
+        changePos();
+
+        tabCurrentItem = tabItems.filter('.active');
+
+        $('.tab').stop().fadeOut(300, function () {
+            $(this).removeClass('active');
+        }).hide();
+
+        $('.tab[tab-id="' + tabId + '"]').stop().fadeIn(300, function () {
+            $(this).addClass('active');
+            animateTabHeight();
+        });
+    });
+
+    var tabItems = $('.tabs-header ul li');
+    var tabCurrentItem = tabItems.filter('.active');
+
+    $('[ripple]').on('click', function (e) {
+        var rippleDiv = $('<div class="ripple" />'),
+            rippleOffset = $(this).offset(),
+            rippleY = e.pageY - rippleOffset.top,
+            rippleX = e.pageX - rippleOffset.left,
+            ripple = $('.ripple');
+
+        rippleDiv.css({
+            top: rippleY - (ripple.height() / 2),
+            left: rippleX - (ripple.width() / 2),
+            background: $(this).attr("ripple-color")
+        }).appendTo($(this));
+
+        window.setTimeout(function () {
+            rippleDiv.remove();
+        }, 1500);
+    });
+    if ($(window).width() <= '540') {
+        $('.tab').owlCarousel({
+            margin: 10,
+            loop: true,
+            dots: true,
+            responsiveClass: true,
+            responsive: {
+                0: {
+                    items: 1,
+                    nav: false
+                }
+            },
+
+        });
+    }
 }
