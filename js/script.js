@@ -1,6 +1,8 @@
 var bookingData = {};
 var isTimerStarted = false;
-var isRoomChoosed = false;
+var choosedRoom = '';
+var totalPrice = 0;
+var isStepTwoOpened = false;
 var currentBookingData = {
     duration: 0,
     persons: 0,
@@ -317,20 +319,40 @@ $(document).ready(function () {
         }
     );
 
-
-
-
     // input-current
     $('.minus-person').click(function () {
         var $input = $(this).parent().find('input');
         var count = parseInt($input.val()) - 1;
         count = count < 1 ? 1 : count;
+        if (count > 1) {
+            currentBookingData.persons--;
+        }
         $input.val(count);
         $input.change();
         $("#booking-persons").text(count);
 
         if (isStepTwoVisible()) {
-            showStepTwo();
+            if (! isStepTwoOpened) {
+                showStepTwo();
+            } else {
+                $('.musicRoom__price').each(function() {
+                    let packageId = $(this).siblings('.musicRoom__buyPrice').find('input[type="radio"]:checked').val();
+                    let package = bookingData.packages.find(el => {
+                        return el.id == packageId;
+                    });
+                    let prices = getPrices(package);
+                    setBookingsPricesDivs($(this), prices);
+                });
+
+                if (choosedRoom.length) {
+                    let packageId = choosedRoom.siblings('.musicRoom__buyPrice').find('input[type="radio"]:checked').val();
+                    let package = bookingData.packages.find(el => {
+                        return el.id == packageId;
+                    });
+                    let prices = getPrices(package);
+                    setPriceDivHtml(prices.totalPriceWithDiscount);
+                }
+            }
 
             if (isStepTwoContinue()) {
                 continueStepTwo()
@@ -340,17 +362,39 @@ $(document).ready(function () {
 
         return false;
     });
+
     $('.plus-person').click(function () {
         var $input = $(this).parent().find('input');
 
         if ($input.val() < 25) {
             $input.change();
             $input.val(parseInt($input.val()) + 1);
+            currentBookingData.persons++;
 
             $("#booking-persons").text($input.val());
 
             if (isStepTwoVisible()) {
-                showStepTwo();
+                if (! isStepTwoOpened) {
+                    showStepTwo();
+                } else {
+                    $('.musicRoom__price').each(function() {
+                        let packageId = $(this).siblings('.musicRoom__buyPrice').find('input[type="radio"]:checked').val();
+                        let package = bookingData.packages.find(el => {
+                            return el.id == packageId;
+                        });
+                        let prices = getPrices(package);
+                        setBookingsPricesDivs($(this), prices);
+                    });
+
+                    if (choosedRoom.length) {
+                        let packageId = choosedRoom.siblings('.musicRoom__buyPrice').find('input[type="radio"]:checked').val();
+                        let package = bookingData.packages.find(el => {
+                            return el.id == packageId;
+                        });
+                        let prices = getPrices(package);
+                        setPriceDivHtml(prices.totalPriceWithDiscount);
+                    }
+                }
 
                 if (isStepTwoContinue()) {
                     continueStepTwo()
@@ -371,7 +415,9 @@ $(document).ready(function () {
         setCurrentBookingData();
 
         if (isStepTwoVisible()) {
-            showStepTwo();
+            if (! isStepTwoOpened) {
+                showStepTwo();
+            }
 
             if (isStepTwoContinue()) {
                 continueStepTwo()
@@ -388,7 +434,9 @@ $(document).ready(function () {
         setCurrentBookingData();
 
         if (isStepTwoVisible()) {
-            showStepTwo();
+            if (! isStepTwoOpened) {
+                showStepTwo();
+            }
 
             if (isStepTwoContinue()) {
                 continueStepTwo()
@@ -1117,6 +1165,7 @@ function showStepTwo () {
 
     $('.step-two').css('display', 'flex');
     getServicesHtml();
+    isStepTwoOpened = true;
 }
 
 function getPromotionsDiscount() {
@@ -1152,7 +1201,7 @@ function getBookingsHtml(tablesData) {
             let end = bookedSlots[j].end.slice(-2);
 
             html += '<div class="musicRoom__buyItem disabled">' +
-                        '<span class="musicRoom__buyItemTime">' + start + 'h00-' + end + 'h00</span>' +
+                        '<span class="musicRoom__buyItemTime">' + start + ':00-' + end + ':00</span>' +
                         '<div class="musicRoom__buyBtnDisabled">Booked</div>' +
                     '</div>';
         }
@@ -1165,7 +1214,7 @@ function getBookingsHtml(tablesData) {
             let end = freeSlots[j].end.slice(-2);
             let packageData = getPackagesHtml(j, roomName);
 
-            html += '<div class="musicRoom__buyItem"><span class="musicRoom__buyItemTime">' + start + 'h00-' + end + 'h00</span>' +
+            html += '<div class="musicRoom__buyItem"><span class="musicRoom__buyItemTime">' + start + ':00-' + end + ':00</span>' +
                         '<div class="musicRoom__buyPrice">';
 
             html += packageData.html;
@@ -1205,13 +1254,13 @@ function getPackagesHtml(index, roomName) {
             let packageDescription = bookingData.packages[k].description;
             let checked = '';
 
-            let prices = getPrices(bookingData.packages[2]);
+            let prices = getPrices(bookingData.packages[1]);
 
             priceForPerson = prices.priceForPerson;
             totalPrice = prices.totalPrice;
             totalPriceWithDiscount = prices.totalPriceWithDiscount;
 
-            if (k === 2) {
+            if (k === 1) {
                 checked = 'checked';
                 initialPriceForPerson = priceForPerson;
                 initialTotalPrice = totalPrice;
@@ -1231,12 +1280,12 @@ function getPackagesHtml(index, roomName) {
                 '<input class="package-radio" id="' + packageName + roomName + index + '" name="pack' + roomName + index + '" type="radio" ' + checked + ' value="' + bookingData.packages[k].id + '">' +
                 '<label for="' + packageName + roomName + index + '">' + packageName + '</label>' +
                 '<div class="musicRoom__buyPriceTooltip">' +
-                '<div class="tooltip__title">' + packageName + '</div>' +
-                '<div class="tooltip__text">' + packageDescription + '</div>' +
-                '<div class="tooltip__price">' +
-                'Price to pay ' +
-                '<span>' + totalPriceWithDiscount + getEuroPrice(totalPriceWithDiscount) + '</span>' +
-                '</div>' +
+                    '<div class="tooltip__title">' + packageName + '</div>' +
+                    '<div class="tooltip__text">' + packageDescription + '</div>' +
+                    // '<div class="tooltip__price">' +
+                    //     'Price to pay ' +
+                    //     '<span>' + totalPriceWithDiscount + getEuroPrice(totalPriceWithDiscount) + '</span>' +
+                    // '</div>' +
                 '</div>' +
                 '</div>';
         }
@@ -1250,6 +1299,14 @@ function getPackagesHtml(index, roomName) {
     };
 }
 
+var roomsImages = {
+    1: 'roombook1',
+    2: 'icberg',
+    3: 'gatsby',
+    4: 'reggae',
+    5: 'comics'
+};
+
 function getRoomsHtml() {
     let html = '';
 
@@ -1257,7 +1314,7 @@ function getRoomsHtml() {
         html += '<div class="musicRoom__item step-two">' +
                    '<div class="room-descrBlock">' +
                        '<div class="musicRoom__image">' +
-                           '<img src="img/roombook1.jpg">' +
+                           '<img src="img/' + roomsImages[bookingData.tables[i].id] + '.jpg">' +
                        '</div>' +
                        '<div class="musicRoom__descr">' +
                            '<div class="musicRoom__title">Room ' + capitalizeFirstLetter(bookingData.tables[i].table_number) +
@@ -1373,7 +1430,7 @@ function setPriceDivHtml(price) {
 }
 
 function handleBookButtonClick() {
-    $('.musicRoom__buyBtn').click(
+    $('body').on('click', '.musicRoom__buyBtn',
         function () {
             let nameRoom = $(this).find('.booking-name-room').text();
             let timeBooking = $(this).parent().find('.musicRoom__buyItemTime').text();
@@ -1382,21 +1439,26 @@ function handleBookButtonClick() {
             if ($(this).hasClass('choosed')) {
                 currencySpan.css('display', 'none');
                 $('#total-price-span').text('');
+                totalPrice = 0;
                 $("#booking-room").text('');
                 $("#booking-time-start").text('');
                 $(this).toggleClass('choosed').parent().toggleClass('choosed');
-                isRoomChoosed = false;
+                choosedRoom = '';
             } else {
-                if (! isRoomChoosed) {
-                    let price = $(this).siblings('.musicRoom__price').first().find('.actual-price').text();
-                    setPriceDivHtml(price);
-                    $('#total-price-span').text(price);
-                    currencySpan.css('display', 'flex');
-                    $("#booking-room").text(nameRoom);
-                    $("#booking-time-start").text(timeBooking);
-                    $(this).toggleClass('choosed').parent().toggleClass('choosed');
-                    isRoomChoosed = true;
+                if (choosedRoom.length) {
+                    if (! $(this).is(choosedRoom)) {
+                        choosedRoom.toggleClass('choosed').parent().toggleClass('choosed');
+                    }
                 }
+
+                totalPrice = $(this).siblings('.musicRoom__price').first().find('.actual-price').text();
+                setPriceDivHtml(totalPrice);
+                $('#total-price-span').text(totalPrice);
+                currencySpan.css('display', 'flex');
+                $("#booking-room").text(nameRoom);
+                $("#booking-time-start").text(timeBooking);
+                $(this).toggleClass('choosed').parent().toggleClass('choosed');
+                choosedRoom = $(this);
             }
 
             setCurrentBookingData();
@@ -1453,13 +1515,21 @@ function handlePackageRadioButtonClick() {
 
             let prices = getPrices(package);
 
+            if (choosedRoom.length) {
+                setPriceDivHtml(prices.totalPriceWithDiscount);
+            }
+
             let priceDiv = $(this).parent().parent().find('.musicRoom__price');
 
-            priceDiv.find('.musicRoom__priceValueOld').text(prices.totalPrice + ' HUF');
-            priceDiv.find('.musicRoom__priceValueNew').html(getTotalPriceDiv(prices.totalPriceWithDiscount));
-            priceDiv.find('.musicRoom__priceValuePerson').text(prices.priceForPerson + ' HUF/person');
+            setBookingsPricesDivs(priceDiv, prices);
         }
     });
+}
+
+function setBookingsPricesDivs(div, prices) {
+    div.find('.musicRoom__priceValueOld').text(prices.totalPrice + ' HUF');
+    div.find('.musicRoom__priceValueNew').html(getTotalPriceDiv(prices.totalPriceWithDiscount));
+    div.find('.musicRoom__priceValuePerson').text(prices.priceForPerson + ' HUF/person');
 }
 
 function getTotalPriceDiv(price) {
@@ -1619,26 +1689,28 @@ function handleServices(serviceId, serviceCount, servicePrice, serviceName) {
 
 function getPrices(package) {
     let priceGradation = JSON.parse(package.price_gradation);
-    let priceForPerson = 0;
+    let totalPriceWithDiscount = 0;
 
     for (u = 0; u < priceGradation.length; ++u) {
         if (parseInt(currentBookingData.persons) >= parseInt(priceGradation[u].from) && parseInt(currentBookingData.persons) <= parseInt(priceGradation[u].to)) {
-            priceForPerson = priceGradation[u].price;
+            totalPriceWithDiscount = priceGradation[u].price;
         }
     }
 
-    let totalPrice = currentBookingData.persons * priceForPerson;
-    let totalPriceWithDiscount = totalPrice;
+    let totalPrice = totalPriceWithDiscount * 1.1;
 
-    let discount = getPromotionsDiscount();
-    if (discount) {
-        totalPriceWithDiscount *= discount;
-    }
+    // let discount = getPromotionsDiscount();
+    //
+    // if (discount) {
+    //     totalPriceWithDiscount *= discount;
+    // }
+
+    let priceForPerson = totalPriceWithDiscount / currentBookingData.persons;
 
     return {
-        priceForPerson: priceForPerson,
-        totalPrice: totalPrice,
-        totalPriceWithDiscount: totalPriceWithDiscount
+        priceForPerson: Math.round(priceForPerson),
+        totalPrice: Math.round(totalPrice),
+        totalPriceWithDiscount: Math.round(totalPriceWithDiscount)
     }
 }
 
