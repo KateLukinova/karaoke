@@ -1,4 +1,6 @@
 var bookingData = {};
+var isCheckboxChecked = false;
+var uuid = uuidv4();
 var isTimerStarted = false;
 var choosedRoom = '';
 var totalPrice = 0;
@@ -608,6 +610,15 @@ $(document).ready(function () {
     ) {
         getBookingData();
 
+        $('#booking__userAgree').click(() => {
+            isCheckboxChecked = !isCheckboxChecked;
+            if (! isBookAllowed()) {
+                $('.booking__pricePanelBookBtn').css('cursor', 'not-allowed');
+            } else {
+                $('.booking__pricePanelBookBtn').css('cursor', 'pointer');
+            }
+        });
+
         // datepicker
         $('#datepicker').datepicker({
             minDate: new Date(),
@@ -670,15 +681,15 @@ $(document).ready(function () {
             datePicker.show()
         });
 
-        const DECOR_SERVICE_ID = 5;
+        const DECOR_SERVICE_ID = 2;
         const PHOTO_SERVICE_ID = 1;
         $(".checkbox").change(function () {
             var input = $(this).find('input');
             var checkValue = input.attr('id');
 
-            if (input.is(':checked')) {
-                var contentAddServices = '<div class="booking__priceInfoTitle">Add. Service:</div>';
+            var contentAddServices = '<div class="booking__priceInfoTitle">Add. Service:</div>';
 
+            if (input.is(':checked')) {
                 if (checkValue == 'chose1') {
                     isPhotographerChecked = true;
                     handleAdditionalServicePrice(PHOTO_SERVICE_ID, true);
@@ -755,13 +766,6 @@ $(document).ready(function () {
             currentBookingData.paymentMethod = 'Credit card' ? 'card' : 'paypal';
         });
 
-        $('input[name ="pay"]').change(() => {
-            var contentPay = '<div class="booking__priceInfoTitle">Pay:</div>';
-            contentPay += '<div class="booking__priceInfoValue">' + $("#pay-div input[type='radio']:checked").val() + '</div>';
-            $('#what-to-pay').html(contentPay);
-            currentBookingData.paymentType = '100%' ? 100 : null;
-        });
-
         $('#coupon-cod').change(() => {
             var contentCouponCod = '<div class="booking__priceInfoTitle">Coupon cod:</div>';
             contentCouponCod += '<div class="booking__priceInfoValue">' + $("#coupon-cod").val() + '</div>';
@@ -771,7 +775,6 @@ $(document).ready(function () {
 
         // continue booking
         var currentOrderPage = 1;
-        console.log(currentOrderPage)
         var selectCountryWidth = $(".booking__userInfoPersonal").first().width();
         var selectCountryDivWidth = $("#country-select").width();
         $('#country-select').change(() => {
@@ -811,8 +814,12 @@ $(document).ready(function () {
 
                     if (currentOrderPage == 3) {
                         $('#continue-btn').text('Book a room');
+                        if (! isBookAllowed()) {
+                            $('.booking__pricePanelBookBtn').css('cursor', 'not-allowed');
+                        }
                     } else {
                         $('#continue-btn').text('Continue');
+                        $('.booking__pricePanelBookBtn').css('cursor', 'pointer');
                     }
 
                     // timer
@@ -840,10 +847,10 @@ $(document).ready(function () {
                             }, 1000);
                         }
 
-                        dailyMissionTimer(0.25);
+                        dailyMissionTimer(bookingData.settings.timer / 60);
+                        sendPreBookingRequest();
                     }
                 }
-                console.log(currentOrderPage)
             }
         );
 
@@ -951,20 +958,6 @@ $(document).ready(function () {
                     .css('display', 'flex')
                     .siblings('.tabs__content')
                     .hide();
-
-                $(this).parents('.booking__foodStepWrap')
-                    .find('.tabs__content')
-                    .eq(i)
-                    .find('.tabs')
-                    .find('li')
-                    .eq(1)
-                    .addClass('active');
-
-                $(this).parents('.booking__foodStepWrap')
-                    .find('.tabs__content')
-                    .eq(i)
-                    .find('.tab')
-                    .addClass('active');
             });
         });
     });
@@ -972,14 +965,8 @@ $(document).ready(function () {
     $('.switch').each(function () {
         $(this).find('.food-radio').each(function (i) {
             $(this).click(function () {
-                $(this).addClass('active')
-                    .siblings()
-                    .removeClass('active')
-                    .parents('.menu-box')
-                    .find('.tabs__content')
-                    .eq(i).css('display', 'flex')
-                    .siblings('.tabs__content')
-                    .hide();
+                $(this).addClass('active').siblings().removeClass('active')
+                    .parents('.menu-box').find('.tabs__content').eq(i).css('display', 'flex').siblings('.tabs__content').hide();
             });
         });
     });
@@ -1123,7 +1110,36 @@ function getBookingData() {
         bookingData = data.data;
         console.log(bookingData)
         subTypes = getSubTypes();
-        console.log(subTypes)
+        $('#time-min').text(bookingData.settings.timer);
+        setPrePaymentHtml();
+    });
+}
+
+function setPrePaymentHtml() {
+    currentBookingData.paymentType = bookingData.prepayment[1];
+    html = '<div class="radio">' +
+               '<input id="deposit" value="' + bookingData.prepayment[1] + '" name="pay" type="radio" checked>' +
+           '<label for="deposit">' + bookingData.prepayment[1] + '%</label>' +
+           '</div>' +
+           '<div class="radio">' +
+               '<input id="full-pay" value="' + bookingData.prepayment[0] + '" name="pay" type="radio">' +
+               '<label for="full-pay">Pay in full 100% <span class="discount">5%</span></label>' +
+           '</div>';
+    $('#pay-div').append(html);
+
+    $('input[name ="pay"]').change(() => {
+        var contentPay = '<div class="booking__priceInfoTitle">Pay:</div>';
+        let prePayment = $("#pay-div input[type='radio']:checked").val();
+        contentPay += '<div class="booking__priceInfoValue">' + prePayment + '%</div>';
+        $('#what-to-pay').html(contentPay);
+        currentBookingData.paymentType = prePayment;
+
+        if (prePayment == 100) {
+            totalPrice = totalPrice * 0.95;
+        } else {
+            totalPrice = totalPrice * 100 / 95;
+        }
+        setPriceDivHtml(totalPrice);
     });
 }
 
@@ -1600,6 +1616,7 @@ function getServicesHtml() {
 
         html += '<div class="tabs">' +
                     '<div class="tabs-header">' +
+                        // '<div class="border"></div>' +
                         '<ul>';
 
         for (r = 0; r < subTypesNames.length; r++) {
@@ -1648,9 +1665,10 @@ function getServicesHtml() {
                         '</div> ';
             }
 
-            html += '</div>' +
-                '</div>';
+            html += '</div>';
         }
+
+        html += '</div>';
 
         html += '</div>';
 
@@ -1824,10 +1842,11 @@ function handlePostRequest() {
 
     postData.amount = currentBookingData.persons;
     postData.package = currentBookingData.packageId;
-    postData.first_name = currentBookingData.name;
+    postData.name = currentBookingData.name;
+    // postData.last_name = currentBookingData.name;
     postData.phone = currentBookingData.phone;
     postData.email = currentBookingData.email;
-    postData.tableId = table.id;
+    postData.table_id = table.id;
     postData.time_from = dates.start;
     postData.time_to = dates.end;
     postData.country = currentBookingData.country;
@@ -1838,13 +1857,14 @@ function handlePostRequest() {
     postData.language = 'en';
     postData.service = services;
     postData.service_amount = servicesAmount;
+    postData.reserved_for = uuid;
 
-    var jqxhr = $.post("https://bbrooms.zerrno.com/api/v1/store", postData)
+    var jqxhr = $.post("https://bbrooms.zerrno.com/api/v1/store-tab", postData)
         .done(function() {
-            alert( "second success" );
+            $('.modal.ok').toggleClass('is-visible');
         })
         .fail(function() {
-            alert( "error" );
+            $('.modal.error').toggleClass('is-visible');
         });
 }
 
@@ -1902,10 +1922,10 @@ function handleServicesTabs() {
 
         activePos = $('.tabs-header .active').position();
 
-        $('.border').stop().css({
-            left: activePos.left,
-            width: $('.tabs-header .active').width()
-        });
+        // $('.border').stop().css({
+        //     left: activePos.left,
+        //     width: $('.tabs-header .active').width()
+        // });
     }
 
     changePos();
@@ -1917,25 +1937,26 @@ function handleServicesTabs() {
 
     animateTabHeight();
 
-    function changeTab() {
-        var getTabId = $('.tabs-header .active a').attr('tab-id');
-
-        $('.tab').stop().fadeOut(300, function () {
-            $(this).removeClass('active');
-        }).hide();
-
-        $('.tab[tab-id=' + getTabId + ']').stop().fadeIn(300, function () {
-            $(this).addClass('active');
-            animateTabHeight();
-        });
-    }
+    // function changeTab() {
+    //     var getTabId = $('.tabs-header .active a').attr('tab-id');
+    //
+    //     $('.tab').stop().fadeOut(300, function () {
+    //         $(this).removeClass('active');
+    //     }).hide();
+    //
+    //     $('.tab[tab-id=' + getTabId + ']').stop().fadeIn(300, function () {
+    //         $(this).addClass('active');
+    //         animateTabHeight();
+    //     });
+    // }
 
     $('.tabs-header a').on('click', function (e) {
         e.preventDefault();
 
         var tabId = $(this).attr('tab-id');
+        var tabsContent = $(this).parent().parent().parent().siblings('.tabs-content');
 
-        $('.tabs-header a').stop().parent().removeClass('active');
+        tabsContent.siblings('.tabs-header').find('a').stop().parent().removeClass('active');
 
         $(this).stop().parent().addClass('active');
 
@@ -1943,12 +1964,13 @@ function handleServicesTabs() {
 
         tabCurrentItem = tabItems.filter('.active');
 
-        $('.tab').stop().fadeOut(300, function () {
+        tabsContent.find('.tab').stop().fadeOut(300, function () {
             $(this).removeClass('active');
         }).hide();
 
         $('.tab[tab-id="' + tabId + '"]').stop().fadeIn(300, function () {
             $(this).addClass('active');
+            $(this).css('display', 'flex');
             animateTabHeight();
         });
     });
@@ -1988,4 +2010,37 @@ function handleServicesTabs() {
 
         });
     }
+}
+
+function uuidv4() {
+    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    );
+}
+
+function sendPreBookingRequest() {
+    let postData = {};
+
+    let table = bookingData.tables.find(table => {
+        return table.table_number == currentBookingData.room;
+    });
+
+    let dates = getStartAndEndDates(currentBookingData.time);
+
+    postData.table_id = table.id;
+    postData.time_from = dates.start;
+    postData.time_to = dates.end;
+    postData.reserved_for = uuid;
+
+    var jqxhr = $.post("https://bbrooms.zerrno.com/api/v1/freeze-tab", postData)
+        .done(function() {
+            // alert( "second success" );
+        })
+        .fail(function() {
+            // alert( "error" );
+        });
+}
+
+function isBookAllowed() {
+    return isCheckboxChecked;
 }

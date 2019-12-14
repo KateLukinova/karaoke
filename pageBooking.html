@@ -428,9 +428,14 @@
                         </div>
                         <div class="booking__userInfoPersonal">
                             <div class="form__row user-name">
-                                <label class="form__label">Name</label>
+                                <label class="form__label">First Name</label>
                                 <div class="text-not-valid">Please, use only letters</div>
                                 <input class="form__input" type="text" placeholder="Alex" id="name-value">
+                            </div>
+                            <div class="form__row user-name">
+                                <label class="form__label">Last Name</label>
+                                <div class="text-not-valid">Please, use only letters</div>
+                                <input class="form__input" type="text" placeholder="Smith" id="name2-value">
                             </div>
                             <div class="form__row e-mail">
                                 <label class="form__label">Mail</label>
@@ -715,14 +720,6 @@
 
                     <div class="booking__userInfoPaymentTitle">2. Pay </div>
                     <div id="pay-div" class="booking__userInfoPayment">
-                        <div class="radio">
-                            <input id="deposit" value="deposit 20%" name="pay" type="radio" checked>
-                            <label for="deposit">20%</label>
-                        </div>
-                        <div class="radio">
-                            <input id="full-pay" value="100%" name="pay" type="radio">
-                            <label for="full-pay">Pay in full 100% <span class="discount">5%</span></label>
-                        </div>
                     </div>
 
                         <div class="booking__userInfoPaymentTitle">3. Promotion</div>
@@ -978,34 +975,34 @@
             </div>
         </div>
     </footer>
-<!--    <div class="modal">-->
-<!--        <div class="modal-overlay modal-toggle"></div>-->
-<!--        <div class="modal-wrapper modal-transition">-->
-<!--            <div class="modal-body">-->
-<!--                <img src="img/gru.svg" alt="">-->
-<!--                <p>Sorry! Something went wrong with your order</p>-->
-<!--                <p>-->
-<!--                    Hope, next time everything will be successfull, and you will come-->
-<!--                    to us spend best night with your friends-->
-<!--                </p>-->
-<!--                <a href="pageBooking.html" class="btn">try again</a>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
+    <div class="modal error">
+        <div class="modal-overlay modal-toggle"></div>
+        <div class="modal-wrapper modal-transition">
+            <div class="modal-body">
+                <img src="img/gru.svg" alt="">
+                <p>Sorry! Something went wrong with your order</p>
+                <p>
+                    Hope, next time everything will be successfull, and you will come
+                    to us spend best night with your friends
+                </p>
+                <a href="pageBooking.html" class="btn">try again</a>
+            </div>
+        </div>
+    </div>
 
-<!--    <div class="modal">-->
-<!--        <div class="modal-overlay modal-toggle"></div>-->
-<!--        <div class="modal-wrapper modal-transition">-->
-<!--            <div class="modal-body">-->
-<!--                <img src="img/fireworks-white.svg" alt="">-->
-<!--                <p>Your reservation is successful!</p>-->
-<!--                <p>-->
-<!--                    We are waiting for you and your friends-->
-<!--                    on the <span>15 of October</span> at <span>19:00</span>!-->
-<!--                </p>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
+    <div class="modal ok">
+        <div class="modal-overlay modal-toggle"></div>
+        <div class="modal-wrapper modal-transition">
+            <div class="modal-body">
+                <img src="img/fireworks-white.svg" alt="">
+                <p>Your reservation is successful!</p>
+                <p>
+                    We are waiting for you and your friends
+                    on the <span>15 of October</span> at <span>19:00</span>!
+                </p>
+            </div>
+        </div>
+    </div>
 
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="owl-carousel/owl.carousel.min.js"></script>
@@ -1018,10 +1015,6 @@
         AOS.init();
     </script>
     <script type="text/javascript" src="js/script.js"></script>
-    <script>
-        $(document).ready(function() {
-        })
-    </script>
 </body>
 
 </html>
