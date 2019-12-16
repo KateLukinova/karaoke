@@ -1,4 +1,10 @@
-var bookingData = {};
+var bookingData = {
+    settings: {
+        forinta_euro: 0
+    }
+};
+var isFullPaymentDiscount = false;
+var isPromotionsHtmlSet = false;
 var isCheckboxChecked = false;
 var uuid = uuidv4();
 var isTimerStarted = false;
@@ -14,7 +20,8 @@ var currentBookingData = {
     event: '',
     addServices: [],
     services: {},
-    name: '',
+    first_name: '',
+    last_name: '',
     email: '',
     phone: '',
     country: 'Hungary',
@@ -28,6 +35,15 @@ var currentBookingData = {
 let subTypes = [];
 
 $(document).ready(function () {
+    if ($('#current-time').length) {
+        $('#current-time').val(2);
+    }
+    currentBookingData.duration = 2;
+
+    if ($('#current-persons').length) {
+        $('#current-persons').val(5);
+    }
+    currentBookingData.persons = 5;
 
     //optimization loading img
     [].forEach.call(document.querySelectorAll('img[data-src]'), function (img) {
@@ -367,6 +383,11 @@ $(document).ready(function () {
         return false;
     });
 
+    var previousPersons = 0;
+    $('#current-persons').click(() => {
+
+    });
+
     $('.plus-person').click(function () {
         var $input = $(this).parent().find('input');
 
@@ -419,9 +440,9 @@ $(document).ready(function () {
         setCurrentBookingData();
 
         if (isStepTwoVisible()) {
-            if (! isStepTwoOpened) {
+            // if (! isStepTwoOpened) {
                 showStepTwo();
-            }
+            // }
 
             if (isStepTwoContinue()) {
                 continueStepTwo()
@@ -438,9 +459,9 @@ $(document).ready(function () {
         setCurrentBookingData();
 
         if (isStepTwoVisible()) {
-            if (! isStepTwoOpened) {
+            // if (! isStepTwoOpened) {
                 showStepTwo();
-            }
+            // }
 
             if (isStepTwoContinue()) {
                 continueStepTwo()
@@ -593,6 +614,7 @@ $(document).ready(function () {
     //!!!!!!!!!!!!!!!!!!  BOOKING PAGE BEGIN   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     if (window.location.href.includes('pageBooking') ||
         window.location.href.includes('index') ||
+        window.location.href.includes('pagePrice') ||
         window.location.href.includes('pageEventBachelor') ||
         window.location.href.includes('pageEventBachelor') ||
         window.location.href.includes('pageEventBirthday') ||
@@ -609,6 +631,9 @@ $(document).ready(function () {
         window.location.href === 'http://obobrazovanii.ru/'
     ) {
         getBookingData();
+        // showStepTwo();
+        $("#booking-time").text(2 + ' hours');
+        $("#booking-persons").text(5);
 
         $('#booking__userAgree').click(() => {
             isCheckboxChecked = !isCheckboxChecked;
@@ -653,7 +678,9 @@ $(document).ready(function () {
                 $('#booking-month').text(longMonth);
 
                 if (isStepTwoVisible()) {
-                    showStepTwo();
+                    if (isStepTwoOpened) {
+                        showStepTwo();
+                    }
 
                     if (isStepTwoContinue()) {
                         continueStepTwo()
@@ -661,6 +688,11 @@ $(document).ready(function () {
                 }
 
                 $('.datepicker').css('z-index', '-5');
+
+                if (isPromotionsHtmlSet) {
+                    isPromotionsHtmlSet = false;
+                    getPromotionsDiscount();
+                }
             },
             onShow: function (el, inst) {
                 $('.datepicker').css('z-index', '10');
@@ -732,10 +764,17 @@ $(document).ready(function () {
         });
 
         $('#name-value').change(() => {
-            var contentNameValue = '<div class="booking__priceInfoTitle">Name:</div>';
+            var contentNameValue = '<div class="booking__priceInfoTitle">First Name:</div>';
             contentNameValue += '<div class="booking__priceInfoValue">' + $("#name-value").val() + '</div>';
-            $('#what-to-name').html(contentNameValue);
-            currentBookingData.name = $("#name-value").val();
+            $('#what-to-first_name').html(contentNameValue);
+            currentBookingData.first_name = $("#name-value").val();
+        });
+
+        $('#name2-value').change(() => {
+            var contentNameValue = '<div class="booking__priceInfoTitle">Last Name:</div>';
+            contentNameValue += '<div class="booking__priceInfoValue">' + $("#name2-value").val() + '</div>';
+            $('#what-to-last_name').html(contentNameValue);
+            currentBookingData.last_name = $("#name2-value").val();
         });
 
         $('#email-value').change(() => {
@@ -799,12 +838,14 @@ $(document).ready(function () {
                     if (currentOrderPage == 1) {
 
                         currentOrderPage++;
+                        $("html, body").animate({ scrollTop: 0 }, "fast");
 
                         $('.booking__step1Wrap').css('display', 'none');
                         $('.booking__foodStepWrap').css('display', 'flex');
                     } else if (currentOrderPage == 2) {
 
                         currentOrderPage++;
+                        $("html, body").animate({ scrollTop: 0 }, "fast");
 
                         $('.booking__foodStepWrap').css('display', 'none');
                         $('.booking__userInfoStepWrap').css('display', 'flex');
@@ -858,11 +899,13 @@ $(document).ready(function () {
             function () {
                 if (currentOrderPage == 2) {
                     currentOrderPage--;
+                    $("html, body").animate({ scrollTop: 0 }, "fast");
 
                     $('.booking__step1Wrap').css('display', 'flex');
                     $('.booking__foodStepWrap').css('display', 'none');
                 } else if (currentOrderPage == 3) {
                     currentOrderPage--;
+                    $("html, body").animate({ scrollTop: 0 }, "fast");
 
                     $('.booking__foodStepWrap').css('display', 'flex');
                     $('.booking__userInfoStepWrap').css('display', 'none');
@@ -1112,18 +1155,22 @@ function getBookingData() {
         subTypes = getSubTypes();
         $('#time-min').text(bookingData.settings.timer);
         setPrePaymentHtml();
+        setCurrentBookingData();
+        showStepTwo();
     });
 }
 
 function setPrePaymentHtml() {
     currentBookingData.paymentType = bookingData.prepayment[1];
+    let discountHtml = isFullPaymentDiscount ? '<span class="discount">5%</span>' : '';
+
     html = '<div class="radio">' +
                '<input id="deposit" value="' + bookingData.prepayment[1] + '" name="pay" type="radio" checked>' +
            '<label for="deposit">' + bookingData.prepayment[1] + '%</label>' +
            '</div>' +
            '<div class="radio">' +
                '<input id="full-pay" value="' + bookingData.prepayment[0] + '" name="pay" type="radio">' +
-               '<label for="full-pay">Pay in full 100% <span class="discount">5%</span></label>' +
+               '<label for="full-pay">Pay in full 100% ' + discountHtml + '</label>' +
            '</div>';
     $('#pay-div').append(html);
 
@@ -1134,12 +1181,15 @@ function setPrePaymentHtml() {
         $('#what-to-pay').html(contentPay);
         currentBookingData.paymentType = prePayment;
 
-        if (prePayment == 100) {
-            totalPrice = totalPrice * 0.95;
-        } else {
-            totalPrice = totalPrice * 100 / 95;
+        if (isFullPaymentDiscount) {
+            if (prePayment == 100) {
+                totalPrice = totalPrice * 0.95;
+            } else {
+                totalPrice = totalPrice * 100 / 95;
+            }
+
+            setPriceDivHtml(totalPrice);
         }
-        setPriceDivHtml(totalPrice);
     });
 }
 
@@ -1150,7 +1200,8 @@ function setCurrentBookingData() {
     currentBookingData.time = $('#booking-time-start').text();
     currentBookingData.room = $('#booking-room').text();
     currentBookingData.event = $('#what-to-celebrate').find('.booking__priceInfoValue').text();
-    currentBookingData.name = $('#what-to-name').find('.booking__priceInfoValue').text();
+    currentBookingData.first_name = $('#what-to-first_name').find('.booking__priceInfoValue').text();
+    currentBookingData.last_name = $('#what-to-last_name').find('.booking__priceInfoValue').text();
     currentBookingData.email = $('#what-to-email').find('.booking__priceInfoValue').text();
     currentBookingData.phone = $('#what-to-phone').find('.booking__priceInfoValue').text();
     currentBookingData.country = $('#what-to-country').find('.booking__priceInfoValue').text() ? $('#what-to-country').find('.booking__priceInfoValue').text() : currentBookingData.country;
@@ -1160,10 +1211,20 @@ function setCurrentBookingData() {
 }
 
 function isStepTwoVisible() {
-    return currentBookingData.date && currentBookingData.duration && currentBookingData.persons;
+    // return currentBookingData.date && currentBookingData.duration && currentBookingData.persons;
+    return true;
 }
 
-function showStepTwo () {
+function showStepTwo() {
+    $('.step-two').remove();
+    setPriceDivHtml(0);
+    $('#currency-span').css('display', 'none');
+    isStepTwoOpened = false;
+    var $input = $('#current-persons');
+    $("#booking-persons").text($input.val());
+    var $input = $('#current-time');
+    $("#booking-time").text($input.val() + ' hours');
+
     let opening = bookingData.opening.find(obj => {
         return obj.day === currentBookingData.dayName;
     });
@@ -1212,6 +1273,9 @@ function showStepTwo () {
 
     $('.step-two').css('display', 'flex');
     getServicesHtml();
+    handleBookButtonClick();
+    handleTooltipsOfPackages();
+    handlePackageRadioButtonClick();
     isStepTwoOpened = true;
 }
 
@@ -1232,7 +1296,29 @@ function getPromotionsDiscount() {
         }
     }
 
+    getPromotionHtml(totalDiscount);
+
     return totalDiscount / 100;
+}
+
+function getPromotionHtml(discount) {
+    let html = '<div class="booking__priceInfoUserMessage" id="current-promotion-div">' +
+        '<div class="booking__priceInfoUserLogo"><img src="img/fireworks.svg"></div>' +
+        '<div class="booking__priceInfoUserTitle">Day deal</div>' +
+        '<div class="booking__priceInfoUserValue">On ' + currentBookingData.dayName + ', <span>get a -' + discount + '% on all</span> reservations!</div>' +
+    '</div>';
+
+
+    if (discount) {
+        if (! isPromotionsHtmlSet) {
+            $(html).insertAfter('.price-panel__food-title');
+        }
+    } else {
+        // $('.price-panel__food-title').remove();
+        $('#current-promotion-div').remove();
+    }
+
+    isPromotionsHtmlSet = true;
 }
 
 function getBookingsHtml(tablesData) {
@@ -1280,9 +1366,6 @@ function getBookingsHtml(tablesData) {
         }
 
         $('#' + tableData.table_number + '-room').html(html);
-        handleBookButtonClick();
-        handleTooltipsOfPackages();
-        handlePackageRadioButtonClick();
     }
 }
 
@@ -1459,7 +1542,7 @@ function isStepTwoContinue() {
 }
 
 function continueStepTwo () {
-        $('.booking__pricePanelBookBtn').css('cursor', 'pointer');
+    $('.booking__pricePanelBookBtn').css('cursor', 'pointer');
 }
 
 function isServicesNotEmpty() {
@@ -1477,6 +1560,7 @@ function setPriceDivHtml(price) {
 }
 
 function handleBookButtonClick() {
+    $('body').off('click', '.musicRoom__buyBtn');
     $('body').on('click', '.musicRoom__buyBtn',
         function () {
             let nameRoom = $(this).find('.booking-name-room').text();
@@ -1489,6 +1573,7 @@ function handleBookButtonClick() {
                 totalPrice = 0;
                 $("#booking-room").text('');
                 $("#booking-time-start").text('');
+                $('#what-to-package').html('');
                 $(this).toggleClass('choosed').parent().toggleClass('choosed');
                 choosedRoom = '';
             } else {
@@ -1505,6 +1590,7 @@ function handleBookButtonClick() {
                 $("#booking-room").text(nameRoom);
                 $("#booking-time-start").text(timeBooking);
                 $(this).toggleClass('choosed').parent().toggleClass('choosed');
+                setPackageChoosedHtml('Drinker');
                 choosedRoom = $(this);
             }
 
@@ -1518,6 +1604,7 @@ function handleBookButtonClick() {
 }
 
 function handleAddServiceButtonClick() {
+    $('.add-food').unbind('click');
     $('body').on('click', '.add-food', function() {
         $(this).siblings('.plus-portion').trigger('click');
     });
@@ -1551,12 +1638,14 @@ function handleTooltipsOfPackages() {
 }
 
 function handlePackageRadioButtonClick() {
+    $('body').off('click', '.radio');
     $('body').on('click', '.radio', function() {
         if ($(this).hasClass('handle-prices')) {
             let packageId = $(this).find('.package-radio').val();
             let package = bookingData.packages.find(obj => {
                 return obj.id == packageId;
             });
+            setPackageChoosedHtml(package.name);
 
             currentBookingData.packageId = packageId;
 
@@ -1632,7 +1721,6 @@ function getServicesHtml() {
 
         html += '<div class="tabs-content">';
 
-        console.log(services)
         for (r = 0; r < subTypesNames.length; r++) {
             let subTypeActive = r === 0 ? 'active' : '';
 
@@ -1644,6 +1732,8 @@ function getServicesHtml() {
                 if (service.sub_type !== subTypesNames[r]) {
                     continue
                 }
+
+                let serviceDescription = service.description ? service.description : '';
 
                 html += '<div class="booking__stepFoodItem">' +
                                '<div class="number-food-wrap">' +
@@ -1659,7 +1749,7 @@ function getServicesHtml() {
                                 '<div style="display: none" class="hidden-service-price">' + service.price + '</div>' +
                                 '<div class="booking__stepFoodItemText">' +
                                 '<div class="booking__stepFoodItemTitle">' + service.name + '</div>' +
-                                '<div class="booking__stepFoodItemDescr">' + service.description + '</div>' +
+                                '<div class="booking__stepFoodItemDescr">' + serviceDescription + '</div>' +
                                 '<div class="booking__stepFoodItemPrice"><span>' + service.price + '</span><br><span>' + getEuroPrice(service.price) + '</span></div>' +
                             '</div>' +
                         '</div> ';
@@ -1716,6 +1806,7 @@ function handleServicesHtml() {
 }
 
 function handleServiceAdditionClick() {
+    $('.plus-portion').unbind('click');
     $('body').on('click', '.plus-portion', function() {
         let serviceCountSpan = $(this).siblings('.service-count');
         let serviceCount = parseInt(serviceCountSpan.text());
@@ -1779,17 +1870,17 @@ function getPrices(package) {
 
     for (u = 0; u < priceGradation.length; ++u) {
         if (parseInt(currentBookingData.persons) >= parseInt(priceGradation[u].from) && parseInt(currentBookingData.persons) <= parseInt(priceGradation[u].to)) {
-            totalPriceWithDiscount = priceGradation[u].price;
+            totalPriceWithDiscount = priceGradation[u].price * currentBookingData.duration[0];
         }
     }
 
     let totalPrice = totalPriceWithDiscount * 1.1;
 
-    // let discount = getPromotionsDiscount();
-    //
-    // if (discount) {
-    //     totalPriceWithDiscount *= discount;
-    // }
+    let discount = getPromotionsDiscount();
+
+    if (discount) {
+        totalPriceWithDiscount *= discount;
+    }
 
     let priceForPerson = totalPriceWithDiscount / currentBookingData.persons;
 
@@ -1842,8 +1933,8 @@ function handlePostRequest() {
 
     postData.amount = currentBookingData.persons;
     postData.package = currentBookingData.packageId;
-    postData.name = currentBookingData.name;
-    // postData.last_name = currentBookingData.name;
+    postData.first_name = currentBookingData.first_name;
+    postData.last_name = currentBookingData.last_name;
     postData.phone = currentBookingData.phone;
     postData.email = currentBookingData.email;
     postData.table_id = table.id;
@@ -2043,4 +2134,10 @@ function sendPreBookingRequest() {
 
 function isBookAllowed() {
     return isCheckboxChecked;
+}
+
+function setPackageChoosedHtml(package) {
+    var content = '<div class="booking__priceInfoTitle">Package:</div>';
+    content += '<div class="booking__priceInfoValue">' + package + '</div>';
+    $('#what-to-package').html(content);
 }

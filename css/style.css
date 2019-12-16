@@ -886,7 +886,7 @@ section.main {
 }
 
 .main-img {
-	position: absolute;
+	position: fixed;
 	z-index: -1;
 	top: 0;
 	left: 0;
@@ -2609,6 +2609,9 @@ section.booking h1 {
 	font-size: 20px;
 	color: white;
 	letter-spacing: 1px;
+	width: 132px;
+	box-sizing: border-box;
+	white-space: nowrap;
 }
 .musicRoom__buyWrap {
 	width: 100%;
@@ -3023,7 +3026,6 @@ input[type='checkbox'] {
 	-webkit-box-direction: normal;
 	-ms-flex-direction: column;
 	flex-direction: column;
-	padding-bottom: 50px;
 }
 
 .booking__stepFoodItemTitle {
@@ -3115,6 +3117,7 @@ input[type='checkbox'] {
 	justify-content: flex-start;
 	align-items: flex-start;
 	width: 80%;
+    padding-left: 0;
 
 }
 .tabs-header li {
@@ -3130,7 +3133,7 @@ input[type='checkbox'] {
 	color: #ffffff;
 	text-decoration: none;
 	box-sizing: border-box;
-	padding: 10px;
+	padding: 10px 20px 10px 0;
 	white-space: nowrap;
 }
 .tabs-content {
@@ -3195,6 +3198,7 @@ input[type='checkbox'] {
 	cursor: pointer;
     background-color: #1C0B3F;
 	margin-right: 1%;
+    padding-bottom: 50px;
 }
 .number-food-wrap {
 	position: absolute;
@@ -3447,6 +3451,10 @@ input[type='checkbox'] {
 	font-size: 18px;
 	color: white;
 	margin-top: 15px;
+}
+
+.musicRoom__price {
+    width: 115px;
 }
 
 .booking__userInfoPaymentTitle {
@@ -4646,9 +4654,7 @@ section.block--no-bg {
 .page-menu__food-wrap {
 	width: 90%;
 	max-width: 1140px;
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
+	display: none;
 	-ms-flex-wrap: wrap;
 	flex-wrap: wrap;
 	-webkit-box-pack: justify;
@@ -4675,6 +4681,7 @@ section.block--no-bg {
 	display: -ms-flexbox;
 	display: flex;
 	width: 47.5%;
+    padding-bottom: 0;
 }
 
 .menu-box .booking__stepFoodItemText {
@@ -4682,9 +4689,10 @@ section.block--no-bg {
 }
 
 .menu-box .booking__stepFoodItemImage {
-	width: 50%;
-	height: 100%;
-	max-height: 200px;
+    height: 100%;
+    overflow: hidden;
+    width: 50%;
+    min-width: 250px;
 }
 
 .menu-box .booking__stepFoodItemTitle {
@@ -5801,52 +5809,45 @@ section.page-block-dark-bg {
 
 /*modal*/
 
-.modal {
-	position: fixed;
-	z-index: 10000;
-	top: 0;
-	left: 0;
-	visibility: hidden;
-	width: 100%;
-	height: 100vh;
-	overflow-y: scroll;
-}
+/*.modal {*/
+/*	position: fixed;*/
+/*	z-index: 10000;*/
+/*	top: 0;*/
+/*	left: 0;*/
+/*	visibility: hidden;*/
+/*	width: 100%;*/
+/*	height: 100vh;*/
+/*	overflow-y: scroll;*/
+/*}*/
 
-.modal.is-visible {
-	visibility: visible;
-}
+/*.modal.is-visible {*/
+/*	visibility: visible;*/
+/*}*/
 
-.modal-overlay {
-	position: fixed;
-	z-index: 10;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100vh;
-	background: hsla(0, 0%, 0%, 0.5);
-	visibility: hidden;
-	opacity: 0;
-	-webkit-transition: visibility 0s linear 0.3s, opacity 0.3s;
-	-o-transition: visibility 0s linear 0.3s, opacity 0.3s;
-	transition: visibility 0s linear 0.3s, opacity 0.3s;
-}
+/*.modal-overlay {*/
+/*	position: fixed;*/
+/*	z-index: 10;*/
+/*	top: 0;*/
+/*	left: 0;*/
+/*	width: 100%;*/
+/*	height: 100vh;*/
+/*	background: hsla(0, 0%, 0%, 0.5);*/
+/*	visibility: hidden;*/
+/*	opacity: 0;*/
+/*	-webkit-transition: visibility 0s linear 0.3s, opacity 0.3s;*/
+/*	-o-transition: visibility 0s linear 0.3s, opacity 0.3s;*/
+/*	transition: visibility 0s linear 0.3s, opacity 0.3s;*/
+/*}*/
 
-.modal.is-visible .modal-overlay {
-	opacity: 1;
-	visibility: visible;
-	-webkit-transition-delay: 0s;
-	-o-transition-delay: 0s;
-	transition-delay: 0s;
-}
+/*.modal.is-visible .modal-overlay {*/
+/*	opacity: 1;*/
+/*	visibility: visible;*/
+/*	-webkit-transition-delay: 0s;*/
+/*	-o-transition-delay: 0s;*/
+/*	transition-delay: 0s;*/
+/*}*/
 
 .modal-wrapper {
-	position: absolute;
-	z-index: 9999;
-	top: 50%;
-	left: 57%;
-	-webkit-transform: translate(-57%, -50%);
-	-ms-transform: translate(-57%, -50%);
-	transform: translate(-57%, -50%);
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	width: 90%;
@@ -5856,16 +5857,13 @@ section.page-block-dark-bg {
 	background-color: #1C0B3F;
 	-webkit-box-shadow: 0 0 1.5em hsla(0, 0%, 0%, 0.35);
 	box-shadow: 0 0 1.5em hsla(0, 0%, 0%, 0.35);
+	margin-top: calc(15vh + 150px);
 }
 
 .modal-transition {
 	-webkit-transition: all 0.3s 0.12s;
 	-o-transition: all 0.3s 0.12s;
 	transition: all 0.3s 0.12s;
-	opacity: 0;
-}
-
-.modal.is-visible .modal-transition {
 	opacity: 1;
 }
 
@@ -6047,6 +6045,18 @@ section.page-block-dark-bg {
 		-ms-flex-direction: column;
 		flex-direction: column;
 	}
+
+    .menu-box .booking__stepFoodItemTitle {
+        margin-left: 15px;
+    }
+
+    .booking__stepFoodItemTitle {
+        font-size: 15px;
+    }
+
+    .menu-box .booking__stepFoodItemPrice {
+        margin-left: 15px;
+    }
 }
 
 @media screen and (max-width: 1300px) {
@@ -6178,6 +6188,10 @@ section.page-block-dark-bg {
 	a.btn-long {
 		margin-bottom: 2vh;
 	}
+
+    .tr-item {
+        white-space: normal;
+    }
 }
 
 @media screen and (max-width: 1024px) {
@@ -6822,6 +6836,8 @@ section.page-block-dark-bg {
 
 	.menu-box .booking__stepFoodItemImage {
 		height: 220px;
+        width: 50%;
+        max-width: 285px;
 	}
 
 	.h1--no-transform {
@@ -6952,6 +6968,10 @@ section.page-block-dark-bg {
 		height: 70px;
 		background-color: #CAFD35;
 	}
+
+    .menu-box .booking__stepFoodItemText {
+        width: 40%;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -7205,7 +7225,7 @@ section.page-block-dark-bg {
 		-ms-flex-direction: column;
 		flex-direction: column;
 		padding: 20px 0;
-		height: 150px;
+		height: 200px;
 	}
 
 	.musicRoom__buyPrice, .musicRoom__price {
@@ -7288,6 +7308,7 @@ section.page-block-dark-bg {
 
 	.menu-box .booking__stepFoodItemImage {
 		width: 100%;
+        max-width: max-content;
 	}
 
 	.menu-box .booking__stepFoodItemTitle {
@@ -7400,12 +7421,22 @@ section.page-block-dark-bg {
 		color: #6437e1;
 		border-radius: 20px;
 		padding: 10px 30px 10px 20px;
+        line-height: 1;
+        width: auto;
 	}
 
-	.musicRoom__buyBtn:before {
-		background: url(../img/checkBtn-purple.svg) no-repeat;
-		right: 11%;
+	.musicRoom__buyBtn:after {
+        background: url(../img/checkBtn-purple.svg) no-repeat;
+        right: 15px;
 	}
+
+    .musicRoom__buyBtn:hover:after {
+        transform: translate(0);
+    }
+
+    .musicRoom__price {
+        width: auto;
+    }
 
 	.footer__logo {
 		display: -webkit-box;
@@ -7428,6 +7459,9 @@ section.page-block-dark-bg {
 		font-size: 10px;
 	}
 
+    .menu-box .booking__stepFoodItemText {
+        width: 65%;
+    }
 }
 
 @media screen and (max-width: 540px) {
