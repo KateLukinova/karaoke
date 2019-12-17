@@ -45,7 +45,7 @@
             <a href="3dtour.html" class="btn transparent">3d tour</a>
         </div>
         <div class="nav-wrap">
-            <select name="events" class="rooms nav__rooms" onchange="location = this.value;">
+            <select name="events" class="rooms nav__rooms mobile-toggle" onchange="location = this.value;">
                 <option value="Events">Events</option>
                 <option value="pageEventBirthday.html">Birthday</option>
                 <option value="pageEventBachelor.html">Bachelor</option>
@@ -55,7 +55,8 @@
                 <option value="pageEventHen.html">Hen</option>
                 <option value="pageEventPrivate.html">Private</option>
             </select>
-            <select name="rooms" class="rooms nav__rooms" onchange="location = this.value;">
+            <select name="rooms" class="rooms nav__rooms mobile-toggle" onchange="location = this.value;">
+                <option value="Rooms">Rooms</option>
                 <option value="pageRoomStrip.html">Strip</option>
                 <option value="pageRoomReggae.html">Reggae</option>
                 <option value="pageRoomGatsby.html">Gatsby</option>
@@ -79,7 +80,7 @@
                     contacts
                 </a>
             </div>
-            <a href="https://bbpartybus.hu" class="btn transparent dashed bus">
+            <a href="https://bbpartybus.hu" class="btn transparent dashed bus mobile-toggle">
                 <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g id="bus">
                         <path id="Path" fill-rule="evenodd" clip-rule="evenodd" d="M12.8983 0.143066C12.8076 0.0522461 12.6819 0 12.5537 0C12.4256 0 12.2998 0.0521973 12.2092 0.143066C12.1186 0.233936 12.0664 0.359863 12.0664 0.488281C12.0664 0.616699 12.1186 0.742676 12.2092 0.833447C12.2998 0.924316 12.4256 0.976562 12.5537 0.976562C12.6819 0.976562 12.8071 0.924316 12.8983 0.833447C12.9889 0.742676 13.0411 0.616699 13.0411 0.488281C13.0411 0.359863 12.9889 0.233887 12.8983 0.143066Z" fill="#CAFD35"/>
@@ -206,31 +207,31 @@
                     Step 1. <span>Check your date, amount of persons, duration:</span>
                 </div>
                 <form action="#" class="booking-block booking-block--short">
-                                                                               <div class="booking-block__item">
-                                                                               <div class="label">date</div>
-                                                                               <input id="datepicker" data-position="right top" value="15" readonly />
-                                                                               <div class="chosen-date">
-                                                                               <span id="chosen-day">15</span>
-                                                                               <span id="chosen-month">oct</span>
-                                                                               </div>
-                                                                               </div>
-                                                                               <div class="booking-block__item">
-                                                                               <div class="label">persons</div>
-                                                                               <div class="number">
-                                                                               <span class="minus-person minus">-</span>
-                                                                               <input type="number" id="current-persons" value="1" size="5"/>
-                                                                               <span class="plus-person plus">+</span>
-                                                                               </div>
-                                                                               </div>
-                                                                               <div class="booking-block__item">
-                                                                               <div class="label">duration</div>
-                                                                               <div class="number">
-                                                                               <span class="minus-hours minus">-</span>
-                                                                               <input type="number" id="current-time" value="1" size="5"/>
-                                                                               <span class="plus-hours plus">+</span>
-                                                                               </div>
-                                                                               </div>
-                                                                               </form>
+                    <div class="booking-block__item">
+                        <div class="label">date</div>
+                        <input id="datepicker" data-position="right top" value="15" readonly/>
+                        <div class="chosen-date">
+                            <span id="chosen-day">15</span>
+                            <span id="chosen-month">oct</span>
+                        </div>
+                    </div>
+                    <div class="booking-block__item">
+                        <div class="label">persons</div>
+                        <div class="number">
+                            <span class="minus-person minus">-</span>
+                            <input type="number" id="current-persons" value="1" size="5"/>
+                            <span class="plus-person plus">+</span>
+                        </div>
+                    </div>
+                    <div class="booking-block__item">
+                        <div class="label">duration</div>
+                        <div class="number">
+                            <span class="minus-hours minus">-</span>
+                            <input type="number" id="current-time" value="1" size="5"/>
+                            <span class="plus-hours plus">+</span>
+                        </div>
+                    </div>
+                </form>
                 <div class="booking__stepTitle step-two">
                                                             Step 2. <span>Choose karaoke room:</span>
                                                             </div>
@@ -780,8 +781,8 @@
                     <div id="what-to-coupon" class="booking__priceInfo"></div>
                     <div class="booking__pricePanelTitle price-panel__food-title">
                         <div class="pricePanelDivider pricePanelDivider--top"></div>
-                        <span>Food</span>
-                        <div class="pricePanelDivider"></div>
+                        <span class="food-title">Food</span>
+                        <div class="pricePanelDivider close-food-divider"></div>
                     </div>
 <!--                    <div class="booking__priceInfoUserMessage">-->
 <!--                        <div class="booking__priceInfoUserLogo"><img src="img/fireworks.svg"></div>-->

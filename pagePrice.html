@@ -44,7 +44,7 @@
             <a href="3dtour.html" class="btn transparent">3d tour</a>
         </div>
         <div class="nav-wrap">
-            <select name="events" class="rooms nav__rooms" onchange="location = this.value;">
+            <select name="events" class="rooms nav__rooms mobile-toggle" onchange="location = this.value;">
                 <option value="Events">Events</option>
                 <option value="pageEventBirthday.html">Birthday</option>
                 <option value="pageEventBachelor.html">Bachelor</option>
@@ -54,7 +54,8 @@
                 <option value="pageEventHen.html">Hen</option>
                 <option value="pageEventPrivate.html">Private</option>
             </select>
-            <select name="rooms" class="rooms nav__rooms" onchange="location = this.value;">
+            <select name="rooms" class="rooms nav__rooms mobile-toggle" onchange="location = this.value;">
+                <option value="Rooms">Rooms</option>
                 <option value="pageRoomStrip.html">Strip</option>
                 <option value="pageRoomReggae.html">Reggae</option>
                 <option value="pageRoomGatsby.html">Gatsby</option>
@@ -78,7 +79,7 @@
                     contacts
                 </a>
             </div>
-            <a href="https://bbpartybus.hu" class="btn transparent dashed bus">
+            <a href="https://bbpartybus.hu" class="btn transparent dashed bus mobile-toggle">
                 <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g id="bus">
                         <path id="Path" fill-rule="evenodd" clip-rule="evenodd" d="M12.8983 0.143066C12.8076 0.0522461 12.6819 0 12.5537 0C12.4256 0 12.2998 0.0521973 12.2092 0.143066C12.1186 0.233936 12.0664 0.359863 12.0664 0.488281C12.0664 0.616699 12.1186 0.742676 12.2092 0.833447C12.2998 0.924316 12.4256 0.976562 12.5537 0.976562C12.6819 0.976562 12.8071 0.924316 12.8983 0.833447C12.9889 0.742676 13.0411 0.616699 13.0411 0.488281C13.0411 0.359863 12.9889 0.233887 12.8983 0.143066Z" fill="#CAFD35"/>
@@ -431,7 +432,7 @@
                 <div class="label">persons</div>
                 <div class="number">
                     <span class="minus-person minus">-</span>
-                    <input type="text" value="1" size="5"/>
+                    <input type="number" id="current-persons" value="1" size="5"/>
                     <span class="plus-person plus">+</span>
                 </div>
             </div>
@@ -439,13 +440,12 @@
                 <div class="label">duration</div>
                 <div class="number">
                     <span class="minus-hours minus">-</span>
-                    <input type="text" value="1" size="5"/>
+                    <input type="number" id="current-time" value="1" size="5"/>
                     <span class="plus-hours plus">+</span>
                 </div>
             </div>
             <div class="booking-block__item submit">
-                <button type="submit" class="btn booking-block__btn">book</button>
-            </div>
+                  <a href="pageBooking.html" class="btn booking-block__btn">book</a></div>
         </form>
     </section>
     <footer class="footer">
@@ -622,6 +622,7 @@
     <script type="text/javascript" src="js/datepicker.js"></script>
     <script type="text/javascript" src="js/datepicker.en.js"></script>
     <script type="text/javascript" src="js/jquery.formstyler.js"></script>
+    <script type="text/javascript" src="js/moment.js"></script>
     <script src="js/aos.js"></script>
     <script>
         AOS.init();

@@ -3,6 +3,14 @@ var bookingData = {
         forinta_euro: 0
     }
 };
+
+var isServicesOpened = false;
+var workingHoursCount = 8;
+// localStorage.setItem('choosedHours', '');
+// localStorage.setItem('choosedDate', '');
+// localStorage.setItem('persons', 5);
+// localStorage.setItem('duration', 2);
+
 var isFullPaymentDiscount = false;
 var isPromotionsHtmlSet = false;
 var isCheckboxChecked = false;
@@ -35,15 +43,19 @@ var currentBookingData = {
 let subTypes = [];
 
 $(document).ready(function () {
+    let localStorageDuration = localStorage.getItem('duration') ? localStorage.getItem('duration') : 2;
     if ($('#current-time').length) {
-        $('#current-time').val(2);
+        $('#current-time').val(localStorageDuration);
     }
-    currentBookingData.duration = 2;
+    currentBookingData.duration = localStorageDuration;
+    localStorage.setItem('duration', localStorageDuration);
 
+    let localStoragePersons = localStorage.getItem('persons') ? localStorage.getItem('persons') : 5;
     if ($('#current-persons').length) {
-        $('#current-persons').val(5);
+        $('#current-persons').val(localStoragePersons);
     }
-    currentBookingData.persons = 5;
+    currentBookingData.persons = localStoragePersons;
+    localStorage.setItem('persons', localStoragePersons);
 
     //optimization loading img
     [].forEach.call(document.querySelectorAll('img[data-src]'), function (img) {
@@ -80,7 +92,7 @@ $(document).ready(function () {
 
         if (isOpenedMenu) {
             $('.nav').removeClass('hide');
-            $('.nav').toggleClass('show');
+            $('.nav').toggleClass('show').css('z-index', '15');
             $('a.nav-item').toggleClass('nav-animation');
             $('a.nav-item').removeClass('no-animation');
             $('.nav__secondary').toggleClass('clip-animation');
@@ -88,10 +100,12 @@ $(document).ready(function () {
             $('.nav__button-box').toggleClass('clip-animation');
             $('.nav__button-box').removeClass('clip-animation-no');
             $('.nav__main').css('display', 'flex');
-
+            if ($(window).width() <= '640') {
+                $('.nav-wrap').css('display', 'flex');
+            }
         } else {
             $('.nav').removeClass('show');
-            $('.nav').toggleClass('hide');
+            $('.nav').toggleClass('hide').css('z-index', '-15000');
             $('a.nav-item').toggleClass('no-animation');
             $('a.nav-item').removeClass('nav-animation');
             $('.nav__secondary').toggleClass('clip-animation-no');
@@ -99,6 +113,10 @@ $(document).ready(function () {
             $('.nav__button-box').toggleClass('clip-animation-no');
             $('.nav__button-box').removeClass('clip-animation');
             $('.nav__main').css('display', 'none');
+            if ($(window).width() <= '540') {
+                $('.nav-wrap').css('display', 'none');
+            }
+
         }
     });
 
@@ -339,17 +357,12 @@ $(document).ready(function () {
         }
     );
 
-    // input-current
-    $('.minus-person').click(function () {
-        var $input = $(this).parent().find('input');
-        var count = parseInt($input.val()) - 1;
-        count = count < 1 ? 1 : count;
-        if (count > 1) {
-            currentBookingData.persons--;
-        }
-        $input.val(count);
-        $input.change();
-        $("#booking-persons").text(count);
+    $('#current-persons').change(() => {
+        var input = $('#current-persons');
+        currentBookingData.persons = parseInt(input.val());
+        $("#booking-persons").text(input.val());
+
+        localStorage.setItem('persons', input.val());
 
         if (isStepTwoVisible()) {
             if (! isStepTwoOpened) {
@@ -357,19 +370,19 @@ $(document).ready(function () {
             } else {
                 $('.musicRoom__price').each(function() {
                     let packageId = $(this).siblings('.musicRoom__buyPrice').find('input[type="radio"]:checked').val();
-                    let package = bookingData.packages.find(el => {
+                    let choosedPackage = bookingData.packages.find(el => {
                         return el.id == packageId;
                     });
-                    let prices = getPrices(package);
+                    let prices = getPrices(choosedPackage);
                     setBookingsPricesDivs($(this), prices);
                 });
 
                 if (choosedRoom.length) {
                     let packageId = choosedRoom.siblings('.musicRoom__buyPrice').find('input[type="radio"]:checked').val();
-                    let package = bookingData.packages.find(el => {
+                    let choosedPackage = bookingData.packages.find(el => {
                         return el.id == packageId;
                     });
-                    let prices = getPrices(package);
+                    let prices = getPrices(choosedPackage);
                     setPriceDivHtml(prices.totalPriceWithDiscount);
                 }
             }
@@ -377,98 +390,72 @@ $(document).ready(function () {
             if (isStepTwoContinue()) {
                 continueStepTwo()
             }
-
         }
-
-        return false;
     });
 
-    var previousPersons = 0;
-    $('#current-persons').click(() => {
+    // input-current
+    $('.minus-person').click(function () {
+        let input = $(this).parent().find('input');
+        let count = parseInt(input.val());
 
+        if (count > 1) {
+            input.val(count - 1);
+            input.change();
+        }
     });
+
 
     $('.plus-person').click(function () {
-        var $input = $(this).parent().find('input');
+        let input = $(this).parent().find('input');
+        let count = parseInt(input.val());
 
-        if ($input.val() < 25) {
-            $input.change();
-            $input.val(parseInt($input.val()) + 1);
-            currentBookingData.persons++;
-
-            $("#booking-persons").text($input.val());
-
-            if (isStepTwoVisible()) {
-                if (! isStepTwoOpened) {
-                    showStepTwo();
-                } else {
-                    $('.musicRoom__price').each(function() {
-                        let packageId = $(this).siblings('.musicRoom__buyPrice').find('input[type="radio"]:checked').val();
-                        let package = bookingData.packages.find(el => {
-                            return el.id == packageId;
-                        });
-                        let prices = getPrices(package);
-                        setBookingsPricesDivs($(this), prices);
-                    });
-
-                    if (choosedRoom.length) {
-                        let packageId = choosedRoom.siblings('.musicRoom__buyPrice').find('input[type="radio"]:checked').val();
-                        let package = bookingData.packages.find(el => {
-                            return el.id == packageId;
-                        });
-                        let prices = getPrices(package);
-                        setPriceDivHtml(prices.totalPriceWithDiscount);
-                    }
-                }
-
-                if (isStepTwoContinue()) {
-                    continueStepTwo()
-                }
-            }
+        if (count < 25) {
+            input.val(parseInt(input.val()) + 1)
+            input.change();;
         }
-
-        return false;
     });
 
-    $('.minus-hours').click(function () {
-        var $input = $(this).parent().find('input');
-        var count = parseInt($input.val()) - 1;
-        count = count < 1 ? 1 : count;
-        $input.val(count);
-        $input.change();
+    $('#current-time').change(() => {
+        let input = $('#current-time');
+        let count = input.val();
+        if (count > workingHoursCount) {
+            input.val(workingHoursCount);
+            count = workingHoursCount;
+        }
+
         $("#booking-time").text(count + ' hours');
         setCurrentBookingData();
 
+        localStorage.setItem('duration', input.val());
+
         if (isStepTwoVisible()) {
-            // if (! isStepTwoOpened) {
-                showStepTwo();
-            // }
+            showStepTwo();
 
             if (isStepTwoContinue()) {
                 continueStepTwo()
             }
         }
-
-        return false;
     });
-    $('.plus-hours').click(function () {
-        var $input = $(this).parent().find('input');
-        $input.val(parseInt($input.val()) + 1);
-        $input.change();
-        $("#booking-time").text($input.val() + ' hours');
-        setCurrentBookingData();
 
-        if (isStepTwoVisible()) {
-            // if (! isStepTwoOpened) {
-                showStepTwo();
-            // }
+    $('.minus-hours').click(function () {
+        var input = $(this).parent().find('input');
+        let count = parseInt(input.val());
 
-            if (isStepTwoContinue()) {
-                continueStepTwo()
-            }
+        if (count > 1) {
+            count--;
+            input.val(count);
+            input.change();
         }
+    });
 
-        return false;
+    $('.plus-hours').click(function () {
+        var input = $(this).parent().find('input');
+        let count = parseInt(input.val());
+        if (count < workingHoursCount) {
+            count++;
+            input.val(count);
+            input.change();
+        }
     });
 
     if (window.location.href.includes('index')) {
@@ -542,18 +529,27 @@ $(document).ready(function () {
         var footerHeight = $('.footer').first().height();
         var boardWidth = $('#post__board').width();
         var boardHeight = $('#post__board').height();
+        var headerHeight = $('.header').first().height();
+        // var htmlHeight = footerCoordinate + footerHeight;
+        // console.log(htmlHeight)
 
         $(window).scroll(function () {
             $('#post__board').css('width', boardWidth);
             var currentCoordinate = $(window).scrollTop();
 
+            // console.log('initial ' + initialBoardCoordinate)
+            console.log('current ' + currentCoordinate)
+            // console.log('initial - board heigth ' + (initialBoardCoordinate - boardHeight))
+            // console.log('footer coordinate ' + footerCoordinate)
+            // console.log('footer coord - (fH - bH) ' + (footerCoordinate - (footerHeight + boardHeight)))
             if (
-                currentCoordinate >= (initialBoardCoordinate - 160) &&
-                currentCoordinate < footerCoordinate - (footerHeight + boardHeight)
+                currentCoordinate >= (initialBoardCoordinate - boardHeight) &&
+                currentCoordinate < footerCoordinate - (footerHeight + boardHeight + 160)
             ) {
                 $('#post__board').css('position', 'fixed').css('top', '160px').css('bottom', 'auto');
-            } else if (currentCoordinate >= footerCoordinate - (footerHeight + boardHeight)) {
-                    $('#post__board').css('position', 'absolute').css('bottom', '0').css('top', 'auto');
+            } else if (currentCoordinate >= footerCoordinate - ( + footerHeight + boardHeight + headerHeight)) {
+                // console.log('asdfasdf')
+                $('#post__board').css('position', 'absolute').css('bottom', '0').css('top', 'auto');
             } else {
                  $('#post__board').css('position', 'absolute').css('top', '0').css('bottom', 'auto');
             }
@@ -693,6 +689,8 @@ $(document).ready(function () {
                     isPromotionsHtmlSet = false;
                     getPromotionsDiscount();
                 }
+
+                localStorage.setItem('choosedDate', currentBookingData.date.format('YYYY-MM-DD'));
             },
             onShow: function (el, inst) {
                 $('.datepicker').css('z-index', '10');
@@ -700,7 +698,14 @@ $(document).ready(function () {
         });
 
         var datePicker = $('#datepicker').data('datepicker');
-        datePicker.selectDate(new Date());
+        let choosedDate = localStorage.getItem('choosedDate') ?
+            new Date(localStorage.getItem('choosedDate')) :
+            new Date();
+        // debugger
+
+        currentBookingData.dayName = getDayName(choosedDate.getDay());
+        currentBookingData.date = moment(choosedDate);
+        datePicker.selectDate(choosedDate);
 
         $('.chosen-date').click(() => {
             datePicker.show()
@@ -1153,10 +1158,18 @@ function getBookingData() {
         bookingData = data.data;
         console.log(bookingData)
         subTypes = getSubTypes();
-        $('#time-min').text(bookingData.settings.timer);
-        setPrePaymentHtml();
-        setCurrentBookingData();
-        showStepTwo();
+        workingHoursCount = getWorkingHoursCount();
+
+        var tid = setInterval( function () {
+            if ( document.readyState !== 'complete' ) return;
+            clearInterval(tid);
+            $('#time-min').text(bookingData.settings.timer);
+            setPrePaymentHtml();
+            setCurrentBookingData();
+            currentBookingData.duration = localStorage.getItem('duration') + ' hours';
+            currentBookingData.persons = localStorage.getItem('persons');
+            showStepTwo();
+        }, 100 );
     });
 }
 
@@ -1215,68 +1228,82 @@ function isStepTwoVisible() {
     return true;
 }
 
-function showStepTwo() {
-    $('.step-two').remove();
-    setPriceDivHtml(0);
-    $('#currency-span').css('display', 'none');
-    isStepTwoOpened = false;
-    var $input = $('#current-persons');
-    $("#booking-persons").text($input.val());
-    var $input = $('#current-time');
-    $("#booking-time").text($input.val() + ' hours');
-
+function getWorkingHoursCount() {
     let opening = bookingData.opening.find(obj => {
         return obj.day === currentBookingData.dayName;
     });
 
-    let startHours = moment(opening.from, "HH:mm");
-    let endHours = moment(opening.to, "HH:mm");
 
-    let startDate = moment(currentBookingData.date.format('YYYY-MM-DD') + ' ' + opening.from, 'YYYY-MM-DD HH:mm');
-    let endDate = moment(currentBookingData.date.format('YYYY-MM-DD') + ' ' + opening.to, 'YYYY-MM-DD HH:mm');
+    return 24 - parseInt(opening.from.substr(0, 2)) + parseInt(opening.to.substr(0, 2));
+}
 
-    if( endHours.isBefore(startHours) ) {
-        endDate.add(1, 'day');
-    }
+function showStepTwo() {
+    if (window.location.href.includes('pageBooking')) {
+        $('.step-two').remove();
+        setPriceDivHtml(0);
+        $('#currency-span').css('display', 'none');
+        isStepTwoOpened = false;
+        var input = $('#current-persons');
+        $("#booking-persons").text(input.val());
+        var input = $('#current-time');
+        $("#booking-time").text(input.val() + ' hours');
 
-    // [2021, 2122, 2223, 2300, 0001, 0102, 0203]
-    let workingHours = getHours(startDate, endDate);
+        let opening = bookingData.opening.find(obj => {
+            return obj.day === currentBookingData.dayName;
+        });
 
-    let tablesBookings = {};
-    for (i = 0; i < bookingData.tables.length; ++i) {
-        tablesBookings[bookingData.tables[i].id] = {
-            freeHours: workingHours,
-            freeSlots: [],
-            bookedSlots: []
+        let startHours = moment(opening.from, "HH:mm");
+        let endHours = moment(opening.to, "HH:mm");
+
+        let startDate = moment(currentBookingData.date.format('YYYY-MM-DD') + ' ' + opening.from, 'YYYY-MM-DD HH:mm');
+        let endDate = moment(currentBookingData.date.format('YYYY-MM-DD') + ' ' + opening.to, 'YYYY-MM-DD HH:mm');
+
+        if( endHours.isBefore(startHours) ) {
+            endDate.add(1, 'day');
         }
-    }
 
-    for (index = 0; index < bookingData.bookings.length; ++index) {
-        var timeFrom = moment(bookingData.bookings[index].time_from);
-        var timeTo = moment(bookingData.bookings[index].time_to);
+        // [2021, 2122, 2223, 2300, 0001, 0102, 0203]
+        let workingHours = getHours(startDate, endDate);
 
-        if (
-            startDate.isBefore(timeFrom) &&
-            endDate.isAfter(timeTo)
-        ) {
-            let bookedHours = getHours(timeFrom, timeTo);
-            tablesBookings[bookingData.bookings[index].table_id].freeHours = tablesBookings[bookingData.bookings[index].table_id].freeHours.filter(n => ! bookedHours.includes(n));
-            tablesBookings[bookingData.bookings[index].table_id].bookedSlots.push({start: bookedHours[0], end: bookedHours[bookedHours.length - 1]});
+        let tablesBookings = {};
+        for (i = 0; i < bookingData.tables.length; ++i) {
+            tablesBookings[bookingData.tables[i].id] = {
+                freeHours: workingHours,
+                freeSlots: [],
+                bookedSlots: []
+            }
         }
+
+        for (index = 0; index < bookingData.bookings.length; ++index) {
+            var timeFrom = moment(bookingData.bookings[index].time_from);
+            var timeTo = moment(bookingData.bookings[index].time_to);
+
+            if (
+                startDate.isBefore(timeFrom) &&
+                endDate.isAfter(timeTo)
+            ) {
+                let bookedHours = getHours(timeFrom, timeTo);
+                tablesBookings[bookingData.bookings[index].table_id].freeHours = tablesBookings[bookingData.bookings[index].table_id].freeHours.filter(n => ! bookedHours.includes(n));
+                tablesBookings[bookingData.bookings[index].table_id].bookedSlots.push({start: bookedHours[0], end: bookedHours[bookedHours.length - 1]});
+            }
+        }
+
+        for (i = 0; i < bookingData.tables.length; ++i) {
+            tablesBookings[bookingData.tables[i].id].freeSlots = getDurationSlots(tablesBookings[bookingData.tables[i].id].freeHours, currentBookingData.duration[0]);
+        }
+
+        getBookingsHtml(tablesBookings);
+
+        $('.step-two').css('display', 'flex');
+        if (! isServicesOpened) {
+            getServicesHtml();
+        }
+        isServicesOpened = true;
+        handleBookButtonClick();
+        handleTooltipsOfPackages();
+        handlePackageRadioButtonClick();
+        isStepTwoOpened = true;
     }
-
-    for (i = 0; i < bookingData.tables.length; ++i) {
-        tablesBookings[bookingData.tables[i].id].freeSlots = getDurationSlots(tablesBookings[bookingData.tables[i].id].freeHours, currentBookingData.duration[0]);
-    }
-
-    getBookingsHtml(tablesBookings);
-
-    $('.step-two').css('display', 'flex');
-    getServicesHtml();
-    handleBookButtonClick();
-    handleTooltipsOfPackages();
-    handlePackageRadioButtonClick();
-    isStepTwoOpened = true;
 }
 
 function getPromotionsDiscount() {
@@ -1439,7 +1466,13 @@ var roomsImages = {
 
 function getRoomsHtml() {
     let html = '';
-
+    let bookedTimes = {
+        Strip: 'This room has been booked 3 times for last 24 hours',
+        Iceberg: 'This room has been booked 4 times for last 48 hours',
+        Gatsby: 'This room has been booked 2 times for last 24 hours',
+        Reggae: 'This room has been booked 4 times for last 24 hours',
+        Comics: 'This room has been booked 5 times for last 48 hours'
+    };
     for (i = 0; i < bookingData.tables.length; ++i) {
         html += '<div class="musicRoom__item step-two">' +
                    '<div class="room-descrBlock">' +
@@ -1452,7 +1485,7 @@ function getRoomsHtml() {
                            '</div>' +
                            '<div class="dop-info">' +
                                '<div class="musicRoom__userMessage">The space is perfectly adapted to the size of your group</div>' +
-                               '<div class="musicRoom__userMessageTime">This book has been booked 8 times for last 24 hours</div>' +
+                               '<div class="musicRoom__userMessageTime">' + bookedTimes[bookingData.tables[i].table_number] + '</div>' +
                            '</div>' +
                        '</div>' +
                    '</div>' +
@@ -1604,7 +1637,7 @@ function handleBookButtonClick() {
 }
 
 function handleAddServiceButtonClick() {
-    $('.add-food').unbind('click');
+    $('body').off('click', '.add-food');
     $('body').on('click', '.add-food', function() {
         $(this).siblings('.plus-portion').trigger('click');
     });
@@ -1658,6 +1691,12 @@ function handlePackageRadioButtonClick() {
             let priceDiv = $(this).parent().parent().find('.musicRoom__price');
 
             setBookingsPricesDivs(priceDiv, prices);
+            if ($(window).width() <= '1024') {
+                $(this).find('.musicRoom__buyPriceTooltip').first().addClass('visible');
+                setTimeout(() => {
+                    $(this).find('.musicRoom__buyPriceTooltip').first().removeClass('visible');
+                }, 1500)
+            }
         }
     });
 }
@@ -1797,7 +1836,7 @@ function handleServicesHtml() {
                                     '<span class="service-item-div-price">' + servicePrice + '</span>' + ' HUF' +
                                '</div>' +
                            '</div>';
-                $(html).insertBefore('.booking__priceInfoUserMessage');
+                $(html).insertAfter('.price-panel__food-title');
             }
         }
     } else {
@@ -1806,7 +1845,7 @@ function handleServicesHtml() {
 }
 
 function handleServiceAdditionClick() {
-    $('.plus-portion').unbind('click');
+    $('body').off('click', '.plus-portion');
     $('body').on('click', '.plus-portion', function() {
         let serviceCountSpan = $(this).siblings('.service-count');
         let serviceCount = parseInt(serviceCountSpan.text());
@@ -1825,6 +1864,7 @@ function handleServiceAdditionClick() {
         handleServices(serviceId, serviceCount, servicePrice, serviceName);
     });
 
+    $('body').off('click', '.minus-portion');
     $('body').on('click', '.minus-portion', function() {
         let serviceCountSpan = $(this).siblings('.service-count');
         let serviceCount = parseInt(serviceCountSpan.text());
@@ -1879,7 +1919,8 @@ function getPrices(package) {
     let discount = getPromotionsDiscount();
 
     if (discount) {
-        totalPriceWithDiscount *= discount;
+        totalPrice = (1 - discount) * totalPrice;
+        totalPriceWithDiscount = (1 - discount) * totalPriceWithDiscount;
     }
 
     let priceForPerson = totalPriceWithDiscount / currentBookingData.persons;
@@ -1952,10 +1993,14 @@ function handlePostRequest() {
 
     var jqxhr = $.post("https://bbrooms.zerrno.com/api/v1/store-tab", postData)
         .done(function() {
-            $('.modal.ok').toggleClass('is-visible');
+            // $('.modal.ok').toggleClass('is-visible');
+            localStorage.setItem('choosedHours', currentBookingData.time.split('-')[0]);
+            localStorage.setItem('choosedDate', currentBookingData.date.format('D MMMM'));
+            window.location.href = '/modalLuck.html';
         })
         .fail(function() {
-            $('.modal.error').toggleClass('is-visible');
+            // $('.modal.error').toggleClass('is-visible');
+            window.location.href = '/modalError.html';
         });
 }
 
@@ -2041,6 +2086,7 @@ function handleServicesTabs() {
     //     });
     // }
 
+    $('.tabs-header a').unbind('click');
     $('.tabs-header a').on('click', function (e) {
         e.preventDefault();
 
@@ -2125,6 +2171,7 @@ function sendPreBookingRequest() {
 
     var jqxhr = $.post("https://bbrooms.zerrno.com/api/v1/freeze-tab", postData)
         .done(function() {
+
             // alert( "second success" );
         })
         .fail(function() {
