@@ -37,7 +37,7 @@ var currentBookingData = {
     paymentType: null,
     couponCode: '',
     dayName: '',
-    packageId: 3
+    packageId: 2
 };
 
 let subTypes = [];
@@ -391,6 +391,7 @@ $(document).ready(function () {
                 continueStepTwo()
             }
         }
+        updateSamePricePersonsCount();
     });
 
     // input-current
@@ -1168,6 +1169,7 @@ function getBookingData() {
             setCurrentBookingData();
             currentBookingData.duration = localStorage.getItem('duration') + ' hours';
             currentBookingData.persons = localStorage.getItem('persons');
+            $('.step-four').css('display', 'none');
             showStepTwo();
         }, 100 );
     });
@@ -1474,6 +1476,11 @@ function getRoomsHtml() {
         Comics: 'This room has been booked 5 times for last 48 hours'
     };
     for (i = 0; i < bookingData.tables.length; ++i) {
+        let samePricePersons = getSamePricePersonsCount();
+        let samePricePersonsHtml = samePricePersons == 0 ?
+            '<div class="musicRoom__userMessage same-price-persons-count"></div>' :
+            '<div class="musicRoom__userMessage same-price-persons-count">For this room, you can invite up to <span>' + samePricePersons + '</span> more persons for the same price</div>';
+
         html += '<div class="musicRoom__item step-two">' +
                    '<div class="room-descrBlock">' +
                        '<div class="musicRoom__image">' +
@@ -1485,6 +1492,7 @@ function getRoomsHtml() {
                            '</div>' +
                            '<div class="dop-info">' +
                                '<div class="musicRoom__userMessage">The space is perfectly adapted to the size of your group</div>' +
+                               samePricePersonsHtml +
                                '<div class="musicRoom__userMessageTime">' + bookedTimes[bookingData.tables[i].table_number] + '</div>' +
                            '</div>' +
                        '</div>' +
@@ -1697,6 +1705,11 @@ function handlePackageRadioButtonClick() {
                     $(this).find('.musicRoom__buyPriceTooltip').first().removeClass('visible');
                 }, 1500)
             }
+            if (packageId == 2) {
+                $('.step-four').css('display', 'none');
+            } else {
+                $('.step-four').css('display', 'block');
+            }
         }
     });
 }
@@ -1740,7 +1753,7 @@ function getServicesHtml() {
             subTypesNames = subTypes.drink;
         }
 
-        html += '<div class="booking__stepFoodWrap tabs__content ' + activeClass + ' owl-carousel">';
+        html += '<div class="booking__stepFoodWrap tabs__content step-four' + activeClass + ' owl-carousel">';
 
         html += '<div class="tabs">' +
                     '<div class="tabs-header">' +
@@ -2187,4 +2200,29 @@ function setPackageChoosedHtml(package) {
     var content = '<div class="booking__priceInfoTitle">Package:</div>';
     content += '<div class="booking__priceInfoValue">' + package + '</div>';
     $('#what-to-package').html(content);
+}
+
+function getSamePricePersonsCount() {
+    let choosedPackage = bookingData.packages.find(el => {
+        return el.id == currentBookingData.packageId;
+    });
+
+    let priceGradation = JSON.parse(choosedPackage.price_gradation);
+
+    for (u = 0; u < priceGradation.length; ++u) {
+        if (parseInt(currentBookingData.persons) < parseInt(priceGradation[u].to)) {
+            return priceGradation[u].to - currentBookingData.persons;
+        } else if (parseInt(currentBookingData.persons) === parseInt(priceGradation[u].to)) {
+            return 0;
+        }
+    }
+}
+
+function updateSamePricePersonsCount() {
+    let samePricePersonsCount = getSamePricePersonsCount();
+    if (samePricePersonsCount) {
+        $('.same-price-persons-count').html('For this room, you can invite up to <span>' + samePricePersonsCount + '</span> more persons for the same price');
+    } else {
+        $('.same-price-persons-count').html('');
+    }
 }
