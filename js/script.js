@@ -3,6 +3,7 @@ var bookingData = {
         forinta_euro: 0
     }
 };
+var homeUrl = 'http://obobrazovanii.ru/';
 
 var isServicesOpened = false;
 var workingHoursCount = 8;
@@ -459,7 +460,7 @@ $(document).ready(function () {
         }
     });
 
-    if (window.location.href.includes('index')) {
+    if (document.URL == homeUrl || document.URL == homeUrl + '#') {
 
         if ($(window).width() >= 1024) {
             // scrolling to block
@@ -625,7 +626,7 @@ $(document).ready(function () {
         window.location.href.includes('pageRoomGatsby') ||
         window.location.href.includes('pageRoomComics') ||
         window.location.href.includes('pageRoomIcberg') ||
-        window.location.href === 'http://obobrazovanii.ru/'
+        window.location.href === homeUrl
     ) {
         getBookingData();
         // showStepTwo();
@@ -1354,47 +1355,53 @@ function getBookingsHtml(tablesData) {
     getRoomsHtml();
 
     for (i = 0; i < bookingData.tables.length; ++i) {
-        let html = '';
         let tableData = bookingData.tables[i];
 
-        let bookedSlots = tablesData[tableData.id].bookedSlots;
-        for (j = 0; j < bookedSlots.length; ++j) {
-            let start = bookedSlots[j].start.substring(0, 2);
-            let end = bookedSlots[j].end.slice(-2);
+        if (! tablesData[tableData.id].freeSlots.length) {
+            let noFreeSlotsHtml = '<div class="musicRoom__userMessage no-free-hours">Oh no, too late! This room is no longer available on <span class="date-bold">' + currentBookingData.date.format('DD MMMM') + '</span></div>';
+            $('#' + tableData.table_number + '-room').parent().find('.dop-info').html(noFreeSlotsHtml);
+        } else {
+            let html = '';
 
-            html += '<div class="musicRoom__buyItem disabled">' +
-                        '<span class="musicRoom__buyItemTime">' + start + ':00-' + end + ':00</span>' +
-                        '<div class="musicRoom__buyBtnDisabled">Booked</div>' +
-                    '</div>';
-        }
+            let freeSlots = tablesData[tableData.id].freeSlots;
+            let roomName = capitalizeFirstLetter(tableData.table_number);
 
-        let freeSlots = tablesData[tableData.id].freeSlots;
-        let roomName = capitalizeFirstLetter(tableData.table_number);
+            for (j = 0; j < freeSlots.length; ++j) {
+                let start = freeSlots[j].start.substring(0, 2);
+                let end = freeSlots[j].end.slice(-2);
+                let packageData = getPackagesHtml(j, roomName);
 
-        for (j = 0; j < freeSlots.length; ++j) {
-            let start = freeSlots[j].start.substring(0, 2);
-            let end = freeSlots[j].end.slice(-2);
-            let packageData = getPackagesHtml(j, roomName);
+                html += '<div class="musicRoom__buyItem"><span class="musicRoom__buyItemTime">' + start + ':00-' + end + ':00</span>' +
+                    '<div class="musicRoom__buyPrice">';
 
-            html += '<div class="musicRoom__buyItem"><span class="musicRoom__buyItemTime">' + start + ':00-' + end + ':00</span>' +
-                        '<div class="musicRoom__buyPrice">';
+                html += packageData.html;
 
-            html += packageData.html;
-
-            html += '</div>' +
-                '<div class="musicRoom__price">' +
+                html += '</div>' +
+                    '<div class="musicRoom__price">' +
                     '<div class="musicRoom__priceValueOld">' + packageData.totalPrice + ' HUF</div>' +
-                        getTotalPriceDiv(packageData.totalPriceWithDiscount) +
-                        '<div class="musicRoom__priceValuePerson">' + packageData.priceForPerson + ' HUF/person</div>' +
+                    getTotalPriceDiv(packageData.totalPriceWithDiscount) +
+                    '<div class="musicRoom__priceValuePerson">' + packageData.priceForPerson + ' HUF/person</div>' +
                     '</div>' +
                     '<div class="musicRoom__buyBtn">' +
-                        '<span class="booking-name-room">' + roomName + '</span>' +
+                    '<span class="booking-name-room">' + roomName + '</span>' +
                     '</div>' +
-                '</div>' +
-            '</div>';
-        }
+                    '</div>' +
+                    '</div>';
+            }
 
-        $('#' + tableData.table_number + '-room').html(html);
+            let bookedSlots = tablesData[tableData.id].bookedSlots;
+            for (j = 0; j < bookedSlots.length; ++j) {
+                let start = bookedSlots[j].start.substring(0, 2);
+                let end = bookedSlots[j].end.slice(-2);
+
+                html += '<div class="musicRoom__buyItem disabled">' +
+                    '<span class="musicRoom__buyItemTime">' + start + ':00-' + end + ':00</span>' +
+                    '<div class="musicRoom__buyBtnDisabled">Booked</div>' +
+                    '</div>';
+            }
+
+            $('#' + tableData.table_number + '-room').html(html);
+        }
     }
 }
 
@@ -1515,7 +1522,10 @@ function capitalizeFirstLetter(string) {
 
 function getDurationSlots(freeTimes, duration) {
     let length = freeTimes.length;
+    let isLessThanWant = false;
+
     if (length < duration) {
+        isLessThanWant = true;
         return [];
     }
 
