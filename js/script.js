@@ -44,6 +44,7 @@ var currentBookingData = {
 let subTypes = [];
 
 $(document).ready(function () {
+
     let localStorageDuration = localStorage.getItem('duration') ? localStorage.getItem('duration') : 2;
     if ($('#current-time').length) {
         $('#current-time').val(localStorageDuration);
@@ -460,7 +461,12 @@ $(document).ready(function () {
         }
     });
 
-    if (document.URL == homeUrl || document.URL == homeUrl + '#') {
+    if (
+        document.URL == homeUrl ||
+        document.URL == homeUrl + '#' ||
+        document.URL == homeUrl + 'index.html' ||
+        document.URL == homeUrl + 'index.html/#'
+    ) {
 
         if ($(window).width() >= 1024) {
             // scrolling to block
@@ -1261,8 +1267,8 @@ function showStepTwo() {
         let startDate = moment(currentBookingData.date.format('YYYY-MM-DD') + ' ' + opening.from, 'YYYY-MM-DD HH:mm');
         let endDate = moment(currentBookingData.date.format('YYYY-MM-DD') + ' ' + opening.to, 'YYYY-MM-DD HH:mm');
 
-        if( endHours.isBefore(startHours) ) {
-            endDate.add(1, 'day');
+        if (endHours.isBefore(startHours)) {
+            endDate = endDate.add(1, 'days');
         }
 
         // [2021, 2122, 2223, 2300, 0001, 0102, 0203]
@@ -1364,6 +1370,10 @@ function getBookingsHtml(tablesData) {
             let html = '';
 
             let freeSlots = tablesData[tableData.id].freeSlots;
+            if (freeSlots[0].hoursCount < parseInt(currentBookingData.duration)) {
+                $('#' + tableData.table_number + '-room').parent().find('.dop-info').append('<div class="musicRoom__userMessage">This room available only for ' + freeSlots[0].hoursCount + ' hours. You can book it for less duration or choose another room for this time.</div>')
+            }
+
             let roomName = capitalizeFirstLetter(tableData.table_number);
 
             for (j = 0; j < freeSlots.length; ++j) {
@@ -1526,14 +1536,15 @@ function getDurationSlots(freeTimes, duration) {
 
     if (length < duration) {
         isLessThanWant = true;
-        return [];
+        // return [];
     }
 
     if (length == 1) {
-        return [{start: freeTimes[0], end: freeTimes[0]}];
+        return [{start: freeTimes[0], end: freeTimes[0], hoursCount: 1}];
     }
 
     let slots = [];
+    let lessThanWantSlots = [];
     let count = 0;
     let startTime = freeTimes[0];
 
@@ -1543,7 +1554,11 @@ function getDurationSlots(freeTimes, duration) {
         if (index + 1 < length) {
             if (freeTimes[index].slice(-2) !== freeTimes[index + 1].substring(0, 2)) {
                 if (count == duration) {
-                    slots.push({start: startTime, end: freeTimes[index]});
+                    slots.push({start: startTime, end: freeTimes[index], hoursCount: count});
+                } else {
+                    // if (startTime != freeTimes[index]) {
+                        lessThanWantSlots.push({start: startTime, end: freeTimes[index], hoursCount: count});
+                    // }
                 }
 
                 count = 0;
@@ -1553,9 +1568,28 @@ function getDurationSlots(freeTimes, duration) {
             }
 
             if (count == duration) {
-                slots.push({start: startTime, end: freeTimes[index]});
+                slots.push({start: startTime, end: freeTimes[index], hoursCount: count});
                 count = 0;
                 startTime = freeTimes[index + 1];
+            } else {
+                // if (startTime != freeTimes[index]) {
+                    lessThanWantSlots.push({start: startTime, end: freeTimes[index], hoursCount: count});
+                // }
+            }
+        }
+    }
+
+    let maxCount = 0;
+    if (! slots.length) {
+        for (p = 0; p < lessThanWantSlots.length; p++) {
+            if (lessThanWantSlots[p].hoursCount > maxCount) {
+                maxCount = lessThanWantSlots[p].hoursCount;
+            }
+        }
+
+        for (p = 0; p < lessThanWantSlots.length; p++) {
+            if (lessThanWantSlots[p].hoursCount == maxCount) {
+                slots.push(lessThanWantSlots[p]);
             }
         }
     }
